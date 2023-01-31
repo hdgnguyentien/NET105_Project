@@ -16,6 +16,7 @@ namespace Data.ModelsClass
         public bool GioiTinh  { get; set; }
         public string Sdt  { get; set; }
         public List<GioHang> GioHangs { get; set;}
+        public List<HoaDon> hoaDons { get; set;}
 
     }
 }

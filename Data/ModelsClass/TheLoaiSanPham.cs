@@ -11,5 +11,7 @@ namespace Data.ModelsClass
         public Guid Id { get; set; }
         public Guid IdTheLoai { get; set; }
         public Guid IdSanPham { get; set; }
+        public TheLoai theLoai { get; set; }
+        public SanPham sanPham { get; set; }
     }
 }

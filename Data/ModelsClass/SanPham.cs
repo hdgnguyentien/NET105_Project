@@ -12,5 +12,9 @@ namespace Data.ModelsClass
         public string Ten { get; set; }
         public Guid IdHang { get; set; }
         public bool TrangThai { get; set; }
+        public Hang hang { get; set; }
+        public List<SanphamChitiet> sanphamChitiets { get; set; }
+        public List<TheLoaiSanPham> theloaiSanPhams { get; set; }
+
     }
 }

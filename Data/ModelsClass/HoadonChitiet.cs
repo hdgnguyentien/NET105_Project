@@ -13,5 +13,7 @@ namespace Data.ModelsClass
         public Guid IdHoaDon { get; set; }
         public int SoLuong { get; set; }
         public decimal GiaBan { get; set; }
+        public SanphamChitiet sanphamChitiet { get; set; }
+        public HoaDon hoaDon { get; set; }
     }
 }
