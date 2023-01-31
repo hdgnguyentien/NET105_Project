@@ -22,7 +22,7 @@ namespace Data.DbContexts
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            base.OnConfiguring(optionsBuilder.UseSqlServer(@"Server=DESKTOP-P91TD3O\MAYAO1;Initial Catalog=QLBH_Giay;Persist Security Info=True;User ID=tien;Password=123"));
+            base.OnConfiguring(optionsBuilder.UseSqlServer(@"Server=HDGNGUYENTIEN\SQLEXPRESS;Initial Catalog=QLBH_Giay;Persist Security Info=True;User ID=tien;Password=123"));
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

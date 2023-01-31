@@ -16,5 +16,10 @@ namespace Data.ModelsClass
         public bool TrangThai { get; set; }
         public decimal TongTien { get; set; }
         public string DiaChi { get; set; }
+
+        public MaGiamGia maGiamGia { get; set;}
+        public KhachHang khachHang { get; set;}
+        public NhanVien nhanVien { get; set;}
+        public List<HoadonChitiet> hoadonChitiets { get; set;}
     }
 }

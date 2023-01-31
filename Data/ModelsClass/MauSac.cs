@@ -10,5 +10,6 @@ namespace Data.ModelsClass
     {
         public Guid Id { get; set; }
         public string TenMau { get; set; }
+        public List<SanphamChitiet> sanphamChitiets { get; set; }
     }
 }

@@ -1,12 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Data.ModelsClass;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Data.Configurations
 {
-    internal class TheloaiSanphamConfiguration
+    public class TheloaiSanphamConfiguration : IEntityTypeConfiguration<TheLoaiSanPham>
     {
+        public void Configure(EntityTypeBuilder<TheLoaiSanPham> builder)
+        {
+            builder.ToTable("TheLoaiSanPham");
+            builder.HasKey(x => x.Id);
+
+            builder.HasOne(x => x.theLoai).WithMany(x => x.theloaiSanPhams).HasForeignKey(x => x.IdTheLoai);
+            builder.HasOne(x => x.sanPham).WithMany(x => x.theloaiSanPhams).HasForeignKey(x => x.IdSanPham);
+        }
     }
 }

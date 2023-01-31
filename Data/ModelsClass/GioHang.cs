@@ -11,5 +11,6 @@ namespace Data.ModelsClass
         public Guid Id { get; set; }
         public Guid IdKH { get; set; }
         public KhachHang KhachHang { get; set; }
+        public List<GiohangChitiet> giohangChitiets { get; set; }
     }
 }
