@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace Data.ModelsClass
 {
-    public class TheLoaiSanPham
+    public class HinhAnh
     {
         public Guid Id { get; set; }
-        public Guid IdTheLoai { get; set; }
         public Guid IdChiTietSP { get; set; }
-        public TheLoai theLoai { get; set; }
+        public string LinkAnh { get; set; }
+        //public virtual ICollection<SanPham> sanPhams { get; set; }
         public SanphamChitiet sanphamChitiet { get; set; }
     }
 }

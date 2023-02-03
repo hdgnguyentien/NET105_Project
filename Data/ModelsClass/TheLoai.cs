@@ -10,6 +10,6 @@ namespace Data.ModelsClass
     {
         public Guid Id { get; set; }
         public string TenTheLoai { get; set; }
-        public List<TheLoaiSanPham> theloaiSanPhams { get; set; }
+        public virtual ICollection<TheLoaiSanPham> theloaiSanPhams { get; set; }
     }
 }

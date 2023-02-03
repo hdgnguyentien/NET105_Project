@@ -10,6 +10,7 @@ namespace Data.ModelsClass
     {
         public Guid Id { get; set; }
         public string TenHang { get; set; }
-        public List<SanPham> sanPhams { get; set; }
+        public virtual ICollection<SanPham> sanPhams { get; set; }
+        
     }
 }

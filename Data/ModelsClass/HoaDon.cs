@@ -9,7 +9,7 @@ namespace Data.ModelsClass
     public class HoaDon
     {
         public Guid Id { get; set; }
-        public Guid IdMaGiamGia { get; set; }
+        public Guid? IdMaGiamGia { get; set; }
         public Guid IdKH { get; set; }
         public Guid IdNV { get; set; }
         public DateTime NgayTao { get; set; }
@@ -20,6 +20,6 @@ namespace Data.ModelsClass
         public MaGiamGia maGiamGia { get; set;}
         public KhachHang khachHang { get; set;}
         public NhanVien nhanVien { get; set;}
-        public List<HoadonChitiet> hoadonChitiets { get; set;}
+        public virtual ICollection<HoadonChitiet> hoadonChitiets { get; set;}
     }
 }
