@@ -15,5 +15,7 @@ namespace Data.ModelsClass
         public string MatKhau { get; set; }
         public bool GioiTinh { get; set; }
         public string DiaChi { get; set; }
+        public List<HoaDon> hoaDons { get; set; }
+        public ChucVu chucVu { get; set; }
     }
 }
