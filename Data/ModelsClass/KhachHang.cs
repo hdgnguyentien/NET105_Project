@@ -15,8 +15,8 @@ namespace Data.ModelsClass
         public string DiaChi  { get; set; }
         public bool GioiTinh  { get; set; }
         public string Sdt  { get; set; }
-        public List<GioHang> GioHangs { get; set;}
-        public List<HoaDon> hoaDons { get; set;}
+        public virtual ICollection<GioHang> GioHangs { get; set;}
+        public virtual ICollection<HoaDon> hoaDons { get; set;}
 
     }
 }

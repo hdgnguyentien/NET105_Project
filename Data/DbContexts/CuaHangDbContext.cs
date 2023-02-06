@@ -22,7 +22,7 @@ namespace Data.DbContexts
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            base.OnConfiguring(optionsBuilder.UseSqlServer(@"Server=HDGNGUYENTIEN\SQLEXPRESS;Initial Catalog=QLBH_Giay;Persist Security Info=True;User ID=tien;Password=123"));
+            base.OnConfiguring(optionsBuilder.UseSqlServer("Server=DESKTOP-JNDR021\\SQLEXPRESS;Database=Net105Database;Trusted_Connection=True;"));
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -45,5 +45,6 @@ namespace Data.DbContexts
         public DbSet<SanphamChitiet> SanphamChitiets { get; set; }
         public DbSet<TheLoai> TheLoais { get; set; }
         public DbSet<TheLoaiSanPham> TheLoaiSanPhams { get; set; }
+        public DbSet<HinhAnh> HinhAnhs { get; set; }
     }
 }

@@ -12,7 +12,7 @@ namespace Data.Configurations
             builder.HasKey(x => x.Id);
 
             builder.HasOne(x => x.theLoai).WithMany(x => x.theloaiSanPhams).HasForeignKey(x => x.IdTheLoai);
-            builder.HasOne(x => x.sanPham).WithMany(x => x.theloaiSanPhams).HasForeignKey(x => x.IdSanPham);
+            builder.HasOne(x => x.sanphamChitiet).WithMany(x => x.theLoaiSanPhams).HasForeignKey(x => x.IdChiTietSP);
         }
     }
 }

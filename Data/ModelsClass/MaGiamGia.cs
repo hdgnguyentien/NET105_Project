@@ -14,6 +14,7 @@ namespace Data.ModelsClass
         public DateTime NgayKetthuc { get; set; }
         public int SoLuong { get; set; }
         public bool TrangThai { get; set; }
-        public List<HoaDon> hoaDons { get; set; }
+        public decimal PhanTramGiam { get; set; }
+        public virtual ICollection<HoaDon> hoaDons { get; set; }
     }
 }

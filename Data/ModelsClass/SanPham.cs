@@ -13,8 +13,8 @@ namespace Data.ModelsClass
         public Guid IdHang { get; set; }
         public bool TrangThai { get; set; }
         public Hang hang { get; set; }
-        public List<SanphamChitiet> sanphamChitiets { get; set; }
-        public List<TheLoaiSanPham> theloaiSanPhams { get; set; }
+        public virtual ICollection<SanphamChitiet> sanphamChitiets { get; set; }
+        
 
     }
 }

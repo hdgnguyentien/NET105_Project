@@ -20,7 +20,7 @@ namespace Data.Configurations
             builder.Property(x => x.MatKhau).IsRequired();
             builder.Property(x => x.DiaChi);
             builder.Property(x => x.GioiTinh).HasColumnType("bit");
-
+            //builder.po
             builder.HasOne(x => x.chucVu).WithMany(x => x.nhanViens).HasForeignKey(x => x.IdCvu);
         }
     }

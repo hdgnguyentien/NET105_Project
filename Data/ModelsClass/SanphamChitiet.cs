@@ -23,7 +23,9 @@ namespace Data.ModelsClass
         public MauSac mauSac { get; set; }
         public KichCo kichCo { get; set; }
 
-        public List<GiohangChitiet> giohangChitiets { get; set; }
-        public List<HoadonChitiet> hoadonChitiets { get; set; }
+        public virtual ICollection<GiohangChitiet> giohangChitiets { get; set; }
+        public virtual ICollection<HoadonChitiet> hoadonChitiets { get; set; }
+        public virtual ICollection<HinhAnh> hinhAnhs { get; set; }
+        public virtual ICollection<TheLoaiSanPham> theLoaiSanPhams { get; set; }
     }
 }
