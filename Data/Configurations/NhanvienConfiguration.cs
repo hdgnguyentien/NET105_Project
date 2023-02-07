@@ -18,10 +18,13 @@ namespace Data.Configurations
             builder.Property(x => x.Ten);
             builder.Property(x => x.Email).IsRequired();
             builder.Property(x => x.MatKhau).IsRequired();
-            builder.Property(x => x.DiaChi);
-            builder.Property(x => x.GioiTinh).HasColumnType("bit");
-            //builder.po
+            builder.Property(x => x.DiaChi).IsRequired();
+            builder.Property(x => x.GioiTinh).IsRequired();
+            builder.Property(x => x.AnhNhanVien).IsRequired();
+            builder.Property(x => x.NgaySinh).IsRequired();
+
             builder.HasOne(x => x.chucVu).WithMany(x => x.nhanViens).HasForeignKey(x => x.IdCvu);
+            builder.HasOne(x => x.IdGuiBcNavigation).WithMany(x => x.InverseIdGuiBcNavigation);
         }
     }
 }
