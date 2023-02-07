@@ -9,11 +9,11 @@ namespace Data.ModelsClass
     public class HoadonChitiet
     {
         public Guid Id { get; set; }
-        public Guid IdSPChitiet { get; set; }
-        public Guid IdHoaDon { get; set; }
-        public int SoLuong { get; set; }
-        public decimal GiaBan { get; set; }
-        public SanphamChitiet sanphamChitiet { get; set; }
-        public HoaDon hoaDon { get; set; }
+        public Guid? IdSPChitiet { get; set; }
+        public Guid? IdHoaDon { get; set; }
+        public int? SoLuong { get; set; }
+        public decimal? GiaBan { get; set; }
+        public SanphamChitiet? sanphamChitiet { get; set; }
+        public HoaDon? hoaDon { get; set; }
     }
 }

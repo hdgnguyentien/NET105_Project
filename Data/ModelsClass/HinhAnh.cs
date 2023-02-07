@@ -9,9 +9,8 @@ namespace Data.ModelsClass
     public class HinhAnh
     {
         public Guid Id { get; set; }
-        public Guid IdChiTietSP { get; set; }
-        public string LinkAnh { get; set; }
-        //public virtual ICollection<SanPham> sanPhams { get; set; }
-        public SanphamChitiet sanphamChitiet { get; set; }
+        public Guid? IdChiTietSP { get; set; }
+        public string? LinkAnh { get; set; }
+        public SanphamChitiet? sanphamChitiet { get; set; }
     }
 }
