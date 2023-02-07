@@ -11,7 +11,7 @@ namespace Data.ModelsClass
         public Guid Id { get; set; }
         public Guid IdTheLoai { get; set; }
         public Guid IdChiTietSP { get; set; }
-        public TheLoai theLoai { get; set; }
-        public SanphamChitiet sanphamChitiet { get; set; }
+        public TheLoai? theLoai { get; set; }
+        public SanphamChitiet? sanphamChitiet { get; set; }
     }
 }

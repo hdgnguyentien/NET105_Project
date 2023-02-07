@@ -8,8 +8,12 @@ namespace Data.ModelsClass
 {
     public class KichCo
     {
+        public KichCo()
+        {
+            sanphamChitiets = new HashSet<SanphamChitiet>();
+        }
         public Guid Id { get; set; }
-        public decimal Size { get; set; }
+        public int? Size { get; set; }
         public virtual ICollection<SanphamChitiet> sanphamChitiets { get; set; }
     }
 }

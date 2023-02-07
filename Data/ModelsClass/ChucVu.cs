@@ -10,10 +10,10 @@ namespace Data.ModelsClass
     {
         public ChucVu()
         {
+            nhanViens = new HashSet<NhanVien>();
         }
-
         public Guid Id { get; set; }
-        public string Ten { get; set; }
+        public string? Ten { get; set; }
         public virtual ICollection<NhanVien> nhanViens { get; set; }
     }
 }

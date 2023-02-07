@@ -8,9 +8,14 @@ namespace Data.ModelsClass
 {
     public class Hang
     {
+        public Hang()
+        {
+            sanPhams = new HashSet<SanPham>();
+        }
+
         public Guid Id { get; set; }
-        public string TenHang { get; set; }
+        public string? TenHang { get; set; }
         public virtual ICollection<SanPham> sanPhams { get; set; }
-        
+
     }
 }
