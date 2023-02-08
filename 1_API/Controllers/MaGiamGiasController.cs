@@ -19,7 +19,7 @@ namespace _1_API.Controllers
         }
         [HttpGet]
         [Route("Get-All")]
-        public async Task<IActionResult> GetAllNhanVien()
+        public async Task<IActionResult> GetAllMaGiamGia()
         {
             var result = await _repo.GetAllAsync();
             if (result == null) return Ok("Không có mã giảm giá");
@@ -28,7 +28,7 @@ namespace _1_API.Controllers
 
         [HttpGet]
         [Route("GetById/{id}")]
-        public async Task<IActionResult> GetNhanVienById(Guid id)
+        public async Task<IActionResult> GetMaGiamGiaById(Guid id)
         {
             var result = await _repo.GetByIdAsync(id);
             if (result == null) return Ok("Không tìm thấy mã giảm giá");
@@ -37,7 +37,7 @@ namespace _1_API.Controllers
 
         [HttpPost]
         [Route("Create")]
-        public async Task<IActionResult> CreateNhanVien([FromForm] CreateMaGiamGia cnv)
+        public async Task<IActionResult> CreateMaGiamGia([FromForm] CreateMaGiamGia cnv)
         {
             MaGiamGia nv = new MaGiamGia()
             {
@@ -63,7 +63,7 @@ namespace _1_API.Controllers
 
         [HttpPost]
         [Route("Update/id")]
-        public async Task<IActionResult> UpdateNhanVien(Guid id, [FromForm] UpdateMaGiamGia unv)
+        public async Task<IActionResult> UpdateMaGiamGia(Guid id, [FromForm] UpdateMaGiamGia unv)
         {
             var result = await _repo.GetByIdAsync(id);
             if (result == null)
@@ -94,7 +94,7 @@ namespace _1_API.Controllers
         }
         [HttpGet]
         [Route("Delete/{id}")]
-        public async Task<IActionResult> Delete(Guid id)
+        public async Task<IActionResult> DeleteMaGiamGia(Guid id)
         {
             var result = await _repo.GetByIdAsync(id);
             if (result == null)

@@ -19,7 +19,7 @@ namespace _1_API.Controllers
         }
         [HttpGet]
         [Route("Get-All")]
-        public async Task<IActionResult> GetAllNhanVien()
+        public async Task<IActionResult> GetAllGioHang()
         {
             var result = await _repo.GetAllAsync();
             if (result == null) return Ok("Không có giỏ hàng chi tiết");
@@ -28,7 +28,7 @@ namespace _1_API.Controllers
 
         [HttpGet]
         [Route("GetById/{id}")]
-        public async Task<IActionResult> GetNhanVienById(Guid id)
+        public async Task<IActionResult> GetGioHangById(Guid id)
         {
             var result = await _repo.GetByIdAsync(id);
             if (result == null) return Ok("Không tìm thấy giỏ hàng chi tiết");
@@ -37,7 +37,7 @@ namespace _1_API.Controllers
 
         [HttpPost]
         [Route("Create")]
-        public async Task<IActionResult> CreateNhanVien([FromForm] CreateGioHangChiTiet cnv)
+        public async Task<IActionResult> CreateGioHang([FromForm] CreateGioHangChiTiet cnv)
         {
             GiohangChitiet nv = new GiohangChitiet()
             {
@@ -61,7 +61,7 @@ namespace _1_API.Controllers
 
         [HttpPost]
         [Route("Update/id")]
-        public async Task<IActionResult> UpdateNhanVien(Guid id, [FromForm] UpdateGiohangChiTiet unv)
+        public async Task<IActionResult> UpdateGioHang(Guid id, [FromForm] UpdateGiohangChiTiet unv)
         {
             var result = await _repo.GetByIdAsync(id);
             if (result == null)
@@ -90,7 +90,7 @@ namespace _1_API.Controllers
         }
         [HttpGet]
         [Route("Delete/{id}")]
-        public async Task<IActionResult> Delete(Guid id)
+        public async Task<IActionResult> DeleteGioHang(Guid id)
         {
             var result = await _repo.GetByIdAsync(id);
             if (result == null)
