@@ -1,5 +1,5 @@
-﻿using _1_API.ViewModel.ChucVu;
-using _1_API.ViewModel.MauSac;
+﻿using _1_API.ViewModel.Hang;
+using _1_API.ViewModel.HinhAnh;
 using Data.IRepositories;
 using Data.ModelsClass;
 using Microsoft.AspNetCore.Http;
@@ -9,12 +9,12 @@ namespace _1_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class MauSacsController : ControllerBase
+    public class HinhAnhsController : ControllerBase
     {
-        private IAllRepositories<MauSac> _repo;
+        private IAllRepositories<HinhAnh> _repo;
 
 
-        public MauSacsController(IAllRepositories<MauSac> repo)
+        public HinhAnhsController(IAllRepositories<HinhAnh> repo)
         {
             _repo = repo;
 
@@ -22,35 +22,36 @@ namespace _1_API.Controllers
 
         [HttpGet]
         [Route("Get-All")]
-        public async Task<IActionResult> GetAllMauSac()
+        public async Task<IActionResult> GetAllHinhAnh()
         {
             var result = await _repo.GetAllAsync();
-            if (result == null) return Ok("Không có màu sắc");
+            if (result == null) return Ok("Không có hình ảnh");
             return Ok(result);
         }
 
         [HttpGet]
         [Route("GetById/{id}")]
-        public async Task<IActionResult> GetMauSacById(Guid id)
+        public async Task<IActionResult> GetHinhAnhById(Guid id)
         {
             var result = await _repo.GetByIdAsync(id);
-            if (result == null) return Ok("Không tìm thấy màu sắc");
+            if (result == null) return Ok("Không tìm thấy hình ảnh");
             return Ok(result);
         }
 
         [HttpPost]
         [Route("Create")]
-        public async Task<IActionResult> CreateMauSac([FromForm] CreateMauSac cms)
+        public async Task<IActionResult> CreateHinhAnh([FromForm] CreateHinhAnh cha)
         {
-            MauSac ms = new MauSac()
+            HinhAnh ha = new HinhAnh()
             {
                 Id = Guid.NewGuid(),
-                TenMau = cms.Ten
+                IdChiTietSP = cha.IdChiTietSP,
+                LinkAnh = cha.LinkAnh
             };
             try
             {
-                var result = await _repo.AddOneAsyn(ms);
-                return Ok(ms);
+                var result = await _repo.AddOneAsyn(ha);
+                return Ok(ha);
             }
             catch (Exception ex)
             {
@@ -61,16 +62,17 @@ namespace _1_API.Controllers
 
         [HttpPost]
         [Route("Update/id")]
-        public async Task<IActionResult> UpdateMauSac(Guid id, [FromForm] UpdateMauSac ums)
+        public async Task<IActionResult> UpdateHinhAnh(Guid id, [FromForm] UpdateHinhAnh uha)
         {
             var result = await _repo.GetByIdAsync(id);
             if (result == null)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Không tìm thấy màu sắc");
+                return StatusCode(StatusCodes.Status500InternalServerError, "Không tìm thấy hình ảnh");
             }
             else
             {
-                result.TenMau = ums.Ten;
+                result.IdChiTietSP = uha.IdChiTietSP;
+                result.LinkAnh = uha.LinkAnh;
                 try
                 {
                     await _repo.UpdateOneAsyn(result);
@@ -92,7 +94,7 @@ namespace _1_API.Controllers
             var result = await _repo.GetByIdAsync(id);
             if (result == null)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Không tìm thấy màu sắc");
+                return StatusCode(StatusCodes.Status500InternalServerError, "Không tìm thấy hình ảnh");
             }
             else
             {

@@ -1,4 +1,4 @@
-﻿using _1_API.ViewModel.ChucVu;
+﻿using _1_API.ViewModel.KichCo;
 using _1_API.ViewModel.MauSac;
 using Data.IRepositories;
 using Data.ModelsClass;
@@ -9,12 +9,12 @@ namespace _1_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class MauSacsController : ControllerBase
+    public class KichCosController : ControllerBase
     {
-        private IAllRepositories<MauSac> _repo;
+        private IAllRepositories<KichCo> _repo;
 
 
-        public MauSacsController(IAllRepositories<MauSac> repo)
+        public KichCosController(IAllRepositories<KichCo> repo)
         {
             _repo = repo;
 
@@ -22,35 +22,35 @@ namespace _1_API.Controllers
 
         [HttpGet]
         [Route("Get-All")]
-        public async Task<IActionResult> GetAllMauSac()
+        public async Task<IActionResult> GetAllKichCo()
         {
             var result = await _repo.GetAllAsync();
-            if (result == null) return Ok("Không có màu sắc");
+            if (result == null) return Ok("Không có kích cỡ");
             return Ok(result);
         }
 
         [HttpGet]
         [Route("GetById/{id}")]
-        public async Task<IActionResult> GetMauSacById(Guid id)
+        public async Task<IActionResult> GetKichCoById(Guid id)
         {
             var result = await _repo.GetByIdAsync(id);
-            if (result == null) return Ok("Không tìm thấy màu sắc");
+            if (result == null) return Ok("Không tìm thấy kích cỡ");
             return Ok(result);
         }
 
         [HttpPost]
         [Route("Create")]
-        public async Task<IActionResult> CreateMauSac([FromForm] CreateMauSac cms)
+        public async Task<IActionResult> CreateKichCo([FromForm] CreateKichCo ckc)
         {
-            MauSac ms = new MauSac()
+            KichCo kc = new KichCo()
             {
                 Id = Guid.NewGuid(),
-                TenMau = cms.Ten
+                Size = ckc.Size
             };
             try
             {
-                var result = await _repo.AddOneAsyn(ms);
-                return Ok(ms);
+                var result = await _repo.AddOneAsyn(kc);
+                return Ok(kc);
             }
             catch (Exception ex)
             {
@@ -61,16 +61,16 @@ namespace _1_API.Controllers
 
         [HttpPost]
         [Route("Update/id")]
-        public async Task<IActionResult> UpdateMauSac(Guid id, [FromForm] UpdateMauSac ums)
+        public async Task<IActionResult> UpdateKichCo(Guid id, [FromForm] UpdateKichCo ukc)
         {
             var result = await _repo.GetByIdAsync(id);
             if (result == null)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Không tìm thấy màu sắc");
+                return StatusCode(StatusCodes.Status500InternalServerError, "Không tìm thấy kích cỡ");
             }
             else
             {
-                result.TenMau = ums.Ten;
+                result.Size = ukc.Size;
                 try
                 {
                     await _repo.UpdateOneAsyn(result);
@@ -92,7 +92,7 @@ namespace _1_API.Controllers
             var result = await _repo.GetByIdAsync(id);
             if (result == null)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Không tìm thấy màu sắc");
+                return StatusCode(StatusCodes.Status500InternalServerError, "Không tìm thấy kích cỡ");
             }
             else
             {

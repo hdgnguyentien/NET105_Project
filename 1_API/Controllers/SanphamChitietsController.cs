@@ -1,5 +1,5 @@
-﻿using _1_API.ViewModel.ChucVu;
-using _1_API.ViewModel.MauSac;
+﻿using _1_API.ViewModel.SanPham;
+using _1_API.ViewModel.SanphamChitiet;
 using Data.IRepositories;
 using Data.ModelsClass;
 using Microsoft.AspNetCore.Http;
@@ -9,12 +9,12 @@ namespace _1_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class MauSacsController : ControllerBase
+    public class SanphamChitietsController : ControllerBase
     {
-        private IAllRepositories<MauSac> _repo;
+        private IAllRepositories<SanphamChitiet> _repo;
 
 
-        public MauSacsController(IAllRepositories<MauSac> repo)
+        public SanphamChitietsController(IAllRepositories<SanphamChitiet> repo)
         {
             _repo = repo;
 
@@ -22,35 +22,41 @@ namespace _1_API.Controllers
 
         [HttpGet]
         [Route("Get-All")]
-        public async Task<IActionResult> GetAllMauSac()
+        public async Task<IActionResult> GetAllSanPhamCt()
         {
             var result = await _repo.GetAllAsync();
-            if (result == null) return Ok("Không có màu sắc");
+            if (result == null) return Ok("Không có sản phẩm chi tiết");
             return Ok(result);
         }
 
         [HttpGet]
         [Route("GetById/{id}")]
-        public async Task<IActionResult> GetMauSacById(Guid id)
+        public async Task<IActionResult> GetSanPhamCtById(Guid id)
         {
             var result = await _repo.GetByIdAsync(id);
-            if (result == null) return Ok("Không tìm thấy màu sắc");
+            if (result == null) return Ok("Không tìm thấy sản phẩm chi tiết");
             return Ok(result);
         }
 
         [HttpPost]
         [Route("Create")]
-        public async Task<IActionResult> CreateMauSac([FromForm] CreateMauSac cms)
+        public async Task<IActionResult> CreateSanPhamCt([FromForm] CreateSanphamChitiet csp)
         {
-            MauSac ms = new MauSac()
+            SanphamChitiet spct = new SanphamChitiet()
             {
                 Id = Guid.NewGuid(),
-                TenMau = cms.Ten
+                IdSP = csp.IdSP,
+                IdKichCo = csp.IdKichCo,
+                IdMauSac= csp.IdMauSac,
+                SoLuong = csp.SoLuong,
+                GiaBan = csp.GiaBan,
+                GiaNhap= csp.GiaNhap,
+                TrangThai = csp.TrangThai,
             };
             try
             {
-                var result = await _repo.AddOneAsyn(ms);
-                return Ok(ms);
+                var result = await _repo.AddOneAsyn(spct);
+                return Ok(spct);
             }
             catch (Exception ex)
             {
@@ -61,16 +67,22 @@ namespace _1_API.Controllers
 
         [HttpPost]
         [Route("Update/id")]
-        public async Task<IActionResult> UpdateMauSac(Guid id, [FromForm] UpdateMauSac ums)
+        public async Task<IActionResult> UpdateSanPhamCt(Guid id, [FromForm] UpdateSanphamChitiet usp)
         {
             var result = await _repo.GetByIdAsync(id);
             if (result == null)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Không tìm thấy màu sắc");
+                return StatusCode(StatusCodes.Status500InternalServerError, "Không tìm thấy sản phẩm chi tiết");
             }
             else
             {
-                result.TenMau = ums.Ten;
+                result.IdSP = usp.IdSP;
+                result.IdKichCo = usp.IdKichCo;
+                result.IdMauSac = usp.IdMauSac;
+                result.SoLuong= usp.SoLuong;
+                result.GiaBan = usp.GiaBan;
+                result.GiaNhap = usp.GiaNhap;
+                result.TrangThai = usp.TrangThai;
                 try
                 {
                     await _repo.UpdateOneAsyn(result);
@@ -92,7 +104,7 @@ namespace _1_API.Controllers
             var result = await _repo.GetByIdAsync(id);
             if (result == null)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Không tìm thấy màu sắc");
+                return StatusCode(StatusCodes.Status500InternalServerError, "Không tìm thấy sản phẩm chi tiết");
             }
             else
             {

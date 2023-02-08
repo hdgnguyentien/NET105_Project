@@ -37,23 +37,24 @@ namespace _1_API.Controllers
 
         [HttpPost]
         [Route("Create")]
-        public async Task<IActionResult> CreateKhachHang([FromForm] CreateKhachHang cnv)
+        public async Task<IActionResult> CreateKhachHang([FromForm] CreateKhachHang ckh)
+
         {
-            KhachHang nv = new KhachHang()
+            KhachHang kh = new KhachHang()
             {
                 Id = Guid.NewGuid(),
-                Ten = cnv.Ten,
-                Email = cnv.Email,
-                MatKhau = cnv.MatKhau,
-                GioiTinh = cnv.GioiTinh,
-                DiaChi = cnv.DiaChi,
-                NgaySinh = cnv.NgaySinh,
-                Sdt = cnv.Sdt,
+                Ten = ckh.Ten,
+                Email = ckh.Email,
+                MatKhau = ckh.MatKhau,
+                GioiTinh = ckh.GioiTinh,
+                DiaChi = ckh.DiaChi,
+                NgaySinh = ckh.NgaySinh,
+                Sdt = ckh.Sdt,
             };
             try
             {
-                var result = await _repo.AddOneAsyn(nv);
-                return Ok(nv);
+                var result = await _repo.AddOneAsyn(kh);
+                return Ok(kh);
             }
             catch (Exception ex)
             {
@@ -64,7 +65,8 @@ namespace _1_API.Controllers
 
         [HttpPost]
         [Route("Update/id")]
-        public async Task<IActionResult> UpdateKhachHang(Guid id, [FromForm] UpdateKhachHang unv)
+        public async Task<IActionResult> UpdateKhachHang(Guid id, [FromForm] UpdateKhachHang ukh)
+
         {
             var result = await _repo.GetByIdAsync(id);
             if (result == null)
@@ -73,13 +75,13 @@ namespace _1_API.Controllers
             }
             else
             {
-                result.Ten = unv.Ten;
-                result.Email = unv.Email;
-                result.MatKhau = unv.MatKhau;
-                result.GioiTinh = unv.GioiTinh;
-                result.DiaChi = unv.DiaChi;
-                result.NgaySinh = unv.NgaySinh;
-                result.Sdt = unv.Sdt;
+                result.Ten = ukh.Ten;
+                result.Email = ukh.Email;
+                result.MatKhau = ukh.MatKhau;
+                result.GioiTinh = ukh.GioiTinh;
+                result.DiaChi = ukh.DiaChi;
+                result.NgaySinh = ukh.NgaySinh;
+                result.Sdt = ukh.Sdt;
                 try
                 {
                     await _repo.UpdateOneAsyn(result);
