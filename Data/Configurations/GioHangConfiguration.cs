@@ -15,6 +15,7 @@ namespace Data.Configurations
         {
             builder.ToTable("GioHang");
             builder.HasKey(x => x.Id);
+            builder.Property(x => x.IdKH).IsRequired();
             builder.HasOne(x => x.KhachHang).WithMany(x => x.GioHangs).HasForeignKey(x => x.IdKH);
         }
     }

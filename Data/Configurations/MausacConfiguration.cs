@@ -15,7 +15,7 @@ namespace Data.Configurations
         {
             builder.ToTable("MauSac");
             builder.HasKey(x => x.Id);
-            builder.Property(x => x.TenMau);
+            builder.Property(x => x.TenMau).IsRequired();
         }
     }
 }

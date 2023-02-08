@@ -15,12 +15,13 @@ namespace Data.Configurations
         {
             builder.ToTable("KhachHang");
             builder.HasKey(x => x.Id);
-            builder.Property(x => x.Ten);
+            builder.Property(x => x.Ten).IsRequired();
             builder.Property(x => x.Email).IsRequired();
             builder.Property(x => x.MatKhau).IsRequired();
-            builder.Property(x => x.DiaChi);
-            builder.Property(x => x.GioiTinh).HasColumnType("bit");
+            builder.Property(x => x.DiaChi).IsRequired();
+            builder.Property(x => x.GioiTinh).IsRequired();
             builder.Property(x => x.Sdt).IsRequired();
+            builder.Property(x => x.NgaySinh).IsRequired();
         }
     }
 }

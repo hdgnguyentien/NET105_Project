@@ -15,8 +15,8 @@ namespace Data.Configurations
         {
             builder.ToTable("HinhAnh");
             builder.HasKey(x => x.Id);
-            
-
+            builder.Property(x => x.IdChiTietSP).IsRequired();
+            builder.Property(x => x.LinkAnh).IsRequired();
             builder.HasOne(x => x.sanphamChitiet).WithMany(x => x.hinhAnhs).HasForeignKey(x => x.IdChiTietSP);
         }
     }

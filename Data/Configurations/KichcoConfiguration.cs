@@ -15,7 +15,7 @@ namespace Data.Configurations
         {
             builder.ToTable("KichCo");
             builder.HasKey(x => x.Id);
-            builder.Property(x => x.Size).IsRequired().HasColumnType("decimal");
+            builder.Property(x => x.Size).IsRequired();
         }
     }
 }

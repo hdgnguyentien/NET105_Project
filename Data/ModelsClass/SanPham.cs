@@ -16,7 +16,7 @@ namespace Data.ModelsClass
         public Guid Id { get; set; }
         public string? Ten { get; set; }
         public Guid? IdHang { get; set; }
-        public bool? TrangThai { get; set; }
+        public int? TrangThai { get; set; }
         public Hang? hang { get; set; }
         public virtual ICollection<SanphamChitiet> sanphamChitiets { get; set; }
 

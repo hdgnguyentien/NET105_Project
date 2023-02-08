@@ -15,11 +15,13 @@ namespace Data.Configurations
         {
             builder.ToTable("SanphamChitiet");
             builder.HasKey(x => x.Id);
-
-            builder.Property(x=>x.SoLuong).IsRequired().HasColumnType("int");
-            builder.Property(x=>x.GiaNhap).IsRequired().HasColumnType("decimal");
-            builder.Property(x=>x.GiaBan).IsRequired().HasColumnType("decimal");
-            builder.Property(x=>x.TrangThai).IsRequired().HasColumnType("bit");
+            builder.Property(x=>x.SoLuong).IsRequired();
+            builder.Property(x=>x.IdSP).IsRequired();
+            builder.Property(x=>x.IdMauSac).IsRequired();
+            builder.Property(x=>x.IdKichCo).IsRequired();
+            builder.Property(x=>x.GiaNhap).IsRequired();
+            builder.Property(x=>x.GiaBan).IsRequired();
+            builder.Property(x=>x.TrangThai).IsRequired();
 
             builder.HasOne(x => x.sanPham).WithMany(x => x.sanphamChitiets).HasForeignKey(x => x.IdSP);
             builder.HasOne(x => x.mauSac).WithMany(x => x.sanphamChitiets).HasForeignKey(x => x.IdMauSac);

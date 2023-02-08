@@ -15,11 +15,12 @@ namespace Data.Configurations
         {
             builder.ToTable("MaGiamGia");
             builder.HasKey(x => x.Id);
-            builder.Property(x=>x.Ma).HasColumnType("int").IsRequired();
-            builder.Property(x=>x.SoLuong).HasColumnType("int").IsRequired();
-            builder.Property(x=>x.NgayBatdau).HasColumnType("datetime").IsRequired();
-            builder.Property(x=>x.NgayKetthuc).HasColumnType("datetime").IsRequired();
-            builder.Property(x=>x.TrangThai).HasColumnType("bit").IsRequired();
+            builder.Property(x=>x.Ma).IsRequired();
+            builder.Property(x=>x.SoLuong).IsRequired();
+            builder.Property(x=>x.NgayBatdau).IsRequired();
+            builder.Property(x=>x.NgayKetthuc).IsRequired();
+            builder.Property(x=>x.TrangThai).IsRequired();
+            builder.Property(x=>x.PhanTramGiam).IsRequired();
         }
     }
 }

@@ -18,7 +18,7 @@ namespace Data.ModelsClass
         public Guid? IdKH { get; set; }
         public Guid? IdNV { get; set; }
         public DateTime? NgayTao { get; set; }
-        public bool? TrangThai { get; set; }
+        public int? TrangThai { get; set; }
         public decimal? TongTien { get; set; }
         public string? DiaChi { get; set; }
 
