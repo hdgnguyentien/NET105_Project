@@ -15,7 +15,7 @@ namespace Data.Configurations
         {
             builder.ToTable("ChucVu");
             builder.HasKey(x => x.Id);
-            builder.Property(x => x.Ten);
+            builder.Property(x => x.Ten).IsRequired();
         }
     }
 }

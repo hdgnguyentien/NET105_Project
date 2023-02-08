@@ -15,7 +15,7 @@ namespace Data.Configurations
         {
             builder.ToTable("TheLoai");
             builder.HasKey(x => x.Id);
-            builder.Property(x => x.TenTheLoai);
+            builder.Property(x => x.TenTheLoai).IsRequired();
         }
     }
 }

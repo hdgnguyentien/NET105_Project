@@ -13,7 +13,7 @@ namespace Data.ModelsClass
             sanphamChitiets = new HashSet<SanphamChitiet>();
         }
         public Guid Id { get; set; }
-        public int? Size { get; set; }
+        public float? Size { get; set; }
         public virtual ICollection<SanphamChitiet> sanphamChitiets { get; set; }
     }
 }

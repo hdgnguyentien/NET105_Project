@@ -15,13 +15,14 @@ namespace Data.Configurations
         {
             builder.ToTable("NhanVien");
             builder.HasKey(x => x.Id);
-            builder.Property(x => x.Ten);
+            builder.Property(x => x.Ten).IsRequired();
             builder.Property(x => x.Email).IsRequired();
             builder.Property(x => x.MatKhau).IsRequired();
             builder.Property(x => x.DiaChi).IsRequired();
             builder.Property(x => x.GioiTinh).IsRequired();
             builder.Property(x => x.AnhNhanVien).IsRequired();
             builder.Property(x => x.NgaySinh).IsRequired();
+            builder.Property(x => x.IdCvu).IsRequired();
 
             builder.HasOne(x => x.chucVu).WithMany(x => x.nhanViens).HasForeignKey(x => x.IdCvu);
             builder.HasOne(x => x.IdGuiBcNavigation).WithMany(x => x.InverseIdGuiBcNavigation);
