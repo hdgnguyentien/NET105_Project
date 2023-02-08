@@ -1,5 +1,5 @@
-﻿using _1_API.ViewModel.ChucVu;
-using _1_API.ViewModel.MauSac;
+﻿using _1_API.ViewModel.MauSac;
+using _1_API.ViewModel.TheLoai;
 using Data.IRepositories;
 using Data.ModelsClass;
 using Microsoft.AspNetCore.Http;
@@ -9,12 +9,12 @@ namespace _1_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class MauSacsController : ControllerBase
+    public class TheLoaisController : ControllerBase
     {
-        private IAllRepositories<MauSac> _repo;
+        private IAllRepositories<TheLoai> _repo;
 
 
-        public MauSacsController(IAllRepositories<MauSac> repo)
+        public TheLoaisController(IAllRepositories<TheLoai> repo)
         {
             _repo = repo;
 
@@ -22,35 +22,35 @@ namespace _1_API.Controllers
 
         [HttpGet]
         [Route("Get-All")]
-        public async Task<IActionResult> GetAllMauSac()
+        public async Task<IActionResult> GetAllTheLoai()
         {
             var result = await _repo.GetAllAsync();
-            if (result == null) return Ok("Không có màu sắc");
+            if (result == null) return Ok("Không có thể loại");
             return Ok(result);
         }
 
         [HttpGet]
         [Route("GetById/{id}")]
-        public async Task<IActionResult> GetMauSacById(Guid id)
+        public async Task<IActionResult> GetTheLoaiById(Guid id)
         {
             var result = await _repo.GetByIdAsync(id);
-            if (result == null) return Ok("Không tìm thấy màu sắc");
+            if (result == null) return Ok("Không tìm thấy thể loại");
             return Ok(result);
         }
 
         [HttpPost]
         [Route("Create")]
-        public async Task<IActionResult> CreateMauSac([FromForm] CreateMauSac cms)
+        public async Task<IActionResult> CreateTheLoai([FromForm] CreateTheLoai ctl)
         {
-            MauSac ms = new MauSac()
+            TheLoai tl = new TheLoai()
             {
                 Id = Guid.NewGuid(),
-                TenMau = cms.Ten
+                TenTheLoai = ctl.TenTheLoai
             };
             try
             {
-                var result = await _repo.AddOneAsyn(ms);
-                return Ok(ms);
+                var result = await _repo.AddOneAsyn(tl);
+                return Ok(tl);
             }
             catch (Exception ex)
             {
@@ -61,16 +61,16 @@ namespace _1_API.Controllers
 
         [HttpPost]
         [Route("Update/id")]
-        public async Task<IActionResult> UpdateMauSac(Guid id, [FromForm] UpdateMauSac ums)
+        public async Task<IActionResult> UpdateTheLoai(Guid id, [FromForm] UpdateTheLoai utl)
         {
             var result = await _repo.GetByIdAsync(id);
             if (result == null)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Không tìm thấy màu sắc");
+                return StatusCode(StatusCodes.Status500InternalServerError, "Không tìm thấy thể loại");
             }
             else
             {
-                result.TenMau = ums.Ten;
+                result.TenTheLoai = utl.TenTheLoai;
                 try
                 {
                     await _repo.UpdateOneAsyn(result);
@@ -92,7 +92,7 @@ namespace _1_API.Controllers
             var result = await _repo.GetByIdAsync(id);
             if (result == null)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Không tìm thấy màu sắc");
+                return StatusCode(StatusCodes.Status500InternalServerError, "Không tìm thấy thể loại");
             }
             else
             {
