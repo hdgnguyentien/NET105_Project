@@ -1,4 +1,4 @@
-﻿using _1_API.ViewModel.GioHangChiTiet;
+﻿using _1_API.ViewModel.HoaDonChiTiet;
 using _1_API.ViewModel.KhachHang;
 using Data.IRepositories;
 using Data.ModelsClass;
@@ -9,41 +9,41 @@ namespace _1_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class GioHangChiTietsController : ControllerBase
+    public class HoaDonChiTietsController : ControllerBase
     {
-        private IAllRepositories<GiohangChitiet> _repo;
+        private IAllRepositories<HoadonChitiet> _repo;
 
-        public GioHangChiTietsController(IAllRepositories<GiohangChitiet> repo)
+        public HoaDonChiTietsController(IAllRepositories<HoadonChitiet> repo)
         {
             _repo = repo;
         }
         [HttpGet]
         [Route("Get-All")]
-        public async Task<IActionResult> GetAllGioHangChiTiet()
+        public async Task<IActionResult> GetAllHoaDonChiTiet()
         {
             var result = await _repo.GetAllAsync();
-            if (result == null) return Ok("Không có giỏ hàng chi tiết");
+            if (result == null) return Ok("Không có hóa đơn chi tiết");
             return Ok(result);
         }
 
         [HttpGet]
         [Route("GetById/{id}")]
-        public async Task<IActionResult> GetGioHangChiTietById(Guid id)
+        public async Task<IActionResult> GetHoaDonChiTietById(Guid id)
         {
             var result = await _repo.GetByIdAsync(id);
-            if (result == null) return Ok("Không tìm thấy giỏ hàng chi tiết");
+            if (result == null) return Ok("Không tìm thấy hóa đơn chi tiết");
             return Ok(result);
         }
 
         [HttpPost]
         [Route("Create")]
-        public async Task<IActionResult> CreateGioHangChiTiet([FromForm] CreateGioHangChiTiet cnv)
+        public async Task<IActionResult> CreateHoaDonChiTiet([FromForm] CreateHoaDonChiTiet cnv)
         {
-            GiohangChitiet nv = new GiohangChitiet()
+            HoadonChitiet nv = new HoadonChitiet()
             {
                 Id = Guid.NewGuid(),
                 IdSPChitiet = cnv.IdSPChitiet,
-                IdGioHang = cnv.IdGioHang,
+                IdHoaDon = cnv.IdHoaDon,
                 SoLuong = cnv.SoLuong,
                 GiaBan = cnv.GiaBan,
             };
@@ -61,17 +61,17 @@ namespace _1_API.Controllers
 
         [HttpPost]
         [Route("Update/id")]
-        public async Task<IActionResult> UpdateGioHangChiTiet(Guid id, [FromForm] UpdateGiohangChiTiet unv)
+        public async Task<IActionResult> UpdateHoaDonChiTiet(Guid id, [FromForm] UpdateHoaDonChiTiet unv)
         {
             var result = await _repo.GetByIdAsync(id);
             if (result == null)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Không tìm thấy giỏ hàng chi tiết");
+                return StatusCode(StatusCodes.Status500InternalServerError, "Không tìm thấy hóa đơn chi tiết");
             }
             else
             {
+                result.IdHoaDon = unv.IdHoaDon;
                 result.IdSPChitiet = unv.IdSPChitiet;
-                result.IdGioHang = unv.IdGioHang;
                 result.SoLuong = unv.SoLuong;
                 result.GiaBan = unv.GiaBan;
                 try
@@ -90,12 +90,12 @@ namespace _1_API.Controllers
         }
         [HttpGet]
         [Route("Delete/{id}")]
-        public async Task<IActionResult> DeleteGioHangChiTiet(Guid id)
+        public async Task<IActionResult> DeleteHoaDonChiTiet(Guid id)
         {
             var result = await _repo.GetByIdAsync(id);
             if (result == null)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Không tìm thấy giỏ hàng chi tiết");
+                return StatusCode(StatusCodes.Status500InternalServerError, "Không tìm thấy hóa đơn chi tiết");
             }
             else
             {
