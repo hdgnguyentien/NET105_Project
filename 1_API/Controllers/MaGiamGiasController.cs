@@ -1,5 +1,5 @@
 ﻿using _1_API.ViewModel.KhachHang;
-using _1_API.ViewModel.NhanVien;
+using _1_API.ViewModel.MaGiamGia;
 using Data.IRepositories;
 using Data.ModelsClass;
 using Microsoft.AspNetCore.Http;
@@ -9,52 +9,50 @@ namespace _1_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class KhachHangsController : ControllerBase
+    public class MaGiamGiasController : ControllerBase
     {
-        private IAllRepositories<KhachHang> _repo;
+        private IAllRepositories<MaGiamGia> _repo;
 
-        public KhachHangsController(IAllRepositories<KhachHang> repo)
+        public MaGiamGiasController(IAllRepositories<MaGiamGia> repo)
         {
             _repo = repo;
         }
         [HttpGet]
         [Route("Get-All")]
-        public async Task<IActionResult> GetAllKhachHang()
+        public async Task<IActionResult> GetAllMaGiamGia()
         {
             var result = await _repo.GetAllAsync();
-            if (result == null) return Ok("Không có khách hàng");
+            if (result == null) return Ok("Không có mã giảm giá");
             return Ok(result);
         }
 
         [HttpGet]
         [Route("GetById/{id}")]
-        public async Task<IActionResult> GetKhachHangById(Guid id)
+        public async Task<IActionResult> GetMaGiamGiaById(Guid id)
         {
             var result = await _repo.GetByIdAsync(id);
-            if (result == null) return Ok("Không tìm thấy khách hàng");
+            if (result == null) return Ok("Không tìm thấy mã giảm giá");
             return Ok(result);
         }
 
         [HttpPost]
         [Route("Create")]
-        public async Task<IActionResult> CreateKhachHang([FromForm] CreateKhachHang ckh)
-
+        public async Task<IActionResult> CreateMaGiamGia([FromForm] CreateMaGiamGia cnv)
         {
-            KhachHang kh = new KhachHang()
+            MaGiamGia nv = new MaGiamGia()
             {
                 Id = Guid.NewGuid(),
-                Ten = ckh.Ten,
-                Email = ckh.Email,
-                MatKhau = ckh.MatKhau,
-                GioiTinh = ckh.GioiTinh,
-                DiaChi = ckh.DiaChi,
-                NgaySinh = ckh.NgaySinh,
-                Sdt = ckh.Sdt,
+                Ma = cnv.Ma,
+                NgayBatdau = cnv.NgayBatdau,
+                NgayKetthuc = cnv.NgayKetthuc,
+                SoLuong = cnv.SoLuong,
+                PhanTramGiam = cnv.PhanTramGiam,
+                TrangThai = cnv.TrangThai,
             };
             try
             {
-                var result = await _repo.AddOneAsyn(kh);
-                return Ok(kh);
+                var result = await _repo.AddOneAsyn(nv);
+                return Ok(nv);
             }
             catch (Exception ex)
             {
@@ -65,23 +63,21 @@ namespace _1_API.Controllers
 
         [HttpPost]
         [Route("Update/id")]
-        public async Task<IActionResult> UpdateKhachHang(Guid id, [FromForm] UpdateKhachHang ukh)
-
+        public async Task<IActionResult> UpdateMaGiamGia(Guid id, [FromForm] UpdateMaGiamGia unv)
         {
             var result = await _repo.GetByIdAsync(id);
             if (result == null)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Không tìm thấy khách hàng");
+                return StatusCode(StatusCodes.Status500InternalServerError, "Không tìm thấy mã giảm giá");
             }
             else
             {
-                result.Ten = ukh.Ten;
-                result.Email = ukh.Email;
-                result.MatKhau = ukh.MatKhau;
-                result.GioiTinh = ukh.GioiTinh;
-                result.DiaChi = ukh.DiaChi;
-                result.NgaySinh = ukh.NgaySinh;
-                result.Sdt = ukh.Sdt;
+                result.Ma = unv.Ma;
+                result.NgayKetthuc = unv.NgayKetthuc;
+                result.NgayBatdau = unv.NgayBatdau;
+                result.SoLuong = unv.SoLuong;
+                result.PhanTramGiam = unv.PhanTramGiam;
+                result.TrangThai = unv.TrangThai;
                 try
                 {
                     await _repo.UpdateOneAsyn(result);
@@ -98,12 +94,12 @@ namespace _1_API.Controllers
         }
         [HttpGet]
         [Route("Delete/{id}")]
-        public async Task<IActionResult> DeleteKhachHang(Guid id)
+        public async Task<IActionResult> DeleteMaGiamGia(Guid id)
         {
             var result = await _repo.GetByIdAsync(id);
             if (result == null)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Không tìm thấy khách hàng");
+                return StatusCode(StatusCodes.Status500InternalServerError, "Không tìm thấy mã giảm giá");
             }
             else
             {
