@@ -2,19 +2,16 @@
 using Data.ModelsClass;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using ProjectViews.IServices;
 
 namespace ProjectViews.Controllers
 {
     public class NhanVienController : Controller
     {
         private readonly ILogger<NhanVienController> _logger;
-        private readonly INhanVienServices _nhanvienServices;
 
-        public NhanVienController(ILogger<NhanVienController> logger, INhanVienServices nhanvienServices)
+        public NhanVienController(ILogger<NhanVienController> logger)
         {
             _logger = logger;
-            _nhanvienServices = nhanvienServices;
         }
 
         [HttpGet]
