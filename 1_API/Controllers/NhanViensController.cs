@@ -38,7 +38,7 @@ namespace _1_API.Controllers
 
         [HttpPost]
         [Route("Create")]
-        public async Task<IActionResult> CreateNhanVien([FromForm] CreateNhanVien cnv)
+        public async Task<IActionResult> CreateNhanVien(CreateNhanVien cnv)
         {
             NhanVien nv = new NhanVien()
             {
