@@ -16,6 +16,7 @@ namespace Data.Configurations
             builder.ToTable("NhanVien");
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Ten).IsRequired();
+            builder.Property(x => x.MaNV).IsRequired();
             builder.Property(x => x.Email).IsRequired();
             builder.Property(x => x.MatKhau).IsRequired();
             builder.Property(x => x.DiaChi).IsRequired();

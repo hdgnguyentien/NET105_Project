@@ -18,6 +18,7 @@ namespace Data.ModelsClass
         public Guid? IdCvu { get; set; }
         public Guid? IdGuiBaoCao { get; set; }
         public string? Ten { get; set; }
+        public string? MaNV { get; set; }
         public string? Email { get; set; }
         public string? MatKhau { get; set; }
         public string? AnhNhanVien { get; set; }
