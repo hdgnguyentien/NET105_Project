@@ -40,19 +40,22 @@ namespace _1_API.Controllers
         [Route("Create")]
         public async Task<IActionResult> CreateNhanVien(CreateNhanVien cnv)
         {
+            var manv = await _repo.GetAllAsync();
             NhanVien nv = new NhanVien()
             {
                 Id = Guid.NewGuid(),
                 Ten = cnv.Ten,
+                MaNV = "NV" + (manv.Count() + 1),
                 IdCvu= cnv.IdCvu,
                 IdGuiBaoCao  = cnv.IdGuiBaoCao,
                 Email = cnv.Email,
                 MatKhau = cnv.MatKhau,
-                AnhNhanVien = cnv.AnhNhanVien, 
+                AnhNhanVien = cnv.AnhNhanVien,
                 GioiTinh = cnv.GioiTinh, 
                 DiaChi = cnv.DiaChi,
                 NgaySinh = cnv.NgaySinh,
-                
+                TrangThai = cnv.TrangThai,
+                Sdt = cnv.Sdt,      
             };
             try
             {
@@ -67,8 +70,8 @@ namespace _1_API.Controllers
         }
 
         [HttpPost]
-        [Route("Update/id")]
-        public async Task<IActionResult> UpdateNhanVien(Guid id, [FromForm] UpdateNhanVien unv)
+        [Route("Update/{id}")]
+        public async Task<IActionResult> UpdateNhanVien(Guid id, UpdateNhanVien unv)
         {
             var result = await _repo.GetByIdAsync(id);
             if (result == null)
@@ -86,6 +89,8 @@ namespace _1_API.Controllers
                 result.GioiTinh = unv.GioiTinh;
                 result.DiaChi = unv.DiaChi;
                 result.NgaySinh = unv.NgaySinh;
+                result.TrangThai = unv.TrangThai;
+                result.Sdt = unv.Sdt;
                 try
                 {
                     await _repo.UpdateOneAsyn(result);
