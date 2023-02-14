@@ -1,7 +1,13 @@
+using ProjectViews.IServices;
+using ProjectViews.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddMvc();
+builder.Services.AddScoped<IAllServices,AllServices>();
+
 
 var app = builder.Build();
 
@@ -15,7 +21,6 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseRouting();
 
 app.UseAuthorization();

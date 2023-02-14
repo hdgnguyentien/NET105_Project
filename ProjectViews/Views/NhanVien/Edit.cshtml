@@ -1,22 +1,46 @@
 ﻿@using Data.ModelsClass
-@model _1_API.ViewModel.NhanVien.NhanVienModel
+@model _1_API.ViewModel.NhanVien.UpdateNhanVien
 
 @{
-    ViewData["Title"] = "CreateNhanVien";
+    ViewData["Title"] = "Edit";
     var lstChucVu = ViewData["ListChucVu"] as List<ChucVu>;
     var lstNhanVien = ViewData["ListNhanVien"] as List<NhanVien>;
+    var image = ViewData["Image"] as string;
 }
 
-<h1>Thêm Nhân Viên</h1>
+<h1>Cập Nhật Nhân Viên</h1>
 
 <hr />
 <div class="row">
     <div class="col-md-12">
-        <form asp-action="CreateNhanVien" enctype="multipart/form-data">
+        <form asp-action="Update" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="AnhNhanVien" />
             <div class="row">
+                <div class="col-md-6">
+                    <div class="row">
+                        <label class="control-label">Ảnh</label>
+                    </div>
+                    <img src="@("~/AnhNhanVien/"+ image)" alt="image" asp-append-version="true" width="150px" height="150px" />
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <div class="row">
+                            <label asp-for="ImageFile" class="control-label">Đổi Ảnh</label>
+                        </div>
 
-                <div class="col-md-5">
+                        <img id="FrontImagePrv" src="" alt="Logo Image" width="150px" height="150px" style="border:1px; margin-top: 0px; margin-left:0px" />
+                        <div class="custom-file mt-2">
+                            <input asp-for="ImageFile" class="custom-file-input" id="FLFrontImage" accept="image/*"
+                                   onchange="document.getElementById('FrontImagePrv').src = window.URL.createObjectURL(this.files[0])" />
+                        </div>
+                        <span asp-validation-for="ImageFile" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
                     <div class="form-group">
                         <label asp-for="Ten" class="control-label">Họ và tên</label>
                         <input asp-for="Ten" class="form-control" />
@@ -46,7 +70,7 @@
                         <span asp-validation-for="DiaChi" class="text-danger"></span>
                     </div>
                 </div>
-                <div class="col-md-5">
+                <div class="col-md-6">
                     <div class="form-group">
                         <label asp-for="Email" class="control-label">Email</label>
                         <input asp-for="Email" class="form-control" />
@@ -87,27 +111,11 @@
                         <span asp-validation-for="TrangThai" class="text-danger"></span>
                     </div>
                 </div>
-                <div class="col-md-2">
-                    <div class="row">
-                        <label asp-for="ImageFile" class="control-label">Ảnh</label>
-                    </div>
-
-                    <img id="FrontImagePrv" src="" alt="Logo Image" width="150px" height="150px" style="border:1px; margin-top: 0px; margin-left:0px" />
-                    <div class="custom-file mt-2">
-                        <input asp-for="ImageFile" class="custom-file-input" id="FLFrontImage" accept="image/*"
-                               onchange="document.getElementById('FrontImagePrv').src = window.URL.createObjectURL(this.files[0])" />
-                    </div>
-                    <span asp-validation-for="ImageFile" class="text-danger"></span>
-                </div>
             </div>
             <div class="row mt-3">
-
-                <div class="col-md-10">
-                    <div class="form-group" style="text-align: center">
-                        <input type="submit" value="Thêm Nhân Viên" class="btn btn-primary" />
-                    </div>
+                <div class="form-group" style="text-align: center">
+                    <input type="submit" value="Cập Nhật" class="btn btn-primary" />
                 </div>
-                <div class="col-md-2"></div>
             </div>
 
         </form>
@@ -122,10 +130,4 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
-    <script type="text/javascript">
-        $(".custom-file-input").on("change", function () {
-            var filename = $(this).val().split("\\").pop();
-            $(this).siblings(".custom-file-label").addClass("selected").html(filename);
-        });
-    </script>
     }

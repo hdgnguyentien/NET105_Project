@@ -1,10 +1,10 @@
-﻿using System.ComponentModel;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel;
 
 namespace _1_API.ViewModel.NhanVien
 {
-    public class UpdateNhanVien
+    public class NhanVienModel
     {
         public Guid Id { get; set; }
         public Guid? IdCvu { get; set; }
@@ -29,6 +29,7 @@ namespace _1_API.ViewModel.NhanVien
         [Required(ErrorMessage = "Vui lòng nhập ngày sinh")]
         public DateTime? NgaySinh { get; set; }
 
+        [Required(ErrorMessage = "Vui lòng thêm ảnh cho nhân viên")]
         [NotMapped]
         [DisplayName("Upload File")]
         public IFormFile? ImageFile { get; set; }
