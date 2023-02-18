@@ -2,10 +2,8 @@
 
 namespace _1_API.ViewModel.SanPham
 {
-    public class UpdateSanPham
+    public class SanPhamModel
     {
-        public Guid Id { get; set; }
-
         [Required(ErrorMessage = "Vui lòng nhập tên sản phẩm")]
 
         public string? Ten { get; set; }

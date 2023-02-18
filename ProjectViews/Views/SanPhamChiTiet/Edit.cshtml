@@ -1,0 +1,90 @@
+﻿@using Data.ModelsClass
+@model _1_API.ViewModel.SanphamChitiet.UpdateSanphamChitiet
+
+@{
+    ViewData["Title"] = "Edit";
+    var lstSp = ViewData["lstSP"] as List<SanPham>;
+    var lstKC = ViewData["lstKichCo"] as List<KichCo>;
+    var lstMS = ViewData["lstMauSac"] as List<MauSac>;
+}
+
+<h1>Edit</h1>
+
+<h4>UpdateSanphamChitiet</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Update">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label type="hidden" asp-for="Id" class="control-label"></label>
+                <input type="hidden" asp-for="Id" class="form-control" />
+                <span type="hidden" asp-validation-for="Id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>Sản Phẩm</label>
+                <select asp-for="IdSP" class="form-control">
+                    @foreach (var item in lstSp)
+                    {
+                        <option value="@item.Id">
+                            @item.Ten
+                        </option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Màu sắc</label>
+                <select asp-for="IdMauSac" class="form-control">
+                    @foreach (var item in lstMS)
+                    {
+                                <option value="@item.Id">
+                            @item.TenMau
+                                </option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Kích cỡ</label>
+                <select asp-for="IdKichCo" class="form-control">
+                    @foreach (var item in lstKC)
+                    {
+                                <option value="@item.Id">
+                            @item.Size
+                                </option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="SoLuong" class="control-label"></label>
+                <input asp-for="SoLuong" class="form-control" />
+                <span asp-validation-for="SoLuong" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GiaNhap" class="control-label"></label>
+                <input asp-for="GiaNhap" class="form-control" />
+                <span asp-validation-for="GiaNhap" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GiaBan" class="control-label"></label>
+                <input asp-for="GiaBan" class="form-control" />
+                <span asp-validation-for="GiaBan" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TrangThai" class="control-label"></label>
+                <input asp-for="TrangThai" class="form-control" />
+                <span asp-validation-for="TrangThai" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
