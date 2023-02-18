@@ -40,7 +40,7 @@ namespace _1_API.Controllers
 
         [HttpPost]
         [Route("Create")]
-        public async Task<IActionResult> CreateHang([FromForm] CreateHang ch)
+        public async Task<IActionResult> CreateHang(CreateHang ch)
         {
             Hang h = new Hang()
             {
@@ -60,8 +60,8 @@ namespace _1_API.Controllers
         }
 
         [HttpPost]
-        [Route("Update/id")]
-        public async Task<IActionResult> UpdateHang(Guid id, [FromForm] UpdateHang uh)
+        [Route("Update/{id}")]
+        public async Task<IActionResult> UpdateHang(Guid id, UpdateHang uh)
         {
             var result = await _repo.GetByIdAsync(id);
             if (result == null)
