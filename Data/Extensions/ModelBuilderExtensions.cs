@@ -36,7 +36,19 @@ namespace Data.Extensions
                     GiaNhap = 80000,
                     TrangThai = 1
                 });
-
+            modelBuilder.Entity<HinhAnh>().HasData(
+                new HinhAnh()
+                {
+                    Id = new Guid("E508BA75-5185-4EF4-B533-2099FFF74A84"),
+                    IdChiTietSP = new Guid("7AAF5675-683D-4608-9534-EA737A4247B3"),
+                    LinkAnh = "C:\\Users\\Admin\\source\\repos\\NET105_Project\\ProjectViews\\wwwroot\\AnhNhanVien\\307ec916-d15c-41b9-aeb8-ebfbf7c58033_nature-3082832.jpg"
+                },
+                new HinhAnh()
+                {
+                    Id = new Guid("B596D1DB-4113-4ED7-99E2-FA96A945D23C"),
+                    IdChiTietSP = new Guid("51A13AFD-08D1-4A20-A0E0-FB4447BD215D"),
+                    LinkAnh = "C:\\Users\\Admin\\source\\repos\\NET105_Project\\ProjectViews\\wwwroot\\AnhNhanVien\\5752c6ba-f2e2-4331-95f2-2abaad283f46_nature-3082832.jpg"
+                });
             modelBuilder.Entity<SanPham>().HasData(
                 new SanPham() {
                     Id = new Guid("01BF8A6C-D89A-4DB2-9068-AF277BE488AE"),
