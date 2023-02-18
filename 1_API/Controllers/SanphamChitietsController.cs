@@ -40,7 +40,7 @@ namespace _1_API.Controllers
 
         [HttpPost]
         [Route("Create")]
-        public async Task<IActionResult> CreateSanPhamCt([FromForm] CreateSanphamChitiet csp)
+        public async Task<IActionResult> CreateSanPhamCt(CreateSanphamChitiet csp)
         {
             SanphamChitiet spct = new SanphamChitiet()
             {
@@ -66,8 +66,8 @@ namespace _1_API.Controllers
         }
 
         [HttpPost]
-        [Route("Update/id")]
-        public async Task<IActionResult> UpdateSanPhamCt(Guid id, [FromForm] UpdateSanphamChitiet usp)
+        [Route("Update/{id}")]
+        public async Task<IActionResult> UpdateSanPhamCt(Guid id, UpdateSanphamChitiet usp)
         {
             var result = await _repo.GetByIdAsync(id);
             if (result == null)
