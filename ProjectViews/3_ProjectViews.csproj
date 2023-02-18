@@ -15,4 +15,8 @@
     <ProjectReference Include="..\1_API\1_API.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\AnhNhanVien\" />
+  </ItemGroup>
+
 </Project>

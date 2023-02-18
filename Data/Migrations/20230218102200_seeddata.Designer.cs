@@ -4,6 +4,7 @@ using Data.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(CuaHangDbContext))]
-    partial class CuaHangDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230218102200_seeddata")]
+    partial class seeddata
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -131,20 +133,6 @@ namespace Data.Migrations
                     b.HasIndex("IdChiTietSP");
 
                     b.ToTable("HinhAnh", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("e508ba75-5185-4ef4-b533-2099fff74a84"),
-                            IdChiTietSP = new Guid("7aaf5675-683d-4608-9534-ea737a4247b3"),
-                            LinkAnh = "C:\\Users\\Admin\\source\\repos\\NET105_Project\\ProjectViews\\wwwroot\\AnhNhanVien\\307ec916-d15c-41b9-aeb8-ebfbf7c58033_nature-3082832.jpg"
-                        },
-                        new
-                        {
-                            Id = new Guid("b596d1db-4113-4ed7-99e2-fa96a945d23c"),
-                            IdChiTietSP = new Guid("51a13afd-08d1-4a20-a0e0-fb4447bd215d"),
-                            LinkAnh = "C:\\Users\\Admin\\source\\repos\\NET105_Project\\ProjectViews\\wwwroot\\AnhNhanVien\\5752c6ba-f2e2-4331-95f2-2abaad283f46_nature-3082832.jpg"
-                        });
                 });
 
             modelBuilder.Entity("Data.ModelsClass.HoaDon", b =>

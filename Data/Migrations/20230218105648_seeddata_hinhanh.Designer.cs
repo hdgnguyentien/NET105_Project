@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(CuaHangDbContext))]
-    [Migration("20230206081123_01")]
-    partial class _01
+    [Migration("20230218105648_seeddata_hinhanh")]
+    partial class seeddata_hinhanh
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -45,7 +45,8 @@ namespace Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("IdKH")
+                    b.Property<Guid?>("IdKH")
+                        .IsRequired()
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
@@ -61,16 +62,20 @@ namespace Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<decimal>("GiaBan")
-                        .HasColumnType("decimal");
+                    b.Property<decimal?>("GiaBan")
+                        .IsRequired()
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<Guid>("IdGioHang")
+                    b.Property<Guid?>("IdGioHang")
+                        .IsRequired()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("IdSPChitiet")
+                    b.Property<Guid?>("IdSPChitiet")
+                        .IsRequired()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("SoLuong")
+                    b.Property<int?>("SoLuong")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -95,6 +100,18 @@ namespace Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Hang", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("b9db8c0c-bf87-4e16-bdd2-a9fee4b14b4a"),
+                            TenHang = "Adidas"
+                        },
+                        new
+                        {
+                            Id = new Guid("da7a593f-20e5-407e-85c6-4bb0a97f1a73"),
+                            TenHang = "Nike"
+                        });
                 });
 
             modelBuilder.Entity("Data.ModelsClass.HinhAnh", b =>
@@ -103,7 +120,8 @@ namespace Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("IdChiTietSP")
+                    b.Property<Guid?>("IdChiTietSP")
+                        .IsRequired()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("LinkAnh")
@@ -115,6 +133,20 @@ namespace Data.Migrations
                     b.HasIndex("IdChiTietSP");
 
                     b.ToTable("HinhAnh", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("e508ba75-5185-4ef4-b533-2099fff74a84"),
+                            IdChiTietSP = new Guid("7aaf5675-683d-4608-9534-ea737a4247b3"),
+                            LinkAnh = "C:\\Users\\Admin\\source\\repos\\NET105_Project\\ProjectViews\\wwwroot\\AnhNhanVien\\307ec916-d15c-41b9-aeb8-ebfbf7c58033_nature-3082832.jpg"
+                        },
+                        new
+                        {
+                            Id = new Guid("b596d1db-4113-4ed7-99e2-fa96a945d23c"),
+                            IdChiTietSP = new Guid("51a13afd-08d1-4a20-a0e0-fb4447bd215d"),
+                            LinkAnh = "C:\\Users\\Admin\\source\\repos\\NET105_Project\\ProjectViews\\wwwroot\\AnhNhanVien\\5752c6ba-f2e2-4331-95f2-2abaad283f46_nature-3082832.jpg"
+                        });
                 });
 
             modelBuilder.Entity("Data.ModelsClass.HoaDon", b =>
@@ -127,23 +159,28 @@ namespace Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("IdKH")
+                    b.Property<Guid?>("IdKH")
+                        .IsRequired()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("IdMaGiamGia")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("IdNV")
+                    b.Property<Guid?>("IdNV")
+                        .IsRequired()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("NgayTao")
-                        .HasColumnType("DateTime");
+                    b.Property<DateTime?>("NgayTao")
+                        .IsRequired()
+                        .HasColumnType("datetime2");
 
-                    b.Property<decimal>("TongTien")
-                        .HasColumnType("decimal");
+                    b.Property<decimal?>("TongTien")
+                        .IsRequired()
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<bool>("TrangThai")
-                        .HasColumnType("bit");
+                    b.Property<int?>("TrangThai")
+                        .IsRequired()
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -162,16 +199,20 @@ namespace Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<decimal>("GiaBan")
-                        .HasColumnType("decimal");
+                    b.Property<decimal?>("GiaBan")
+                        .IsRequired()
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<Guid>("IdHoaDon")
+                    b.Property<Guid?>("IdHoaDon")
+                        .IsRequired()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("IdSPChitiet")
+                    b.Property<Guid?>("IdSPChitiet")
+                        .IsRequired()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("SoLuong")
+                    b.Property<int?>("SoLuong")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -197,12 +238,17 @@ namespace Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("GioiTinh")
+                    b.Property<bool?>("GioiTinh")
+                        .IsRequired()
                         .HasColumnType("bit");
 
                     b.Property<string>("MatKhau")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("NgaySinh")
+                        .IsRequired()
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Sdt")
                         .IsRequired()
@@ -223,12 +269,25 @@ namespace Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<decimal>("Size")
-                        .HasColumnType("decimal");
+                    b.Property<float?>("Size")
+                        .IsRequired()
+                        .HasColumnType("real");
 
                     b.HasKey("Id");
 
                     b.ToTable("KichCo", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("bd3aeb4b-dcdb-445b-9669-f5a1ce0c29d7"),
+                            Size = 38f
+                        },
+                        new
+                        {
+                            Id = new Guid("670ad56f-8d6a-478e-8ca5-bef8d0e38af5"),
+                            Size = 39f
+                        });
                 });
 
             modelBuilder.Entity("Data.ModelsClass.MaGiamGia", b =>
@@ -237,23 +296,29 @@ namespace Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("Ma")
+                    b.Property<string>("Ma")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("NgayBatdau")
+                        .IsRequired()
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("NgayKetthuc")
+                        .IsRequired()
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("PhanTramGiam")
+                        .IsRequired()
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("NgayBatdau")
-                        .HasColumnType("datetime");
-
-                    b.Property<DateTime>("NgayKetthuc")
-                        .HasColumnType("datetime");
-
-                    b.Property<decimal>("PhanTramGiam")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("SoLuong")
+                    b.Property<int?>("SoLuong")
+                        .IsRequired()
                         .HasColumnType("int");
 
-                    b.Property<bool>("TrangThai")
-                        .HasColumnType("bit");
+                    b.Property<int?>("TrangThai")
+                        .IsRequired()
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -273,6 +338,18 @@ namespace Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("MauSac", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("7a6c0c50-fb67-44ea-9c62-ad0e0f67ab3c"),
+                            TenMau = "Xanh"
+                        },
+                        new
+                        {
+                            Id = new Guid("9a1b3786-d0d0-402a-bfd8-10db04f8e6ed"),
+                            TenMau = "Do"
+                        });
                 });
 
             modelBuilder.Entity("Data.ModelsClass.NhanVien", b =>
@@ -280,6 +357,10 @@ namespace Data.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("AnhNhanVien")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("DiaChi")
                         .IsRequired()
@@ -289,31 +370,49 @@ namespace Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("GioiTinh")
+                    b.Property<bool?>("GioiTinh")
+                        .IsRequired()
                         .HasColumnType("bit");
 
-                    b.Property<Guid>("IdCvu")
+                    b.Property<Guid?>("IdCvu")
+                        .IsRequired()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("IdGuiBaoCao")
+                    b.Property<Guid?>("IdGuiBaoCao")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("IdGuiBcNavigationId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("MaNV")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MatKhau")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("NhanVienId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<DateTime?>("NgaySinh")
+                        .IsRequired()
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Sdt")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Ten")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("TrangThai")
+                        .IsRequired()
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("IdCvu");
 
-                    b.HasIndex("NhanVienId");
+                    b.HasIndex("IdGuiBcNavigationId");
 
                     b.ToTable("NhanVien", (string)null);
                 });
@@ -324,21 +423,39 @@ namespace Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("IdHang")
+                    b.Property<Guid?>("IdHang")
+                        .IsRequired()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Ten")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("TrangThai")
-                        .HasColumnType("bit");
+                    b.Property<int?>("TrangThai")
+                        .IsRequired()
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("IdHang");
 
                     b.ToTable("SanPham", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("01bf8a6c-d89a-4db2-9068-af277be488ae"),
+                            IdHang = new Guid("b9db8c0c-bf87-4e16-bdd2-a9fee4b14b4a"),
+                            Ten = "Giay 1",
+                            TrangThai = 1
+                        },
+                        new
+                        {
+                            Id = new Guid("9a1b3786-d0d0-402a-bfd8-10db04f8e6ed"),
+                            IdHang = new Guid("da7a593f-20e5-407e-85c6-4bb0a97f1a73"),
+                            Ten = "Giay 2",
+                            TrangThai = 1
+                        });
                 });
 
             modelBuilder.Entity("Data.ModelsClass.SanphamChitiet", b =>
@@ -347,26 +464,33 @@ namespace Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<decimal>("GiaBan")
-                        .HasColumnType("decimal");
+                    b.Property<decimal?>("GiaBan")
+                        .IsRequired()
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<decimal>("GiaNhap")
-                        .HasColumnType("decimal");
+                    b.Property<decimal?>("GiaNhap")
+                        .IsRequired()
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<Guid>("IdKichCo")
+                    b.Property<Guid?>("IdKichCo")
+                        .IsRequired()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("IdMauSac")
+                    b.Property<Guid?>("IdMauSac")
+                        .IsRequired()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("IdSP")
+                    b.Property<Guid?>("IdSP")
+                        .IsRequired()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("SoLuong")
+                    b.Property<int?>("SoLuong")
+                        .IsRequired()
                         .HasColumnType("int");
 
-                    b.Property<bool>("TrangThai")
-                        .HasColumnType("bit");
+                    b.Property<int?>("TrangThai")
+                        .IsRequired()
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -377,6 +501,30 @@ namespace Data.Migrations
                     b.HasIndex("IdSP");
 
                     b.ToTable("SanphamChitiet", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("7aaf5675-683d-4608-9534-ea737a4247b3"),
+                            GiaBan = 100000m,
+                            GiaNhap = 80000m,
+                            IdKichCo = new Guid("bd3aeb4b-dcdb-445b-9669-f5a1ce0c29d7"),
+                            IdMauSac = new Guid("7a6c0c50-fb67-44ea-9c62-ad0e0f67ab3c"),
+                            IdSP = new Guid("01bf8a6c-d89a-4db2-9068-af277be488ae"),
+                            SoLuong = 10,
+                            TrangThai = 1
+                        },
+                        new
+                        {
+                            Id = new Guid("51a13afd-08d1-4a20-a0e0-fb4447bd215d"),
+                            GiaBan = 100000m,
+                            GiaNhap = 80000m,
+                            IdKichCo = new Guid("670ad56f-8d6a-478e-8ca5-bef8d0e38af5"),
+                            IdMauSac = new Guid("9a1b3786-d0d0-402a-bfd8-10db04f8e6ed"),
+                            IdSP = new Guid("9a1b3786-d0d0-402a-bfd8-10db04f8e6ed"),
+                            SoLuong = 10,
+                            TrangThai = 1
+                        });
                 });
 
             modelBuilder.Entity("Data.ModelsClass.TheLoai", b =>
@@ -508,9 +656,11 @@ namespace Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Data.ModelsClass.NhanVien", null)
-                        .WithMany("IdGuiBaoCaoNavi")
-                        .HasForeignKey("NhanVienId");
+                    b.HasOne("Data.ModelsClass.NhanVien", "IdGuiBcNavigation")
+                        .WithMany("InverseIdGuiBcNavigation")
+                        .HasForeignKey("IdGuiBcNavigationId");
+
+                    b.Navigation("IdGuiBcNavigation");
 
                     b.Navigation("chucVu");
                 });
@@ -616,7 +766,7 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Data.ModelsClass.NhanVien", b =>
                 {
-                    b.Navigation("IdGuiBaoCaoNavi");
+                    b.Navigation("InverseIdGuiBcNavigation");
 
                     b.Navigation("hoaDons");
                 });

@@ -4,6 +4,7 @@ using Data.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(CuaHangDbContext))]
-    partial class CuaHangDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230214094324_01")]
+    partial class _01
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -98,18 +100,6 @@ namespace Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Hang", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("b9db8c0c-bf87-4e16-bdd2-a9fee4b14b4a"),
-                            TenHang = "Adidas"
-                        },
-                        new
-                        {
-                            Id = new Guid("da7a593f-20e5-407e-85c6-4bb0a97f1a73"),
-                            TenHang = "Nike"
-                        });
                 });
 
             modelBuilder.Entity("Data.ModelsClass.HinhAnh", b =>
@@ -131,20 +121,6 @@ namespace Data.Migrations
                     b.HasIndex("IdChiTietSP");
 
                     b.ToTable("HinhAnh", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("e508ba75-5185-4ef4-b533-2099fff74a84"),
-                            IdChiTietSP = new Guid("7aaf5675-683d-4608-9534-ea737a4247b3"),
-                            LinkAnh = "C:\\Users\\Admin\\source\\repos\\NET105_Project\\ProjectViews\\wwwroot\\AnhNhanVien\\307ec916-d15c-41b9-aeb8-ebfbf7c58033_nature-3082832.jpg"
-                        },
-                        new
-                        {
-                            Id = new Guid("b596d1db-4113-4ed7-99e2-fa96a945d23c"),
-                            IdChiTietSP = new Guid("51a13afd-08d1-4a20-a0e0-fb4447bd215d"),
-                            LinkAnh = "C:\\Users\\Admin\\source\\repos\\NET105_Project\\ProjectViews\\wwwroot\\AnhNhanVien\\5752c6ba-f2e2-4331-95f2-2abaad283f46_nature-3082832.jpg"
-                        });
                 });
 
             modelBuilder.Entity("Data.ModelsClass.HoaDon", b =>
@@ -274,18 +250,6 @@ namespace Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("KichCo", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("bd3aeb4b-dcdb-445b-9669-f5a1ce0c29d7"),
-                            Size = 38f
-                        },
-                        new
-                        {
-                            Id = new Guid("670ad56f-8d6a-478e-8ca5-bef8d0e38af5"),
-                            Size = 39f
-                        });
                 });
 
             modelBuilder.Entity("Data.ModelsClass.MaGiamGia", b =>
@@ -336,18 +300,6 @@ namespace Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("MauSac", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("7a6c0c50-fb67-44ea-9c62-ad0e0f67ab3c"),
-                            TenMau = "Xanh"
-                        },
-                        new
-                        {
-                            Id = new Guid("9a1b3786-d0d0-402a-bfd8-10db04f8e6ed"),
-                            TenMau = "Do"
-                        });
                 });
 
             modelBuilder.Entity("Data.ModelsClass.NhanVien", b =>
@@ -438,22 +390,6 @@ namespace Data.Migrations
                     b.HasIndex("IdHang");
 
                     b.ToTable("SanPham", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("01bf8a6c-d89a-4db2-9068-af277be488ae"),
-                            IdHang = new Guid("b9db8c0c-bf87-4e16-bdd2-a9fee4b14b4a"),
-                            Ten = "Giay 1",
-                            TrangThai = 1
-                        },
-                        new
-                        {
-                            Id = new Guid("9a1b3786-d0d0-402a-bfd8-10db04f8e6ed"),
-                            IdHang = new Guid("da7a593f-20e5-407e-85c6-4bb0a97f1a73"),
-                            Ten = "Giay 2",
-                            TrangThai = 1
-                        });
                 });
 
             modelBuilder.Entity("Data.ModelsClass.SanphamChitiet", b =>
@@ -499,30 +435,6 @@ namespace Data.Migrations
                     b.HasIndex("IdSP");
 
                     b.ToTable("SanphamChitiet", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("7aaf5675-683d-4608-9534-ea737a4247b3"),
-                            GiaBan = 100000m,
-                            GiaNhap = 80000m,
-                            IdKichCo = new Guid("bd3aeb4b-dcdb-445b-9669-f5a1ce0c29d7"),
-                            IdMauSac = new Guid("7a6c0c50-fb67-44ea-9c62-ad0e0f67ab3c"),
-                            IdSP = new Guid("01bf8a6c-d89a-4db2-9068-af277be488ae"),
-                            SoLuong = 10,
-                            TrangThai = 1
-                        },
-                        new
-                        {
-                            Id = new Guid("51a13afd-08d1-4a20-a0e0-fb4447bd215d"),
-                            GiaBan = 100000m,
-                            GiaNhap = 80000m,
-                            IdKichCo = new Guid("670ad56f-8d6a-478e-8ca5-bef8d0e38af5"),
-                            IdMauSac = new Guid("9a1b3786-d0d0-402a-bfd8-10db04f8e6ed"),
-                            IdSP = new Guid("9a1b3786-d0d0-402a-bfd8-10db04f8e6ed"),
-                            SoLuong = 10,
-                            TrangThai = 1
-                        });
                 });
 
             modelBuilder.Entity("Data.ModelsClass.TheLoai", b =>
