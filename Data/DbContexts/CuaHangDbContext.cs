@@ -28,6 +28,8 @@ namespace Data.DbContexts
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            //seeddata
+            modelBuilder.Seed();
         }
         //dbset
         public DbSet<ChucVu> ChucVus { get; set; }
