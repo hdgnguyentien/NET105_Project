@@ -40,7 +40,7 @@ namespace _1_API.Controllers
 
         [HttpPost]
         [Route("Create")]
-        public async Task<IActionResult> CreateMauSac([FromForm] CreateMauSac cms)
+        public async Task<IActionResult> CreateMauSac( CreateMauSac cms)
         {
             MauSac ms = new MauSac()
             {
@@ -60,8 +60,8 @@ namespace _1_API.Controllers
         }
 
         [HttpPost]
-        [Route("Update/id")]
-        public async Task<IActionResult> UpdateMauSac(Guid id, [FromForm] UpdateMauSac ums)
+        [Route("Update/{id}")]
+        public async Task<IActionResult> UpdateMauSac(Guid id, UpdateMauSac ums)
         {
             var result = await _repo.GetByIdAsync(id);
             if (result == null)
