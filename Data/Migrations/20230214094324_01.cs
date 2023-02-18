@@ -43,7 +43,8 @@ namespace Data.Migrations
                     MatKhau = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DiaChi = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     GioiTinh = table.Column<bool>(type: "bit", nullable: false),
-                    Sdt = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Sdt = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    NgaySinh = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -55,7 +56,7 @@ namespace Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Size = table.Column<decimal>(type: "decimal", nullable: false)
+                    Size = table.Column<float>(type: "real", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -67,12 +68,12 @@ namespace Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Ma = table.Column<int>(type: "int", nullable: false),
-                    NgayBatdau = table.Column<DateTime>(type: "datetime", nullable: false),
-                    NgayKetthuc = table.Column<DateTime>(type: "datetime", nullable: false),
+                    Ma = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    NgayBatdau = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    NgayKetthuc = table.Column<DateTime>(type: "datetime2", nullable: false),
                     SoLuong = table.Column<int>(type: "int", nullable: false),
-                    TrangThai = table.Column<bool>(type: "bit", nullable: false),
-                    PhanTramGiam = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                    TrangThai = table.Column<int>(type: "int", nullable: false),
+                    PhanTramGiam = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -109,13 +110,18 @@ namespace Data.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     IdCvu = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    IdGuiBaoCao = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    IdGuiBaoCao = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     Ten = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    MaNV = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     MatKhau = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Sdt = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AnhNhanVien = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     GioiTinh = table.Column<bool>(type: "bit", nullable: false),
                     DiaChi = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    NhanVienId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    TrangThai = table.Column<int>(type: "int", nullable: false),
+                    NgaySinh = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IdGuiBcNavigationId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -127,8 +133,8 @@ namespace Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_NhanVien_NhanVien_NhanVienId",
-                        column: x => x.NhanVienId,
+                        name: "FK_NhanVien_NhanVien_IdGuiBcNavigationId",
+                        column: x => x.IdGuiBcNavigationId,
                         principalTable: "NhanVien",
                         principalColumn: "Id");
                 });
@@ -140,7 +146,7 @@ namespace Data.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Ten = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IdHang = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    TrangThai = table.Column<bool>(type: "bit", nullable: false)
+                    TrangThai = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -179,9 +185,9 @@ namespace Data.Migrations
                     IdMaGiamGia = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     IdKH = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     IdNV = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    NgayTao = table.Column<DateTime>(type: "DateTime", nullable: false),
-                    TrangThai = table.Column<bool>(type: "bit", nullable: false),
-                    TongTien = table.Column<decimal>(type: "decimal", nullable: false),
+                    NgayTao = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TrangThai = table.Column<int>(type: "int", nullable: false),
+                    TongTien = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     DiaChi = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -215,9 +221,9 @@ namespace Data.Migrations
                     IdMauSac = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     IdKichCo = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     SoLuong = table.Column<int>(type: "int", nullable: false),
-                    GiaNhap = table.Column<decimal>(type: "decimal", nullable: false),
-                    GiaBan = table.Column<decimal>(type: "decimal", nullable: false),
-                    TrangThai = table.Column<bool>(type: "bit", nullable: false)
+                    GiaNhap = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    GiaBan = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    TrangThai = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -250,7 +256,7 @@ namespace Data.Migrations
                     IdSPChitiet = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     IdGioHang = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     SoLuong = table.Column<int>(type: "int", nullable: false),
-                    GiaBan = table.Column<decimal>(type: "decimal", nullable: false)
+                    GiaBan = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -296,7 +302,7 @@ namespace Data.Migrations
                     IdSPChitiet = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     IdHoaDon = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     SoLuong = table.Column<int>(type: "int", nullable: false),
-                    GiaBan = table.Column<decimal>(type: "decimal", nullable: false)
+                    GiaBan = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -391,9 +397,9 @@ namespace Data.Migrations
                 column: "IdCvu");
 
             migrationBuilder.CreateIndex(
-                name: "IX_NhanVien_NhanVienId",
+                name: "IX_NhanVien_IdGuiBcNavigationId",
                 table: "NhanVien",
-                column: "NhanVienId");
+                column: "IdGuiBcNavigationId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_SanPham_IdHang",
