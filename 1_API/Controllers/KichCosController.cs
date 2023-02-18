@@ -40,7 +40,7 @@ namespace _1_API.Controllers
 
         [HttpPost]
         [Route("Create")]
-        public async Task<IActionResult> CreateKichCo([FromForm] CreateKichCo ckc)
+        public async Task<IActionResult> CreateKichCo(CreateKichCo ckc)
         {
             KichCo kc = new KichCo()
             {
@@ -60,8 +60,8 @@ namespace _1_API.Controllers
         }
 
         [HttpPost]
-        [Route("Update/id")]
-        public async Task<IActionResult> UpdateKichCo(Guid id, [FromForm] UpdateKichCo ukc)
+        [Route("Update/{id}")]
+        public async Task<IActionResult> UpdateKichCo(Guid id, UpdateKichCo ukc)
         {
             var result = await _repo.GetByIdAsync(id);
             if (result == null)

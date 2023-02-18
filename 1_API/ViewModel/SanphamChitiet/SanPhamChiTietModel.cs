@@ -2,7 +2,7 @@
 
 namespace _1_API.ViewModel.SanphamChitiet
 {
-    public class CreateSanphamChitiet
+    public class SanPhamChiTietModel
     {
         public Guid? IdSP { get; set; }
         public Guid? IdMauSac { get; set; }
