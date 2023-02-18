@@ -40,7 +40,7 @@ namespace _1_API.Controllers
 
         [HttpPost]
         [Route("Create")]
-        public async Task<IActionResult> CreateHinhAnh([FromForm] CreateHinhAnh cha)
+        public async Task<IActionResult> CreateHinhAnh( CreateHinhAnh cha)
         {
             HinhAnh ha = new HinhAnh()
             {
@@ -61,8 +61,8 @@ namespace _1_API.Controllers
         }
 
         [HttpPost]
-        [Route("Update/id")]
-        public async Task<IActionResult> UpdateHinhAnh(Guid id, [FromForm] UpdateHinhAnh uha)
+        [Route("Update/{id}")]
+        public async Task<IActionResult> UpdateHinhAnh(Guid id, UpdateHinhAnh uha)
         {
             var result = await _repo.GetByIdAsync(id);
             if (result == null)

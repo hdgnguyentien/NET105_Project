@@ -1,0 +1,41 @@
+﻿@model IEnumerable<_1_API.ViewModel.HinhAnh.ViewHinhAnh>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.IdChiTietSP)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LinkAnh)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdChiTietSP)
+            </td>
+            <td>
+                    <img src="@("~/AnhNhanVien/"+item.LinkAnh)" alt="@item.LinkAnh" asp-append-version="true" width="120px" height="140px" />
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

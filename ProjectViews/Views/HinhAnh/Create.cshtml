@@ -1,0 +1,53 @@
+﻿@using Data.ModelsClass
+@model _1_API.ViewModel.HinhAnh.ModelHinhAnh
+
+@{
+    ViewData["Title"] = "Create";
+    var lstSPCT = ViewData["lstSPCT"] as List<SanphamChitiet>;
+}
+
+
+<h1>Create</h1>
+
+<h4>ModelHinhAnh</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="IdChiTietSP" class="control-label"></label>
+                <select class="form-select" asp-for="IdChiTietSP">
+                    @foreach (var item in lstSPCT)
+                    {
+                       <option value="@item.Id">@item.Id</option>
+                    }
+                </select>
+                <span asp-validation-for="IdChiTietSP" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                    <div class="row">
+                        <label asp-for="ImageFile" class="control-label">Ảnh</label>
+                    </div>
+
+                    <img id="FrontImagePrv" src="" alt="Logo Image" width="150px" height="150px" style="border:1px; margin-top: 0px; margin-left:0px" />
+                    <div class="custom-file mt-2">
+                        <input asp-for="ImageFile" class="custom-file-input" id="FLFrontImage" accept="image/*"
+                               onchange="document.getElementById('FrontImagePrv').src = window.URL.createObjectURL(this.files[0])" />
+                    </div>
+                    <span asp-validation-for="ImageFile" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

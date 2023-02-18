@@ -37,7 +37,7 @@ namespace _1_API.Controllers
 
         [HttpPost]
         [Route("Create")]
-        public async Task<IActionResult> CreateMaGiamGia([FromForm] CreateMaGiamGia cnv)
+        public async Task<IActionResult> CreateMaGiamGia(CreateMaGiamGia cnv)
         {
             MaGiamGia nv = new MaGiamGia()
             {
@@ -62,8 +62,8 @@ namespace _1_API.Controllers
         }
 
         [HttpPost]
-        [Route("Update/id")]
-        public async Task<IActionResult> UpdateMaGiamGia(Guid id, [FromForm] UpdateMaGiamGia unv)
+        [Route("Update/{id}")]
+        public async Task<IActionResult> UpdateMaGiamGia(Guid id,UpdateMaGiamGia unv)
         {
             var result = await _repo.GetByIdAsync(id);
             if (result == null)
