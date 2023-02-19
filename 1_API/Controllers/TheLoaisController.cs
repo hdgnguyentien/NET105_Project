@@ -40,7 +40,7 @@ namespace _1_API.Controllers
 
         [HttpPost]
         [Route("Create")]
-        public async Task<IActionResult> CreateTheLoai([FromForm] CreateTheLoai ctl)
+        public async Task<IActionResult> CreateTheLoai( CreateTheLoai ctl)
         {
             TheLoai tl = new TheLoai()
             {
@@ -60,8 +60,8 @@ namespace _1_API.Controllers
         }
 
         [HttpPost]
-        [Route("Update/id")]
-        public async Task<IActionResult> UpdateTheLoai(Guid id, [FromForm] UpdateTheLoai utl)
+        [Route("Update/{id}")]
+        public async Task<IActionResult> UpdateTheLoai(Guid id, UpdateTheLoai utl)
         {
             var result = await _repo.GetByIdAsync(id);
             if (result == null)

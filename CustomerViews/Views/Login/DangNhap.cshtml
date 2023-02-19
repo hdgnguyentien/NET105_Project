@@ -1,0 +1,59 @@
+﻿@model CustomerViews.Models.LoginRequest
+
+@{
+    ViewData["Title"] = "Login";
+    var thongbao = ViewData["loginfalse"] as string;
+}
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - ASM_WEB_BANGIAY</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/login.css" />
+</head>
+<body>
+
+    <div class="main">
+        <div class="main">
+            <div class="container">
+                <form name="formLogin" method="get" asp-controller="Login" asp-action="CheckDangNhap">
+                    <div class="login" style="text-align : center">
+                        <div class="login-title"><h1>Đăng nhập</h1></div>
+                        <div class="mb-3 row">
+                            <div class="col-sm-2"></div>
+                            <label for="" class="col-sm-2 col-form-label">Nhập tài khoản</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" name="Email" />
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <div class="col-sm-2"></div>
+                            <label for="" class="col-sm-2 col-form-label">Nhập mật khẩu</label>
+                            <div class="col-sm-5">
+                                <input type="password" class="form-control" name="MatKhau" />
+                            </div>
+                        </div>
+                        @if (thongbao != null)
+                        {
+                                <div style="text-align: center; color:red">@thongbao</div>
+                        }
+                        <button type="submit" class="btn btn-success">
+                            Đăng nhập hệ thống
+                        </button>
+                        <div class="quenMK">
+                            <a asp-controller="Login" asp-action="QuenMK">Bạn quên mật khẩu ?</a>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+<div>
+    <a asp-action="Home">Back to Homepage</a>
+</div>
+</body>
+</html>
+
