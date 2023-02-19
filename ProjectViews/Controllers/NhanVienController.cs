@@ -26,6 +26,7 @@ namespace ProjectViews.Controllers
             var lstNhanVien = await _services.GetAll<NhanVien>("https://localhost:7203/api/NhanViens/Get-All");
 
             var lstChucVu = await _services.GetAll<ChucVu>("https://localhost:7203/api/ChucVus/Get-All");
+            ViewData["ListChucVu"] = lstChucVu.ToList();
 
             var nv = from a in lstNhanVien.ToList()
                      join b in lstChucVu.ToList() on a.IdCvu equals b.Id
@@ -101,7 +102,7 @@ namespace ProjectViews.Controllers
                     Sdt = nvmodel.Sdt,
                     AnhNhanVien = uniqueFileName,
                 };
-                await _services.Add("https://localhost:7203/api/NhanViens/",nv);
+                var respon = await _services.Add("https://localhost:7203/api/NhanViens/", nv);
                 return RedirectToAction("Index");
             }
             return View();
@@ -115,7 +116,7 @@ namespace ProjectViews.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> Edit(Guid id)
+        public async Task<IActionResult> Edit(string id)
         {
             var lstChucVu = await _services.GetAll<ChucVu>("https://localhost:7203/api/ChucVus/Get-All");
             ViewData["ListChucVu"] = lstChucVu.ToList();
@@ -123,11 +124,13 @@ namespace ProjectViews.Controllers
             var lstNhanVien = await _services.GetAll<NhanVien>("https://localhost:7203/api/NhanViens/Get-All");
             ViewData["ListNhanVien"] = lstNhanVien.ToList();
 
-            var nvid = await _services.GetById<NhanVien>("https://localhost:7203/api/NhanViens/GetById/", id);
+            var idnv = Guid.Parse(id);
+
+            var nvid = await _services.GetById<NhanVien>("https://localhost:7203/api/NhanViens/GetById/", idnv);
 
             UpdateNhanVien nvmd = new UpdateNhanVien()
             {
-                Id = id,
+                Id = idnv,
                 Ten = nvid.Ten,
                 GioiTinh = nvid.GioiTinh,
                 NgaySinh = nvid.NgaySinh,
@@ -199,8 +202,101 @@ namespace ProjectViews.Controllers
                 nv.ImageFile.CopyTo(filestream);
                 update.AnhNhanVien = uniqueFileName;
             };
-            await _services.Update<UpdateNhanVien>("https://localhost:7203/api/NhanViens/Update/", update,nv.Id);
+            await _services.Update<UpdateNhanVien>("https://localhost:7203/api/NhanViens/Update/", update, nv.Id);
             return RedirectToAction("Index", "NhanVien");
+        }
+        public async Task<IActionResult> Detail(Guid id)
+        {
+            var lstChucVu = await _services.GetAll<ChucVu>("https://localhost:7203/api/ChucVus/Get-All");
+
+            var lstNhanVien = await _services.GetAll<NhanVien>("https://localhost:7203/api/NhanViens/Get-All");
+
+
+            var model = await _services.GetById<NhanVien>("https://localhost:7203/api/NhanViens/GetById/", id);
+            var nvs = from a in lstNhanVien.ToList()
+                     join b in lstChucVu.ToList() on a.IdCvu equals b.Id
+                     select new ViewNhanVien()
+                     {
+                         Id = a.Id,
+                         Ten = a.Ten,
+                         MaNV = a.MaNV,
+                         DiaChi = a.DiaChi,
+                         Email = a.Email,
+                         NgaySinh = a.NgaySinh.Value.Day + "" + "/" + a.NgaySinh.Value.Month + "/" + a.NgaySinh.Value.Year,
+                         MatKhau = a.MatKhau,
+                         ChucVu = b.Ten,
+                         AnhNhanVien = a.AnhNhanVien,
+                         NguoiGuiBC = a.MaNV,
+                         Sdt = a.Sdt,
+                         TrangThai = a.TrangThai == 1 ? "Đang hoạt động" : "Ngưng Hoạt động",
+                         GioiTinh = a.GioiTinh == true ? "Nam" : "Nữ",
+                     };
+            
+            var nv = nvs.FirstOrDefault(p => p.Id == id);
+
+            ViewData["Image"] = nv.AnhNhanVien;
+            ViewData["Id"] = nv.Id.ToString();
+
+            return View(nv);
+        }
+
+        public async Task<IActionResult> Search(string ten, string idChucvu)
+        {
+            var lstChucVu = await _services.GetAll<ChucVu>("https://localhost:7203/api/ChucVus/Get-All");
+            ViewData["ListChucVu"] = lstChucVu.ToList();
+            var lstNhanVien = await _services.GetAll<NhanVien>("https://localhost:7203/api/NhanViens/Get-All");
+
+            if (!string.IsNullOrEmpty(ten) || !string.IsNullOrEmpty(idChucvu))
+            {
+                if (!string.IsNullOrEmpty(idChucvu))
+                {
+                    var id = Guid.Parse(idChucvu);
+                    lstChucVu = lstChucVu.Where(p => p.Id == id);
+                    var nv1 = from a in lstNhanVien.ToList()
+                             join b in lstChucVu.ToList() on a.IdCvu equals b.Id
+                             select new ViewNhanVien()
+                             {
+                                 Id = a.Id,
+                                 Ten = a.Ten,
+                                 MaNV = a.MaNV,
+                                 AnhNhanVien = a.AnhNhanVien,
+                                 ChucVu = b.Ten,
+                                 Email = a.Email,
+                                 Sdt = a.Sdt,
+                                 TrangThai = a.TrangThai == 1 ? "Đang hoạt động" : "Ngưng hoạt động"
+                             };
+                    if (!string.IsNullOrEmpty(ten))
+                    {
+                        nv1 = nv1.Where(p => p.Ten.ToLower().Contains(ten.ToLower()));
+                        return View("Index", nv1);
+                    }
+                    return View("Index", nv1);
+
+                }
+                else
+                {
+                    var nv = from a in lstNhanVien.ToList()
+                             join b in lstChucVu.ToList() on a.IdCvu equals b.Id
+                             select new ViewNhanVien()
+                             {
+                                 Id = a.Id,
+                                 Ten = a.Ten,
+                                 MaNV = a.MaNV,
+                                 AnhNhanVien = a.AnhNhanVien,
+                                 ChucVu = b.Ten,
+                                 Email = a.Email,
+                                 Sdt = a.Sdt,
+                                 TrangThai = a.TrangThai == 1 ? "Đang hoạt động" : "Ngưng hoạt động"
+                             };
+                    nv = nv.Where(p => p.Ten.ToLower().Contains(ten.ToLower()));
+                    return View("Index", nv);
+                }
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
+            return RedirectToAction("Index");
         }
     }
 }
