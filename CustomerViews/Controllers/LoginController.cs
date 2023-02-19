@@ -21,7 +21,7 @@ namespace CustomerViews.Controllers
         public async Task<IActionResult> CheckDangNhap(LoginRequest request)
         {
             ViewData["loginfalse"] = "";
-            if (HttpContext.Session.GetString("user") != null)
+            if (HttpContext.Session.GetString("idkh") != null)
             {
                 ViewData["loginfalse"] = "Bạn đã đăng nhập rồi";
                 return View("DangNhap");
@@ -44,7 +44,10 @@ namespace CustomerViews.Controllers
                     }
                     else
                     {
-                        HttpContext.Session.SetString("user", request.Email);
+                        HttpContext.Session.SetString("idkh", kh.Id.ToString());
+                        HttpContext.Session.SetString("ten", kh.Ten);
+                        if (kh.GioHangs != null && kh.GioHangs.Any())
+                            HttpContext.Session.SetString("idgh", kh.GioHangs.FirstOrDefault().Id.ToString());
                         return RedirectToAction("Index", "Home");
                     }
                 }
@@ -52,8 +55,14 @@ namespace CustomerViews.Controllers
         }
         public IActionResult DangXuat()
         {
-            HttpContext.Session.Remove("user");
+            HttpContext.Session.Remove("idkh");
+            HttpContext.Session.Remove("ten");
+            HttpContext.Session.Remove("idgh");
             return RedirectToAction("Index", "Home");
+        }
+        public IActionResult DangKy()
+        {
+            return View();
         }
     }
 }
