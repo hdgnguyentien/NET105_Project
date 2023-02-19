@@ -10,5 +10,10 @@
         public string? AnhNhanVien { get; set; }
         public string? Sdt { get; set; }
         public string? TrangThai { get; set; }
+        public string? MatKhau { get; set; }
+        public string? DiaChi { get; set; }
+        public string? NguoiGuiBC { get; set; }
+        public string? NgaySinh { get; set; }
+        public string? GioiTinh { get; set; }
     }
 }
