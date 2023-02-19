@@ -5,6 +5,7 @@ using CustomerViews.IServices;
 using CustomerViews.Models;
 using Data.ModelsClass;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Cryptography;
 
 namespace CustomerViews.Controllers
 {
@@ -49,8 +50,10 @@ namespace CustomerViews.Controllers
                     {
                         HttpContext.Session.SetString("idkh", kh.Id.ToString());
                         HttpContext.Session.SetString("ten", kh.Ten??"");
-                        if (kh.GioHangs != null && kh.GioHangs.Any())
-                            HttpContext.Session.SetString("idgh", kh.GioHangs.FirstOrDefault().Id.ToString());
+                        var lstGH = await _services.GetAll<GioHang>(Connection.api + "GioHangs/Get-All");
+                        var gh = lstGH.FirstOrDefault(x => x.IdKH == kh.Id);
+                        if (gh != null)
+                            HttpContext.Session.SetString("idgh", gh.Id.ToString());
                         return RedirectToAction("Index", "Home");
                     }
                 }
