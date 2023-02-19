@@ -1,8 +1,81 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model IEnumerable<Data.ModelsClass.SanphamChitiet>
+
+@{
+	ViewData["Title"] = "Home Page";
+    var thongbao = ViewData["thongbao"] as string;
+    var loginfalse = ViewData["loginfalse"] as string;
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+<div>
+	<h1 class="display-4" style=" text-align:center">Chào mừng đến với MAN CLASSIC</h1>
+	<div class="row">
+
+		<div class="col-6" style="margin-left:40px">
+			<form method="get" asp-controller="Home" asp-action="SearchSanPham">
+				<div class="row">
+					<div class="col-4">
+						<input name="a" type="number" placeholder="Nhập khoảng 1" class="form-control" />
+
+					</div>
+					<div class="col-4">
+						<input name="b" type="number" placeholder="Nhập khoảng 2" class="form-control" />
+
+					</div>
+					<div class="col-4"><button class="btn btn-success" type="submit">Tìm kiếm</button></div>
+				</div>
+
+			</form>
+		</div>
+
+		<div class="col-4">
+			<form method="get" asp-controller="Home" asp-action="SearchByName">
+				<div class="row">
+					<div class="col-8">
+						<input name="name" type="text" placeholder="Nhập tên sản phẩm" class="form-control" />
+
+					</div>
+					<div class="col-4">
+						<button class="btn btn-success" type="submit">Tìm kiếm</button>
+
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<br />
+
+
+	@if (Model != null)
+	{       
+			<ul class="row" style="list-style: none">
+			@foreach (var item in Model)
+			{
+						<li class="col-3">               
+						<div class="card" style="width: 16rem; margin-bottom: 20px">
+							<img src="~/css/IMG_SP/@item.hinhAnhs" class="card-img-top" alt="...">
+						@*<p>@Html.DisplayFor(modelItem => item.HinhAnh)</p>*@
+							<div class="card-body">
+								<h3 style="text-align:center" class="card-title">@Html.DisplayFor(modelItem => item.sanPham.Ten)</h3>
+								<div class="card-price">
+									<p class="">
+												Giá gốc: <del> @(@*sale =*@ item.GiaBan * 2) $</del>
+									</p>
+									<p class="">
+										<b style="color:red">Sale: @Html.DisplayFor(modelItem => item.GiaBan) $</b>
+									</p>
+									<p class="">
+										<b>Trạng thái:@(item.TrangThai==1 ? "Còn hàng" : "Hết hàng")</b>
+									</p>
+									<p>
+										<a asp-controller="Sanpham" asp-action="DetailsKH" asp-route-ma="@item.Id">Chi tiết sản phẩm</a>
+									</p>
+								</div>
+								<a asp-controller="Home" asp-action="Addtocard" asp-route-ma="@item.Id" class="btn btn-primary">Thêm vào giỏ hàng</a>
+							</div>
+						</div>                   
+						</li>
+			}
+			</ul>  
+	}
 </div>
