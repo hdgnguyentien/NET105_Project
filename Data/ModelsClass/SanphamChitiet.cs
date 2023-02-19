@@ -20,7 +20,9 @@ namespace Data.ModelsClass
         public Guid? IdSP { get; set; }
         public Guid? IdMauSac { get; set; }
         public Guid? IdKichCo { get; set; }
-
+        public string? TenSPChiTiet { get; set; }
+        public string? MaSPChiTiet { get; set; }
+        public string? AnhDaiDien { get; set; }
         public int? SoLuong { get; set; }
         public decimal? GiaNhap { get; set; }
         public decimal? GiaBan { get; set; }

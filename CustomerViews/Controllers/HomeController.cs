@@ -23,7 +23,7 @@ namespace CustomerViews.Controllers
             var lstSPCT = await _services.GetAll<SanphamChitiet>(Connection.api + "SanphamChitiets/Get-All");
             return View(lstSPCT.ToList());
         }
-        public async Task<IActionResult> DetailSPCT(Guid spct_id)
+        public async Task<IActionResult> SanPhamChiTiet(Guid spct_id)
         {
             var spct = await _services.GetById<SanphamChitiet>(Connection.api + "SanphamChitiets/GetById/", spct_id);
             return View(spct);
