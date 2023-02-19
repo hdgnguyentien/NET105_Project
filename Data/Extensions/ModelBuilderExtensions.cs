@@ -18,11 +18,13 @@ namespace Data.Extensions
                     IdSP = new Guid("01BF8A6C-D89A-4DB2-9068-AF277BE488AE"),
                     IdKichCo = new Guid("BD3AEB4B-DCDB-445B-9669-F5A1CE0C29D7"),
                     IdMauSac = new Guid("7A6C0C50-FB67-44EA-9C62-AD0E0F67AB3C"),
-                    
+                    TenSPChiTiet = "V1",
+                    MaSPChiTiet = "SP1",
                     SoLuong = 10, 
                     GiaBan = 100000,
                     GiaNhap = 80000,
                     TrangThai = 1,
+                    AnhDaiDien = "null"
                     },
                 new SanphamChitiet()
                 {
@@ -30,12 +32,14 @@ namespace Data.Extensions
                     IdSP = new Guid("9A1B3786-D0D0-402A-BFD8-10DB04F8E6ED") ,
                     IdKichCo = new Guid("670AD56F-8D6A-478E-8CA5-BEF8D0E38AF5") ,
                     IdMauSac = new Guid("9A1B3786-D0D0-402A-BFD8-10DB04F8E6ED") ,
-
+                    TenSPChiTiet = "V1",
+                    MaSPChiTiet = "SP2",
                     SoLuong = 10,
                     GiaBan = 100000,
                     GiaNhap = 80000,
-                    TrangThai = 1
-                });
+                    TrangThai = 1,
+                    AnhDaiDien = "null"
+                });;
             modelBuilder.Entity<HinhAnh>().HasData(
                 new HinhAnh()
                 {
