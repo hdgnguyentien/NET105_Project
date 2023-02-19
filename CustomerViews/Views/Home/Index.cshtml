@@ -9,40 +9,21 @@
 
 <div>
 	<h1 class="display-4" style=" text-align:center">Chào mừng đến với MAN CLASSIC</h1>
-	<div class="row">
-
-		<div class="col-6" style="margin-left:40px">
-			<form method="get" asp-controller="Home" asp-action="SearchSanPham">
+		<form method="get" asp-controller="Home" asp-action="SearchSanPham">
 				<div class="row">
-					<div class="col-4">
-						<input name="a" type="number" placeholder="Nhập khoảng 1" class="form-control" />
-
+					<div class="col-2">
+						<input name="min" type="number" placeholder="Nhập khoảng từ" class="form-control" />
 					</div>
-					<div class="col-4">
-						<input name="b" type="number" placeholder="Nhập khoảng 2" class="form-control" />
-
+					<div class="col-2">
+						<input name="max" type="number" placeholder="Đến" class="form-control" />
 					</div>
-					<div class="col-4"><button class="btn btn-success" type="submit">Tìm kiếm</button></div>
-				</div>
-
-			</form>
-		</div>
-
-		<div class="col-4">
-			<form method="get" asp-controller="Home" asp-action="SearchByName">
-				<div class="row">
-					<div class="col-8">
+					<div class="col-6">
 						<input name="name" type="text" placeholder="Nhập tên sản phẩm" class="form-control" />
-
 					</div>
-					<div class="col-4">
-						<button class="btn btn-success" type="submit">Tìm kiếm</button>
-
-					</div>
+					<div class="col-2"><button class="btn btn-success" type="submit">Tìm kiếm</button></div>
 				</div>
+
 			</form>
-		</div>
-	</div>
 	<br />
 
 
@@ -59,7 +40,7 @@
 								<h3 style="text-align:center" class="card-title">@Html.DisplayFor(modelItem => item.sanPham.Ten)</h3>
 								<div class="card-price">
 									<p class="">
-												Giá gốc: <del> @(@*sale =*@ item.GiaBan * 2) $</del>
+												Giá gốc: <del> @(@*sale =*@ item.GiaBan) $</del>
 									</p>
 									<p class="">
 										<b style="color:red">Sale: @Html.DisplayFor(modelItem => item.GiaBan) $</b>

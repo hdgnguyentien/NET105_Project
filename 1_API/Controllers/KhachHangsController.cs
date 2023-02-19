@@ -37,8 +37,7 @@ namespace _1_API.Controllers
 
         [HttpPost]
         [Route("Create")]
-        public async Task<IActionResult> CreateKhachHang([FromForm] CreateKhachHang ckh)
-
+        public async Task<IActionResult> CreateKhachHang( CreateKhachHang ckh)
         {
             KhachHang kh = new KhachHang()
             {
