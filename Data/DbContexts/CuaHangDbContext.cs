@@ -1,4 +1,5 @@
-﻿using Data.ModelsClass;
+﻿using Data.Extensions;
+using Data.ModelsClass;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -22,12 +23,14 @@ namespace Data.DbContexts
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            base.OnConfiguring(optionsBuilder.UseSqlServer("Server=DESKTOP-JNDR021\\SQLEXPRESS;Database=Net105Database;Trusted_Connection=True;"));
+            base.OnConfiguring(optionsBuilder.UseSqlServer("Server=HDGNGUYENTIEN\\SQLEXPRESS;Database=Net105Database;Trusted_Connection=True;"));
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            //seeddata
+            modelBuilder.Seed();
         }
         //dbset
         public DbSet<ChucVu> ChucVus { get; set; }
@@ -46,5 +49,7 @@ namespace Data.DbContexts
         public DbSet<TheLoai> TheLoais { get; set; }
         public DbSet<TheLoaiSanPham> TheLoaiSanPhams { get; set; }
         public DbSet<HinhAnh> HinhAnhs { get; set; }
+
+
     }
 }
