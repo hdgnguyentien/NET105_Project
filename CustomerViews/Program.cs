@@ -1,7 +1,16 @@
+using CustomerViews.IServices;
+using CustomerViews.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddSession(p => {
+    p.IdleTimeout = TimeSpan.FromMinutes(30);
+});
 builder.Services.AddControllersWithViews();
+builder.Services.AddMvc();
+builder.Services.AddScoped<IAllServices, AllServices>();
+
 
 var app = builder.Build();
 
@@ -15,8 +24,8 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseRouting();
+app.UseSession();
 
 app.UseAuthorization();
 
