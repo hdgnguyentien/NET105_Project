@@ -37,7 +37,7 @@ namespace _1_API.Controllers
 
         [HttpPost]
         [Route("Create")]
-        public async Task<IActionResult> CreateGioHangChiTiet([FromForm] CreateGioHangChiTiet cnv)
+        public async Task<IActionResult> CreateGioHangChiTiet(CreateGioHangChiTiet cnv)
         {
             GiohangChitiet nv = new GiohangChitiet()
             {

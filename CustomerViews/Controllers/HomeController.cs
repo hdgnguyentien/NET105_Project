@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using CustomerViews.IServices;
 using CustomerViews.Models;
 using System.Diagnostics;
+using _1_API.ViewModel.GioHangChiTiet;
 
 namespace CustomerViews.Controllers
 {
@@ -55,7 +56,47 @@ namespace CustomerViews.Controllers
 
             return View("Index");
         }
-        public IActionResult Privacy()
+		public async Task<IActionResult> Addtocard(Guid ma)
+		{
+			string login = HttpContext.Session.GetString("user");
+			if (login == null)
+			{
+				return RedirectToAction("ErrorKHchuadangnhap");
+			}
+			else
+			{
+                var maND = await _services.GetAll<KhachHang>(Connection.api + "KhachHangs/Get-All");
+                var maKH = maND.FirstOrDefault(p => p.Email == HttpContext.Session.GetString("user"));
+
+                var laymaGH = await _services.GetAll<GioHang>(Connection.api + "GioHangs/Get-All");
+                var maGH = laymaGH.FirstOrDefault(p => p.IdKH == maKH.Id);
+
+				var lstSanphamChitiet = await _services.GetAll<SanphamChitiet>(Connection.api + "SanphamChitiets/Get-All");
+				var spct = lstSanphamChitiet.FirstOrDefault(x=>x.Id == ma);
+
+                var dataa =await _services.GetAll<GiohangChitiet>(Connection.api + "GioHangChiTiets/Get-All");
+                var data= dataa.FirstOrDefault(p => p.IdSPChitiet == spct.Id && p.IdGioHang == maGH.Id);
+				if (data.IdSPChitiet == null)
+				{
+                    CreateGioHangChiTiet ghct = new CreateGioHangChiTiet()
+                    {
+						IdGioHang = maGH.Id,
+						IdSPChitiet= spct.Id,
+						GiaBan = spct.GiaBan,
+						SoLuong = 1
+					};
+				    await _services.Add(Connection.api + "GioHangChiTiets/", ghct);
+					return RedirectToAction("Index");
+				}
+				else
+				{
+					data.SoLuong++;
+					await _services.Update(Connection.api + "GioHangChiTiets/", data, ma);
+					return RedirectToAction("Index");
+				}
+			}
+		}
+		public IActionResult Privacy()
         {
             return View();
         }
