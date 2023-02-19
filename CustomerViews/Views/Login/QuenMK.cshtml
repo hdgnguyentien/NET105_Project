@@ -1,0 +1,54 @@
+﻿@model CustomerViews.Models.QuenMK
+
+@{
+    ViewData["Title"] = "QuenMK";
+    var check = ViewData["check"] as string;
+}
+
+<div class="container">
+    <form method="get" asp-controller="Login" asp-action="CheckQuenMK">
+        <div class="login">
+            <div class="login-title" style="text-align:center;"><h1>Quên mật khẩu</h1></div>
+
+            <div class="mb-3 row">
+                <div class="col-sm-2"></div>
+                <label for="" class="col-sm-2 col-form-label">Nhập Email</label>
+                <div class="col-sm-5">
+                    <input name="Email" type="text" class="form-control" />
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <div class="col-sm-2"></div>
+                <label for="" class="col-sm-2 col-form-label">Nhập số điện thoại</label>
+                <div class="col-sm-5">
+                    <input name="SDT" type="text" class="form-control" />
+                </div>
+            </div>
+            @if (check != null)
+            {
+                <div style="text-align:center; color:red;margin-top:20px">
+                    <h3>
+                        @check
+                    </h3>
+                </div>
+            }
+            <div class="sub" style="text-align:center;">
+                <button type="submit" class="btn btn-danger">
+                    Lấy lại mật khẩu
+                </button>
+            <div class="dangKy">
+                <a asp-controller="Login" asp-action="DangKy">Bạn chưa có tài khoản? Đăng ký ngay</a>
+            </div>
+            <div class="dangNhap">
+                <a asp-controller="Login" asp-action="DangNhap">Bạn đã có tài khoản? Đăng nhập</a>
+            </div>
+            </div>
+        </div>
+
+
+    </form>
+
+</div>
+
+

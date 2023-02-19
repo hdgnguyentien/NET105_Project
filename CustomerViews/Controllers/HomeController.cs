@@ -28,20 +28,19 @@ namespace CustomerViews.Controllers
             return View(spct);
         }
         [HttpGet]
-        public async Task<IActionResult> SearchSanPham(decimal a, decimal b)
+        public async Task<IActionResult> SearchSanPham(decimal min, decimal max, string name)
         {
             var lstSanphamChitiet = await _services.GetAll<SanphamChitiet>(Connection.api + "SanphamChitiets/Get-All");
-            var lstSPCT = lstSanphamChitiet.ToList().ToList();
 
-            decimal tam;
-            if (a > b)
+            decimal temp;
+            if (min > max)
             {
-                tam = a;
-                a = b;
-                b = tam;
+                temp = min;
+                min = max;
+                max = temp;
             }
 
-            var result = lstSPCT.Where(p => p.GiaBan >= a && p.GiaBan <= b).ToList();
+            var result = lstSanphamChitiet.Where(p => p.GiaBan >= min && p.GiaBan <= max && p.sanPham.Ten.Contains(name)).ToList();
             if (result.Count > 0)
             {
                 ViewData["result"] = "Tìm thấy" + result.Count + "sản phẩm";
@@ -49,11 +48,9 @@ namespace CustomerViews.Controllers
             }
             else
             {
-                ViewData["thongbao"] = "Không thấy sản phẩm nào trong khoảng bạn vừa nhập";
-
+                ViewData["thongbao"] = "Không tìm thấy sản phẩm nào phù hợp";
+                return View("Index");
             }
-
-            return View("Index");
         }
         public IActionResult Privacy()
         {
