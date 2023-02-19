@@ -1,0 +1,64 @@
+﻿@model Data.ModelsClass.SanphamChitiet
+
+@{
+    ViewData["Title"] = "DetailSPCT";
+}
+
+
+<h1>Chi tiết sản phẩm</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            Tên sản phẩm
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TenSP)
+        </dd>
+
+        <dt class = "col-sm-2">
+            Giá gốc
+        </dt>
+        <dd class = "col-sm-10">
+            @(gg = Model.GiaBan * 2)
+
+        </dd>
+        <dt class = "col-sm-2">
+            Giá sale
+        </dt>
+        <dd class = "col-sm-10">
+            @(gb = Model.GiaBan)
+        </dd>
+
+        <dt class = "col-sm-2">
+            Số lượng trong kho
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.SoLuong)
+        </dd>
+        <dt class = "col-sm-2">
+            Hình ảnh
+        </dt>
+        <dd class = "col-sm-10">
+            <img src="~/css//IMG_SP/@Html.DisplayFor(model => model.HinhAnh)" style="width:100px" height="100px" />
+
+        </dd>
+        <dt class = "col-sm-2">
+            Trạng thái
+        </dt>
+        <dd class = "col-sm-10">
+            @(Model.TrangThai ? "Còn hàng" : "Hết hàng")
+        </dd>
+        <dt class = "col-sm-2">
+            Hãng
+        </dt>
+        <dd class = "col-sm-10">
+            @(tenNSX = lstNSX.FirstOrDefault(p => p.Ma == Model.MaNSX).TenNSX)
+        </dd>
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    <a asp-action="Index">Back to List</a>
+</div>
