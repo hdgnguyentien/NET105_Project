@@ -71,7 +71,7 @@
 												<a asp-controller="Home" asp-action="SanPhamChiTiet" asp-route-spct_id="@item.Id">Chi tiết sản phẩm</a>
 									</p>
 								</div>
-								<a asp-controller="Home" asp-action="Addtocard" asp-route-id="@item.Id" class="btn btn-primary">Thêm vào giỏ hàng</a>
+							<a asp-controller="Cart" asp-action="Addtocard" asp-route-ma="@item.Id" class="btn btn-primary">Thêm vào giỏ hàng</a>
 							</div>
 						</div>                   
 						</li>

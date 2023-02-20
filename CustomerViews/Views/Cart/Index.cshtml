@@ -1,0 +1,61 @@
+﻿@using Data.ModelsClass;
+@model IEnumerable<Data.ModelsClass.SanphamChitiet>
+
+@{
+    ViewData["Title"] = "Index";
+    var lstSP = ViewData["lstSP"] as List<SanPham>;
+    string tensp = "";
+    decimal thanhtien = 0;
+    var tt = ViewBag.tt;
+}
+
+    <h3>Giỏ hàng </h3>
+@if (ViewBag.thongbao != null)
+{
+    <div class="alert alert-danger">@ViewBag.thongbao</div>
+    }
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Ảnh sản phẩm</th>
+                <th>Tên sản phẩm</th>
+                <th>Giá bán</th>
+                <th>Số lượng</th>
+                <th></th>
+                <th>Thành tiền</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                    <tr>
+                        <td><img src="@item.AnhDaiDien" width="60"/></td>
+                        <td>@(tensp = lstSP.FirstOrDefault(p => p.Id == item.IdSP).Ten)</td>
+                        <td>@item.GiaBan</td>
+                        <td>@item.SoLuong</td>
+                        <td>
+                            <a asp-action="TangSL" asp-route-id="@item.Id" class="btn btn-sm btn-primary">+</a>
+                            <a asp-action="GiamSL" asp-route-id="@item.Id" class="btn btn-sm btn-success">-</a>
+                            <a asp-action="Remove" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Remove</a>
+                        </td>
+                        <td>@(thanhtien = item.GiaBan * item.SoLuong)</td>
+
+                    </tr>
+            }
+            <tr>
+                    <td class="text-right" colspan="6"><h6>Tổng tiền: @tt</h6> </td>
+            </tr>
+            <tr>
+                <td colspan="6"class="text-right">
+                   <a asp-action="Clear" class="btn btn-danger ">Clear Cart</a>
+                   <a asp-action="CheckOut" class="btn btn-primary">Check Out</a>
+                   
+                </td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="6"class="text-left "><a asp-controller="Home" asp-action="Index" class="btn btn-success">Tiếp tục mua</a></td>
+            </tr>
+        </tfoot>
+    </table>
