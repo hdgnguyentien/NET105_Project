@@ -21,14 +21,32 @@ namespace CustomerViews.Controllers
         public async Task<IActionResult> Index()
         {
             var lstSPCT = await _services.GetAll<SanphamChitiet>(Connection.api + "SanphamChitiets/Get-All");
+            var lstSP = await _services.GetAll<SanPham>(Connection.api + "SanPhams/Get-All");
+            var lstMS = await _services.GetAll<MauSac>(Connection.api + "MauSacs/Get-All");
+            var lstKC = await _services.GetAll<KichCo>(Connection.api + "KichCos/Get-All");
+            var lstTL = await _services.GetAll<TheLoai>(Connection.api + "TheLoais/Get-All");
+            foreach (var item in lstSPCT)
+            {
+                item.sanPham = lstSP.FirstOrDefault(x => x.Id == item.IdSP);
+                item.mauSac = lstMS.FirstOrDefault(x => x.Id == item.IdMauSac);
+                item.kichCo = lstKC.FirstOrDefault(x => x.Id == item.IdKichCo);
+            }
             return View(lstSPCT.ToList());
         }
         public async Task<IActionResult> SanPhamChiTiet(Guid spct_id)
         {
             var spct = await _services.GetById<SanphamChitiet>(Connection.api + "SanphamChitiets/GetById/", spct_id);
+
+            var lstSP = await _services.GetAll<SanPham>(Connection.api + "SanPhams/Get-All");
+            var lstMS = await _services.GetAll<MauSac>(Connection.api + "MauSacs/Get-All");
+            var lstKC = await _services.GetAll<KichCo>(Connection.api + "KichCos/Get-All");
+            var lstTL = await _services.GetAll<TheLoai>(Connection.api + "TheLoais/Get-All");
+
+            spct.sanPham = lstSP.FirstOrDefault(x => x.Id == spct.IdSP);
+            spct.mauSac = lstMS.FirstOrDefault(x => x.Id == spct.IdMauSac);
+            spct.kichCo = lstKC.FirstOrDefault(x => x.Id == spct.IdKichCo);
             return View(spct);
         }
-        [HttpGet]
         public async Task<IActionResult> SearchSanPham(decimal min, decimal max, string name)
         {
             var lstSanphamChitiet = await _services.GetAll<SanphamChitiet>(Connection.api + "SanphamChitiets/Get-All");
@@ -101,6 +119,18 @@ namespace CustomerViews.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+        public async Task<SanphamChitiet> GetThongTinSP(SanphamChitiet spct)
+        {
+            var lstSP = await _services.GetAll<SanPham>(Connection.api + "SanPhams/Get-All");
+            var lstMS = await _services.GetAll<MauSac>(Connection.api + "MauSacs/Get-All");
+            var lstKC = await _services.GetAll<KichCo>(Connection.api + "KichCos/Get-All");
+            var lstTL = await _services.GetAll<TheLoai>(Connection.api + "TheLoais/Get-All");
+
+            spct.sanPham = lstSP.FirstOrDefault(x => x.Id == spct.IdSP);
+            spct.mauSac = lstMS.FirstOrDefault(x => x.Id == spct.IdMauSac);
+            spct.kichCo = lstKC.FirstOrDefault(x => x.Id == spct.IdKichCo);
+            return spct;
         }
     }
 }

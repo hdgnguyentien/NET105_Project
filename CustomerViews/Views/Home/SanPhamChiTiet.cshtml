@@ -18,6 +18,20 @@
         </dd>
 
         <dt class = "col-sm-2">
+            Màu sắc
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.mauSac.TenMau)
+        </dd>
+
+        <dt class = "col-sm-2">
+            Kích cỡ
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.kichCo.Size)
+        </dd>
+
+        <dt class = "col-sm-2">
             Giá gốc
         </dt>
         <dd class = "col-sm-10">
@@ -51,12 +65,19 @@
         <dd class = "col-sm-10">
             @(Model.TrangThai == 1 ? "Còn hàng" : "Hết hàng")
         </dd>
-        <dt class = "col-sm-2">
+        @*<dt class = "col-sm-2">
             Hãng
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.sanPham.hang.TenHang)
         </dd>
+
+        <dt class = "col-sm-2">
+            Hãng
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.theLoaiSanPhams.Select(x=>x.theLoai.TenTheLoai))
+        </dd>*@
     </dl>
 </div>
 <div class="row">
