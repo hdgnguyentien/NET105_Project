@@ -37,11 +37,11 @@ namespace _1_API.Controllers
 
         [HttpPost]
         [Route("Create")]
-        public async Task<IActionResult> CreateHoaDon([FromForm] CreateHoaDon cnv)
+        public async Task<IActionResult> CreateHoaDon(CreateHoaDon cnv)
         {
             HoaDon nv = new HoaDon()
             {
-                Id = Guid.NewGuid(),
+                Id = cnv.Id,
                 IdKH = cnv.IdKH,
                 IdMaGiamGia = cnv.IdMaGiamGia,
                 IdNV = cnv.IdNV,

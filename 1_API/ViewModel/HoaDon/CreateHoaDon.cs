@@ -2,6 +2,7 @@
 {
     public class CreateHoaDon
     {
+        public Guid Id { get; set; }
         public Guid? IdMaGiamGia { get; set; }
         public Guid? IdKH { get; set; }
         public Guid? IdNV { get; set; }

@@ -21,6 +21,8 @@ namespace CustomerViews.Controllers
         public async Task<IActionResult> Index()
         {
             var lstSPCT = await _services.GetAll<SanphamChitiet>(Connection.api + "SanphamChitiets/Get-All");
+            var lstSanPham = await _services.GetAll<SanPham>(Connection.api + "SanPhams/Get-All");
+            ViewData["lstSP"] = lstSanPham.ToList();
             return View(lstSPCT.ToList());
         }
         public async Task<IActionResult> SanPhamChiTiet(Guid spct_id)

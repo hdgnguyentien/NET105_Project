@@ -19,7 +19,7 @@ namespace Data.Configurations
             builder.Property(x=>x.TongTien).IsRequired();
             builder.Property(x=>x.NgayTao).IsRequired();
             builder.Property(x=>x.DiaChi).IsRequired();
-            builder.Property(x=>x.IdNV).IsRequired();
+            builder.Property(x=>x.IdNV);
             builder.Property(x=>x.IdKH).IsRequired();
 
             builder.HasOne(x => x.maGiamGia).WithMany(x => x.hoaDons).HasForeignKey(x => x.IdMaGiamGia);
