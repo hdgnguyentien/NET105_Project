@@ -1,9 +1,12 @@
-﻿@model IEnumerable<Data.ModelsClass.SanphamChitiet>
+﻿@using Data.ModelsClass;
+@model IEnumerable<Data.ModelsClass.SanphamChitiet>
 
 @{
 	ViewData["Title"] = "Home Page";
     var thongbao = ViewData["thongbao"] as string;
     var loginfalse = ViewData["loginfalse"] as string;
+	var lstSP = ViewData["lstSP"] as List<SanPham>;
+	string tensp = "";
 }
 
 
@@ -37,7 +40,7 @@
 							<img src="~/css/IMG_SP/@item.hinhAnhs" class="card-img-top" alt="...">
 						@*<p>@Html.DisplayFor(modelItem => item.HinhAnh)</p>*@
 							<div class="card-body">
-								<h3 style="text-align:center" class="card-title">@Html.DisplayFor(modelItem => item.sanPham.Ten)</h3>
+							<h3 style="text-align:center" class="card-title">@(tensp = lstSP.FirstOrDefault(p => p.Id == item.IdSP).Ten)</h3>
 								<div class="card-price">
 									<p class="">
 												Giá gốc: <del> @(@*sale =*@ item.GiaBan) $</del>
