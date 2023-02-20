@@ -12,10 +12,12 @@ namespace _1_API.Controllers
     public class KhachHangsController : ControllerBase
     {
         private IAllRepositories<KhachHang> _repo;
+        private IAllRepositories<GioHang> _repoGioHang;
 
-        public KhachHangsController(IAllRepositories<KhachHang> repo)
+        public KhachHangsController(IAllRepositories<KhachHang> repo, IAllRepositories<GioHang> repoGioHang)
         {
             _repo = repo;
+            _repoGioHang = repoGioHang;
         }
         [HttpGet]
         [Route("Get-All")]
@@ -37,8 +39,7 @@ namespace _1_API.Controllers
 
         [HttpPost]
         [Route("Create")]
-        public async Task<IActionResult> CreateKhachHang([FromForm] CreateKhachHang ckh)
-
+        public async Task<IActionResult> CreateKhachHang(CreateKhachHang ckh)
         {
             KhachHang kh = new KhachHang()
             {
@@ -54,6 +55,12 @@ namespace _1_API.Controllers
             try
             {
                 var result = await _repo.AddOneAsyn(kh);
+                GioHang giohang = new GioHang()
+                {
+                    Id = Guid.NewGuid(),
+                    IdKH = result.Id
+                };
+                var gh = await _repoGioHang.AddOneAsyn(giohang);
                 return Ok(kh);
             }
             catch (Exception ex)
