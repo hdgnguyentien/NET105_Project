@@ -50,6 +50,7 @@ namespace CustomerViews.Controllers
                     {
                         HttpContext.Session.SetString("idkh", kh.Id.ToString());
                         HttpContext.Session.SetString("ten", kh.Ten??"");
+
                         var lstGH = await _services.GetAll<GioHang>(Connection.api + "GioHangs/Get-All");
                         var gh = lstGH.FirstOrDefault(x => x.IdKH == kh.Id);
                         if (gh != null)
@@ -121,8 +122,8 @@ namespace CustomerViews.Controllers
                 {
                     smtp.Send(message);
                 }
-                ViewData["check"] = "Lấy lại mật khẩu thành công. Vui lòng check email!!!";
-                return View("QuenMK");
+                ViewData["dangkythanhcong"] = "Lấy lại mật khẩu thành công. Vui lòng check email!!!";
+                return View("DangNhap");
             }
             else
             {
