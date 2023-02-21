@@ -47,16 +47,16 @@ namespace CustomerViews.Controllers
             var respons = await _services.GetAll<GiohangChitiet>(Connection.api + "GioHangChiTiets/Get-All");
             var respon = respons.FirstOrDefault(x => x.IdSPChitiet == spct.Id && x.IdGioHang.ToString() == idgh);
             respon.SoLuong++;
-            if (respon.SoLuong > spct.SoLuong)
+            /*if (respon.SoLuong > spct.SoLuong)
             {
                 return Ok("Vượt quá số lượng trong kho");
             }
             else
             {
                 await _services.Update(Connection.api + "GioHangChiTiets/Update/", respon, respon.Id);
-                return RedirectToAction("Index");
-            }
-
+                
+            }*/
+            return RedirectToAction("Index");
         }
         public async Task<IActionResult> GiamSL(Guid id)
         {
@@ -109,16 +109,16 @@ namespace CustomerViews.Controllers
 				else
 				{
                     data.SoLuong++;
-                    if (data.SoLuong > spct.SoLuong)
+                   /* if (data.SoLuong > spct.SoLuong)
                     {
                         return Ok("Vượt quá số lượng trong kho");
                     }
                     else
                     {
                         await _services.Update(Connection.api + "GioHangChiTiets/Update/", data, data.Id);
-					    return RedirectToAction("Index");
-                    }
-				}
+					    
+                    }*/
+				}return RedirectToAction("Index");
 			}
 		}
 		public async Task<IActionResult> Delete(Guid id)
@@ -173,7 +173,7 @@ namespace CustomerViews.Controllers
                 var responHDCT = await _services.Add(Connection.api + "HoaDonChiTiets/", hdct);
                 var lstSanphamChitiet = await _services.GetAll<SanphamChitiet>(Connection.api + "SanphamChitiets/Get-All");
                 var spct = lstSanphamChitiet.FirstOrDefault(x => x.Id == item.IdSPChitiet);
-                spct.SoLuong -= item.SoLuong;
+               /* spct.SoLuong -= item.SoLuong;*/
                 await _services.Update(Connection.api + "SanphamChitiets/Update/", spct, spct.Id);
             }
             //await _services.Remove<GiohangChitiet>(Connection.api + "GioHangChiTiets/GetById/", Connection.api + "GioHangChiTiets/Delete/", id);
