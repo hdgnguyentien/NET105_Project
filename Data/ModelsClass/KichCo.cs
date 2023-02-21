@@ -10,10 +10,10 @@ namespace Data.ModelsClass
     {
         public KichCo()
         {
-            sanphamChitiets = new HashSet<SanphamChitiet>();
+            SizeSanPhams = new HashSet<SizeSanPham>();
         }
         public Guid Id { get; set; }
         public float? Size { get; set; }
-        public virtual ICollection<SanphamChitiet> sanphamChitiets { get; set; }
+        public virtual ICollection<SizeSanPham> SizeSanPhams { get; set; }
     }
 }

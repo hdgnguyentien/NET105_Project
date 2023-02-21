@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Chi Tiết Sản Phẩm</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -13,58 +13,58 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>            
+                Ảnh
+            </th>   
             <th>
-                @Html.DisplayNameFor(model => model.SoLuong)
+                Mã
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.GiaNhap)
+                Tên chi tiết
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.GiaBan)
+                Màu sắc
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TrangThai)
+                Size
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TenSP)
+                Số lượng
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TenMauSac)
+                Giá bán
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TenKichCo)
+                Trạng thái
             </th>
-            <th></th>
+            <th>Chức năng</th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Id)
+                    <img src="@*@("~/AnhNhanVien/"+item.AnhDaiDien)*@" alt="@item.AnhDaiDien" asp-append-version="true" width="120px" height="140px" />
             </td>           
             <td>
-                @Html.DisplayFor(modelItem => item.SoLuong)
+                @Html.DisplayFor(modelItem => item.MaSPChiTiet)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.GiaNhap)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.GiaBan)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TrangThai)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TenSP)
+                @Html.DisplayFor(modelItem => item.TenSPChiTiet)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.TenMauSac)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.TenKichCo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SoLuong)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GiaBan)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TrangThai)
             </td>
             <td>
                     <a asp-action="Edit" asp-route-id="@item.Id">Cập nhật</a> |
