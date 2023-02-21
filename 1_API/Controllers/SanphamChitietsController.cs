@@ -48,7 +48,6 @@ namespace _1_API.Controllers
                 IdSP = csp.IdSP,
                 IdKichCo = csp.IdKichCo,
                 IdMauSac= csp.IdMauSac,
-                SoLuong = csp.SoLuong,
                 GiaBan = csp.GiaBan,
                 GiaNhap= csp.GiaNhap,
                 TrangThai = csp.TrangThai,
@@ -79,7 +78,6 @@ namespace _1_API.Controllers
                 result.IdSP = usp.IdSP;
                 result.IdKichCo = usp.IdKichCo;
                 result.IdMauSac = usp.IdMauSac;
-                result.SoLuong= usp.SoLuong;
                 result.GiaBan = usp.GiaBan;
                 result.GiaNhap = usp.GiaNhap;
                 result.TrangThai = usp.TrangThai;
