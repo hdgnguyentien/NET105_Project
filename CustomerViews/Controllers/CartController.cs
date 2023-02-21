@@ -71,8 +71,7 @@ namespace CustomerViews.Controllers
                 await _services.Remove<GiohangChitiet>(Connection.api + "GioHangChiTiets/GetById/", Connection.api + "GioHangChiTiets/Delete/", respon.Id);
                 return RedirectToAction("Index");
             }
-            else
-                await _services.Update(Connection.api + "GioHangChiTiets/Update/", respon, respon.Id);
+            await _services.Update(Connection.api + "GioHangChiTiets/Update/", respon, respon.Id);
             return RedirectToAction("Index");
         }
         public async Task<IActionResult> Addtocard(Guid ma )
@@ -109,13 +108,13 @@ namespace CustomerViews.Controllers
 				}
 				else
 				{
-                    if (data.SoLuong >= spct.SoLuong)
+                    data.SoLuong++;
+                    if (data.SoLuong > spct.SoLuong)
                     {
                         return Ok("Vượt quá số lượng trong kho");
                     }
                     else
                     {
-                        data.SoLuong++;
                         await _services.Update(Connection.api + "GioHangChiTiets/Update/", data, data.Id);
 					    return RedirectToAction("Index");
                     }
