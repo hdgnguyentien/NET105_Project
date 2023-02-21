@@ -21,7 +21,6 @@ namespace Data.ModelsClass
         public Guid Id { get; set; }
         public Guid? IdSP { get; set; }
         public Guid? IdMauSac { get; set; }
-        public Guid? IdKichCo { get; set; }
         public string? TenSPChiTiet { get; set; }
         public string? MaSPChiTiet { get; set; }
         public string? AnhDaiDien { get; set; }
