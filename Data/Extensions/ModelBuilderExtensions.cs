@@ -13,29 +13,57 @@ namespace Data.Extensions
         public static void Seed(this ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<SanphamChitiet>().HasData(
-                new SanphamChitiet() {
-                    Id = new Guid("7AAF5675-683D-4608-9534-EA737A4247B3"), 
+                new SanphamChitiet()
+                {
+                    Id = new Guid("7AAF5675-683D-4608-9534-EA737A4247B3"),
                     IdSP = new Guid("01BF8A6C-D89A-4DB2-9068-AF277BE488AE"),
                     IdMauSac = new Guid("7A6C0C50-FB67-44EA-9C62-AD0E0F67AB3C"),
                     TenSPChiTiet = "V1",
-                    MaSPChiTiet = "SP1", 
+                    MaSPChiTiet = "SP1",
                     GiaBan = 100000,
                     GiaNhap = 80000,
                     TrangThai = 1,
                     AnhDaiDien = "null"
-                    },
+                },
                 new SanphamChitiet()
                 {
-                    Id = new Guid("51A13AFD-08D1-4A20-A0E0-FB4447BD215D") ,
-                    IdSP = new Guid("9A1B3786-D0D0-402A-BFD8-10DB04F8E6ED") ,
-                    IdMauSac = new Guid("9A1B3786-D0D0-402A-BFD8-10DB04F8E6ED") ,
+                    Id = new Guid("51A13AFD-08D1-4A20-A0E0-FB4447BD215D"),
+                    IdSP = new Guid("9A1B3786-D0D0-402A-BFD8-10DB04F8E6ED"),
+                    IdMauSac = new Guid("9A1B3786-D0D0-402A-BFD8-10DB04F8E6ED"),
                     TenSPChiTiet = "V1",
                     MaSPChiTiet = "SP2",
                     GiaBan = 100000,
                     GiaNhap = 80000,
                     TrangThai = 1,
                     AnhDaiDien = "null"
-                });;
+                });
+            modelBuilder.Entity<KichCo>().HasData(
+                new KichCo()
+                {
+                    Id = new Guid("CD27319D-468D-4189-99A4-B2DA273492A3"),
+                    Size = 36,
+                },
+                new KichCo()
+                {
+                    Id = new Guid("D43ED236-C9CF-4659-BA0D-F834BB316D39"),
+                    Size = 37,
+                });
+            modelBuilder.Entity<SizeSanPham>().HasData(
+                new SizeSanPham()
+                {
+                    Id = new Guid("5EE0FA3D-9AB6-490A-83CA-01021103412D"),
+                    IdSanPhamChiTiet = new Guid("7AAF5675-683D-4608-9534-EA737A4247B3"),
+                    IdSize = new Guid("CD27319D-468D-4189-99A4-B2DA273492A3"),
+                    SoLuong = 10,
+                },
+                new SizeSanPham()
+                {
+                    Id = new  Guid("1D1CDE20-7455-48CA-8E25-AEA8C98A4671") ,
+                    IdSanPhamChiTiet = new Guid("51A13AFD-08D1-4A20-A0E0-FB4447BD215D"),
+                    IdSize = new Guid("D43ED236-C9CF-4659-BA0D-F834BB316D39"),
+                    SoLuong = 10,
+                }
+            );
             modelBuilder.Entity<HinhAnh>().HasData(
                 new HinhAnh()
                 {
@@ -50,12 +78,13 @@ namespace Data.Extensions
                     LinkAnh = "C:\\Users\\Admin\\source\\repos\\NET105_Project\\ProjectViews\\wwwroot\\AnhNhanVien\\5752c6ba-f2e2-4331-95f2-2abaad283f46_nature-3082832.jpg"
                 });
             modelBuilder.Entity<SanPham>().HasData(
-                new SanPham() {
+                new SanPham()
+                {
                     Id = new Guid("01BF8A6C-D89A-4DB2-9068-AF277BE488AE"),
                     Ten = "Giay 1",
                     IdHang = new Guid("B9DB8C0C-BF87-4E16-BDD2-A9FEE4B14B4A"),
                     TrangThai = 1
-                    },
+                },
                 new SanPham()
                 {
                     Id = new Guid("9A1B3786-D0D0-402A-BFD8-10DB04F8E6ED"),
@@ -64,7 +93,8 @@ namespace Data.Extensions
                     TrangThai = 1
                 });
             modelBuilder.Entity<Hang>().HasData(
-                new Hang() {
+                new Hang()
+                {
                     Id = new Guid("B9DB8C0C-BF87-4E16-BDD2-A9FEE4B14B4A"),
                     TenHang = "Adidas"
                 },
@@ -75,7 +105,7 @@ namespace Data.Extensions
                 }
                 );
             modelBuilder.Entity<MauSac>().HasData(
-                new MauSac() 
+                new MauSac()
                 {
                     Id = new Guid("7A6C0C50-FB67-44EA-9C62-AD0E0F67AB3C"),
                     TenMau = "Xanh"
@@ -87,7 +117,7 @@ namespace Data.Extensions
                 }
                 );
             modelBuilder.Entity<KichCo>().HasData(
-                new KichCo() 
+                new KichCo()
                 {
                     Id = new Guid("BD3AEB4B-DCDB-445B-9669-F5A1CE0C29D7"),
                     Size = 38
@@ -106,7 +136,7 @@ namespace Data.Extensions
                 },
                 new GioHang()
                 {
-                    Id = new  Guid("87C18DE0-9653-408E-9F7D-36B2F5A3D890"),
+                    Id = new Guid("87C18DE0-9653-408E-9F7D-36B2F5A3D890"),
                     IdKH = new Guid("F572907F-4E58-4EE3-B282-8100A3A2043F")
                 });
             modelBuilder.Entity<KhachHang>().HasData(
@@ -150,5 +180,5 @@ namespace Data.Extensions
                     GiaBan = 10000
                 });
         }
-    } 
+    }
 }
