@@ -2,7 +2,7 @@
 {
     public class UpdateGiohangChiTiet
     {
-        public Guid? IdSPChitiet { get; set; }
+        public Guid IdSPChitiet { get; set; }
         public Guid? IdGioHang { get; set; }
         public int SoLuong { get; set; }
         public decimal GiaBan { get; set; }
