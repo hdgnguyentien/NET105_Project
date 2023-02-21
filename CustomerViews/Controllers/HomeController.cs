@@ -36,7 +36,6 @@ namespace CustomerViews.Controllers
 
             spct.sanPham = lstSP.FirstOrDefault(x => x.Id == spct.IdSP);
             spct.mauSac = lstMS.FirstOrDefault(x => x.Id == spct.IdMauSac);
-            spct.kichCo = lstKC.FirstOrDefault(x => x.Id == spct.IdKichCo);
             return View(spct);
         }
         public async Task<IActionResult> SearchSanPham(decimal min, decimal max, string name)
@@ -121,7 +120,6 @@ namespace CustomerViews.Controllers
 
             spct.sanPham = lstSP.FirstOrDefault(x => x.Id == spct.IdSP);
             spct.mauSac = lstMS.FirstOrDefault(x => x.Id == spct.IdMauSac);
-            spct.kichCo = lstKC.FirstOrDefault(x => x.Id == spct.IdKichCo);
             return spct;
         }
     }
