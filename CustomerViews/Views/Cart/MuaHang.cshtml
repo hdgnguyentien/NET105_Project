@@ -1,0 +1,51 @@
+﻿@using Data.ModelsClass;
+@model IEnumerable<Data.ModelsClass.GiohangChitiet>
+
+@{
+    ViewData["Title"] = "Index";
+    var lstSP = ViewData["lstSP"] as List<SanPham>;
+    var lstSPCT = ViewData["lstSPCT"] as List<SanphamChitiet>;
+    string tensp = "";
+    decimal thanhtien = 0;
+    var tt = ViewBag.tt;
+}
+
+    <h3>Đặt hàng </h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Ảnh sản phẩm</th>
+                <th>Tên sản phẩm</th>
+                <th>Giá bán</th>
+                <th>Số lượng</th>
+                <th>Thành tiền</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td><img src="@(lstSPCT.FirstOrDefault(x=>x.Id == item.IdSPChitiet).AnhDaiDien)" width="60" /></td>
+                    <td>@(tensp = lstSPCT.FirstOrDefault(x => x.Id == item.IdSPChitiet).TenSPChiTiet)</td>
+                    <td>@item.GiaBan</td>
+                    <td>@item.SoLuong</td>
+                    <td>@(thanhtien = item.GiaBan * item.SoLuong)</td>
+
+                </tr>
+            }
+            <tr>
+                <td class="text-right" colspan="6"><h6>Tổng tiền: @tt</h6> </td>
+            </tr>
+            <tr>
+                <td colspan="6" class="text-right">      
+
+                    <a asp-action="CheckOut" class="btn btn-primary">Thanh toán</a>
+                </td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="6" class="text-left "><a asp-controller="Home" asp-action="Index" class="btn btn-success">Tiếp tục mua</a></td>
+            </tr>
+        </tfoot>
+    </table>

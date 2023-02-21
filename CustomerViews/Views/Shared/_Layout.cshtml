@@ -1,6 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Http
 @{
-	var name = Context.Session.GetString("user");
+	var name = Context.Session.GetString("ten");
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -41,14 +41,22 @@
 						else
 						{
 							<li class="nav-item">
-								<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="GioHang">Giỏ hàng</a>
+								<a class="nav-link text-dark" asp-area="" asp-controller="Cart" asp-action="Index">Giỏ hàng</a>
 							</li>
 							<li class="nav-item">
 								<a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="ThongTinKH">Thông Tin Cá Nhân</a>
 							</li>
+							<li class="nav-item">
 							<button class="btn btn-primary" style="height:40px">
 								<a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="DangXuat" style="margin-top : -7px">Đăng xuất</a>
 							</button>
+								</li>
+								@if (name != null)
+								{
+							<li class="nav-item">
+											<a class="nav-link text-dark" style="margin-left:120px"><p style="color:red"><b>Xin chào: @name</b></p> </a>
+									</li>
+								}
 						}
 					</ul>
 				</div>

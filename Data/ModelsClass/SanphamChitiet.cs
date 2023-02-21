@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,8 +25,10 @@ namespace Data.ModelsClass
         public string? TenSPChiTiet { get; set; }
         public string? MaSPChiTiet { get; set; }
         public string? AnhDaiDien { get; set; }
+
+
         public decimal? GiaNhap { get; set; }
-        public decimal? GiaBan { get; set; }
+        public decimal GiaBan { get; set; }
         public int? TrangThai { get; set; }
 
 

@@ -14,7 +14,21 @@
             Tên sản phẩm
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => (model.sanPham != null ?model.sanPham.Ten:""))
+            @Html.DisplayFor(model => model.sanPham.Ten)
+        </dd>
+
+        <dt class = "col-sm-2">
+            Màu sắc
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.mauSac.TenMau)
+        </dd>
+
+        <dt class = "col-sm-2">
+            Kích cỡ
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.kichCo.Size)
         </dd>
 
         <dt class = "col-sm-2">
@@ -51,15 +65,30 @@
         <dd class = "col-sm-10">
             @(Model.TrangThai == 1 ? "Còn hàng" : "Hết hàng")
         </dd>
+        @*<dt class = "col-sm-2">
+            Hãng
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.sanPham.hang.TenHang)
+        </dd>
+
         <dt class = "col-sm-2">
             Hãng
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.sanPham!= null ?(model.sanPham.hang!= null ?model.sanPham.hang.TenHang:""):"")
-        </dd>
+            @Html.DisplayFor(model => model.theLoaiSanPhams.Select(x=>x.theLoai.TenTheLoai))
+        </dd>*@
     </dl>
 </div>
-<div>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    <a asp-action="Index">Back to List</a>
+<div class="row">
+<div class="col">
+    <button class="btn btn-primary" style="height:40px">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Cart" asp-action="Addtocard" asp-route-ma="@Model.Id" style="margin-top : -7px">Thêm vào giỏ hàng</a>
+    </button>
+</div>
+<div class="col">
+    <button class="btn btn-primary" style="height:40px">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Cart" asp-action="MuaHang" style="margin-top : -7px">Mua hàng</a>
+    </button>
+</div>
 </div>

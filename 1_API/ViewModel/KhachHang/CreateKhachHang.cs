@@ -1,7 +1,10 @@
-﻿namespace _1_API.ViewModel.KhachHang
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace _1_API.ViewModel.KhachHang
 {
     public class CreateKhachHang
     {
+        //[Required(ErrorMessage = "Vui lòng nhập họ và tên")]
         public string? Ten { get; set; }
         public string? Email { get; set; }
         public string? MatKhau { get; set; }

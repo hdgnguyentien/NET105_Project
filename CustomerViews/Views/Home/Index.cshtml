@@ -1,48 +1,32 @@
-﻿@model IEnumerable<Data.ModelsClass.SanphamChitiet>
+﻿@using Data.ModelsClass;
+@model IEnumerable<Data.ModelsClass.SanphamChitiet>
 
 @{
 	ViewData["Title"] = "Home Page";
     var thongbao = ViewData["thongbao"] as string;
     var loginfalse = ViewData["loginfalse"] as string;
+	var lstSP = ViewData["lstSP"] as List<SanPham>;
+	string tensp = "";
 }
 
 
 <div>
 	<h1 class="display-4" style=" text-align:center">Chào mừng đến với MAN CLASSIC</h1>
-	<div class="row">
-
-		<div class="col-6" style="margin-left:40px">
-			<form method="get" asp-controller="Home" asp-action="SearchSanPham">
+		<form method="get" asp-controller="Home" asp-action="SearchSanPham">
 				<div class="row">
-					<div class="col-4">
-						<input name="a" type="number" placeholder="Nhập khoảng 1" class="form-control" />
-
+					<div class="col-2">
+						<input name="min" type="number" placeholder="Nhập khoảng từ" class="form-control" />
 					</div>
-					<div class="col-4">
-						<input name="b" type="number" placeholder="Nhập khoảng 2" class="form-control" />
-
+					<div class="col-2">
+						<input name="max" type="number" placeholder="Đến" class="form-control" />
 					</div>
-					<div class="col-4"><button class="btn btn-success" type="submit">Tìm kiếm</button></div>
-				</div>
-
-			</form>
-		</div>
-
-		<div class="col-4">
-			<form method="get" asp-controller="Home" asp-action="SearchByName">
-				<div class="row">
-					<div class="col-8">
+					<div class="col-6">
 						<input name="name" type="text" placeholder="Nhập tên sản phẩm" class="form-control" />
-
 					</div>
-					<div class="col-4">
-						<button class="btn btn-success" type="submit">Tìm kiếm</button>
-
-					</div>
+					<div class="col-2"><button class="btn btn-success" type="submit">Tìm kiếm</button></div>
 				</div>
+
 			</form>
-		</div>
-	</div>
 	<br />
 
 
@@ -56,10 +40,10 @@
 							<img src="~/css/IMG_SP/@item.hinhAnhs" class="card-img-top" alt="...">
 						@*<p>@Html.DisplayFor(modelItem => item.HinhAnh)</p>*@
 							<div class="card-body">
-								<h3 style="text-align:center" class="card-title">@Html.DisplayFor(modelItem => item.sanPham.Ten)</h3>
+							<h3 style="text-align:center" class="card-title">@(tensp = lstSP.FirstOrDefault(p => p.Id == item.IdSP).Ten)</h3>
 								<div class="card-price">
 									<p class="">
-												Giá gốc: <del> @(@*sale =*@ item.GiaBan * 2) $</del>
+												Giá gốc: <del> @(@*sale =*@ item.GiaBan) $</del>
 									</p>
 									<p class="">
 										<b style="color:red">Sale: @Html.DisplayFor(modelItem => item.GiaBan) $</b>
@@ -68,10 +52,10 @@
 										<b>Trạng thái:@(item.TrangThai==1 ? "Còn hàng" : "Hết hàng")</b>
 									</p>
 									<p>
-										<a asp-controller="Sanpham" asp-action="DetailsKH" asp-route-ma="@item.Id">Chi tiết sản phẩm</a>
+												<a asp-controller="Home" asp-action="SanPhamChiTiet" asp-route-spct_id="@item.Id">Chi tiết sản phẩm</a>
 									</p>
 								</div>
-								<a asp-controller="Home" asp-action="Addtocard" asp-route-ma="@item.Id" class="btn btn-primary">Thêm vào giỏ hàng</a>
+							<a asp-controller="Cart" asp-action="Addtocard" asp-route-ma="@item.Id" class="btn btn-primary">Thêm vào giỏ hàng</a>
 							</div>
 						</div>                   
 						</li>

@@ -37,7 +37,7 @@ namespace _1_API.Controllers
 
         [HttpPost]
         [Route("Create")]
-        public async Task<IActionResult> CreateHoaDonChiTiet([FromForm] CreateHoaDonChiTiet cnv)
+        public async Task<IActionResult> CreateHoaDonChiTiet(CreateHoaDonChiTiet cnv)
         {
             HoadonChitiet nv = new HoadonChitiet()
             {

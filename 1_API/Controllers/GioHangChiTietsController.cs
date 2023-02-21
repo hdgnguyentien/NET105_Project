@@ -37,7 +37,7 @@ namespace _1_API.Controllers
 
         [HttpPost]
         [Route("Create")]
-        public async Task<IActionResult> CreateGioHangChiTiet([FromForm] CreateGioHangChiTiet cnv)
+        public async Task<IActionResult> CreateGioHangChiTiet(CreateGioHangChiTiet cnv)
         {
             GiohangChitiet nv = new GiohangChitiet()
             {
@@ -60,8 +60,8 @@ namespace _1_API.Controllers
         }
 
         [HttpPost]
-        [Route("Update/id")]
-        public async Task<IActionResult> UpdateGioHangChiTiet(Guid id, [FromForm] UpdateGiohangChiTiet unv)
+        [Route("Update/{id}")]
+        public async Task<IActionResult> UpdateGioHangChiTiet(Guid id, UpdateGiohangChiTiet unv)
         {
             var result = await _repo.GetByIdAsync(id);
             if (result == null)

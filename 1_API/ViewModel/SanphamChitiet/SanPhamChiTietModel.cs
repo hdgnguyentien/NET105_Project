@@ -9,13 +9,13 @@ namespace _1_API.ViewModel.SanphamChitiet
         public Guid? IdKichCo { get; set; }
         [Required(ErrorMessage = "Vui lòng nhập số lượng")]
 
-        public int? SoLuong { get; set; }
+        public int SoLuong { get; set; }
         [Required(ErrorMessage = "Vui lòng nhập Giá nhập")]
 
         public decimal? GiaNhap { get; set; }
         [Required(ErrorMessage = "Vui lòng nhập Giá bán")]
 
-        public decimal? GiaBan { get; set; }
+        public decimal GiaBan { get; set; }
         public int? TrangThai { get; set; }
     }
 }
