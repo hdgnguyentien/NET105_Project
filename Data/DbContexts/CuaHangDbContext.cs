@@ -1,4 +1,5 @@
-﻿using Data.Extensions;
+﻿using Data.Configurations;
+using Data.Extensions;
 using Data.ModelsClass;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -23,12 +24,28 @@ namespace Data.DbContexts
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            base.OnConfiguring(optionsBuilder.UseSqlServer("Server=HDGNGUYENTIEN\\SQLEXPRESS;Database=Net105Database;Trusted_Connection=True;"));
+            base.OnConfiguring(optionsBuilder.UseSqlServer("Server=DESKTOP-T4L1DE8\\SQLEXPRESS;Database=Net105Database;Trusted_Connection=True;"));
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            modelBuilder.ApplyConfiguration(new ChucVuConfiguration());
+            modelBuilder.ApplyConfiguration(new GiohangChitietConfiguration());
+            modelBuilder.ApplyConfiguration(new GioHangConfiguration());
+            modelBuilder.ApplyConfiguration(new HangConfiguration());
+            modelBuilder.ApplyConfiguration(new HinhAnhConfiguration());
+            modelBuilder.ApplyConfiguration(new HoadonChitietConfiguration());
+            modelBuilder.ApplyConfiguration(new HoadonConfiguration());
+            modelBuilder.ApplyConfiguration(new KhachhangConfiguration());
+            modelBuilder.ApplyConfiguration(new KichcoConfiguration());
+            modelBuilder.ApplyConfiguration(new MagiamgiaConfiguration());
+            modelBuilder.ApplyConfiguration(new MausacConfiguration());
+            modelBuilder.ApplyConfiguration(new NhanvienConfiguration());
+            modelBuilder.ApplyConfiguration(new SanphamChitietConfiguration());
+            modelBuilder.ApplyConfiguration(new SanphamConfiguration());
+            modelBuilder.ApplyConfiguration(new SizeSanPhamConfiguration());
+            modelBuilder.ApplyConfiguration(new TheloaiConfiguration());
+            modelBuilder.ApplyConfiguration(new TheloaiSanphamConfiguration());
             //seeddata
             modelBuilder.Seed();
         }
@@ -49,6 +66,7 @@ namespace Data.DbContexts
         public DbSet<TheLoai> TheLoais { get; set; }
         public DbSet<TheLoaiSanPham> TheLoaiSanPhams { get; set; }
         public DbSet<HinhAnh> HinhAnhs { get; set; }
+        public DbSet<SizeSanPham> SizeSanPhams { get; set; }
 
 
     }

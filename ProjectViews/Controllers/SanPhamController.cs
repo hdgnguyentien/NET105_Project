@@ -25,15 +25,13 @@ namespace ProjectViews.Controllers
             var lstSanPham = await _services.GetAll<SanPham>("https://localhost:7203/api/SanPhams/Get-All");           
             var lstHang = await _services.GetAll<Hang>("https://localhost:7203/api/Hangs/Get-All");           
             var sp = from a in lstSanPham.ToList()
-                     join b in lstHang on a.IdHang equals b.Id
+                     join b in lstHang.ToList() on a.IdHang equals b.Id
                      select new ViewSanPham()
                      {
                          Id = a.Id,
                          Ten = a.Ten,
-                         IdHang = a.IdHang,
-                         TrangThai = a.TrangThai,
-                         TenHang = b.TenHang
-                         
+                         TrangThai = a.TrangThai == 1 ? "Đang hoạt động" : "Ngưng hoạt động",
+                         TenHang = b.TenHang  
                      };
 
             return View(sp);
@@ -50,17 +48,29 @@ namespace ProjectViews.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(SanPhamModel model)
         {
+            var lstHang = await _services.GetAll<Hang>("https://localhost:7203/api/Hangs/Get-All");
+            ViewData["ListHang"] = lstHang.ToList();
 
             if (ModelState.IsValid)
             {
-                CreateSanPham sp = new CreateSanPham()
+                var lstSanPham = await _services.GetAll<SanPham>("https://localhost:7203/api/SanPhams/Get-All");
+                var ten = lstSanPham.FirstOrDefault(p => p.Ten.ToLower() == model.Ten.ToLower());
+                if(ten != null)
                 {
-                    IdHang = model.IdHang,
-                    Ten = model.Ten,
-                    TrangThai = model.TrangThai
-                };
-                await _services.Add("https://localhost:7203/api/SanPhams/", sp);
-                return RedirectToAction("Index");
+                    ModelState.AddModelError("", "Tên sản phẩm đã được sử dụng");
+                    return View();
+                }
+                else
+                {
+                    CreateSanPham sp = new CreateSanPham()
+                    {
+                        IdHang = model.IdHang,
+                        Ten = model.Ten,
+                        TrangThai = model.TrangThai
+                    };
+                    await _services.Add("https://localhost:7203/api/SanPhams/", sp);
+                    return RedirectToAction("Index");
+                }               
             }
             return View();
         }

@@ -15,7 +15,6 @@ namespace Data.Configurations
         {
             builder.ToTable("SanphamChitiet");
             builder.HasKey(x => x.Id);
-            builder.Property(x=>x.SoLuong).IsRequired();
             builder.Property(x=>x.IdSP).IsRequired();
             builder.Property(x=>x.IdMauSac).IsRequired();
             builder.Property(x=>x.IdKichCo).IsRequired();
@@ -28,7 +27,6 @@ namespace Data.Configurations
 
             builder.HasOne(x => x.sanPham).WithMany(x => x.sanphamChitiets).HasForeignKey(x => x.IdSP);
             builder.HasOne(x => x.mauSac).WithMany(x => x.sanphamChitiets).HasForeignKey(x => x.IdMauSac);
-            builder.HasOne(x => x.kichCo).WithMany(x => x.sanphamChitiets).HasForeignKey(x => x.IdKichCo);
             //builder.HasOne(x=>x.)
 
         }

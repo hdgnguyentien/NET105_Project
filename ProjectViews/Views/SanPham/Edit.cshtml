@@ -8,42 +8,41 @@
     var lstSp = ViewData["ListSanPham"] as List<SanPham>;
 }
 
-<h1>Edit</h1>
+<h1>Cập Nhật</h1>
 
-<h4>UpdateSanPham</h4>
+
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Update">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label type="hidden" asp-for="Id" class="control-label"></label>
-                <input type="hidden" asp-for="Id" class="form-control" />
-                <span type="hidden" asp-validation-for="Id" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Ten" class="control-label"></label>
-                <input asp-for="Ten" class="form-control" />
-                <span asp-validation-for="Ten" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label>Nhà sản xuất</label>
-                <select asp-for="IdHang" class="form-control">
+                <label asp-for="IdHang" class="control-label">Hãng</label>
+                <select asp-for="IdHang" class="form-select">
                     @foreach (var item in lstHang)
                     {
-                            <option value="@item.Id">
+                        <option value="@item.Id">
                             @item.TenHang
-                            </option>
+                        </option>
                     }
                 </select>
             </div>
             <div class="form-group">
-                <label asp-for="TrangThai" class="control-label"></label>
-                <input asp-for="TrangThai" class="form-control" />
+                <label asp-for="Ten" class="control-label">Tên Sản Phẩm</label>
+                <input asp-for="Ten" class="form-control" />
+                <span asp-validation-for="Ten" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="TrangThai" class="control-label">Trạng thái</label>
+                <select asp-for="TrangThai" class="form-select">
+                    <option value="1" selected>Đang hoạt động</option>
+                    <option value="0">Ngưng hoạt động</option>
+                </select>
                 <span asp-validation-for="TrangThai" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+            <div class="form-group mt-3">
+                <input type="submit" value="Lưu" class="btn btn-primary" />
             </div>
         </form>
     </div>
