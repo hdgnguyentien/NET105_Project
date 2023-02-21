@@ -43,7 +43,7 @@
 							<h3 style="text-align:center" class="card-title">@(tensp = lstSP.FirstOrDefault(p => p.Id == item.IdSP).Ten)</h3>
 								<div class="card-price">
 									<p class="">
-												Giá gốc: <del> @(@*sale =*@ item.GiaBan) $</del>
+												Giá gốc: <del> @(@*sale =*@ item.GiaBan*2) $</del>
 									</p>
 									<p class="">
 										<b style="color:red">Sale: @Html.DisplayFor(modelItem => item.GiaBan) $</b>
