@@ -15,6 +15,7 @@ namespace Data.ModelsClass
             hoadonChitiets = new HashSet<HoadonChitiet>();
             hinhAnhs = new HashSet<HinhAnh>();
             theLoaiSanPhams = new HashSet<TheLoaiSanPham>();
+            SizeSanPhams = new HashSet<SizeSanPham>();
         }
 
         public Guid Id { get; set; }
@@ -24,7 +25,8 @@ namespace Data.ModelsClass
         public string? TenSPChiTiet { get; set; }
         public string? MaSPChiTiet { get; set; }
         public string? AnhDaiDien { get; set; }
-        public int SoLuong { get; set; }
+
+
         public decimal? GiaNhap { get; set; }
         public decimal GiaBan { get; set; }
         public int? TrangThai { get; set; }
@@ -32,11 +34,11 @@ namespace Data.ModelsClass
 
         public SanPham? sanPham { get; set; }
         public MauSac? mauSac { get; set; }
-        public KichCo? kichCo { get; set; }
 
         public virtual ICollection<GiohangChitiet> giohangChitiets { get; set; }
         public virtual ICollection<HoadonChitiet> hoadonChitiets { get; set; }
         public virtual ICollection<HinhAnh> hinhAnhs { get; set; }
         public virtual ICollection<TheLoaiSanPham> theLoaiSanPhams { get; set; }
+        public virtual ICollection<SizeSanPham> SizeSanPhams { get; set; }
     }
 }

@@ -18,13 +18,13 @@ namespace ProjectViews.Controllers
             _services = services;
         }
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string id)
         {
             var lstSPCT = await _services.GetAll<SanphamChitiet>("https://localhost:7203/api/SanphamChitiets/Get-All");
             var lstSP = await _services.GetAll<SanPham>("https://localhost:7203/api/SanPhams/Get-All");
             var lstKichCo = await _services.GetAll<KichCo>("https://localhost:7203/api/KichCos/Get-All");
             var lstMauSac = await _services.GetAll<MauSac>("https://localhost:7203/api/MauSacs/Get-All");
-            var spct = from a in lstSPCT
+            var spct = from a in lstSPCT.ToList().Where(p => p.IdSP == Guid.Parse(id))
                        join b in lstSP on a.IdSP equals b.Id
                        join c in lstKichCo on a.IdKichCo equals c.Id
                        join d in lstMauSac on a.IdMauSac equals d.Id
@@ -32,12 +32,12 @@ namespace ProjectViews.Controllers
                        {
                            Id= a.Id,
                            GiaBan = a.GiaBan,
-                           GiaNhap= a.GiaNhap,
                            TenMauSac=d.TenMau,
-                           SoLuong= a.SoLuong,
-                           TenSP=b.Ten,
                            TenKichCo = c.Size,
-                           TrangThai = a.TrangThai,
+                           TrangThai = a.TrangThai == 1 ? "Đang hoạt động" : "Ngưng hoạt động",
+                           MaSPChiTiet = a.MaSPChiTiet,
+                           TenSPChiTiet = a.TenSPChiTiet,
+                           AnhDaiDien = a.AnhDaiDien
                        };
             return View(spct);
         }
@@ -98,7 +98,6 @@ namespace ProjectViews.Controllers
                 Id = id,
                 GiaBan= spct.GiaBan,
                 GiaNhap= spct.GiaNhap,
-                SoLuong= spct.SoLuong,
                 TrangThai= spct.TrangThai,
                 IdKichCo= spct.IdKichCo,
                 IdMauSac= spct.IdMauSac,
@@ -135,7 +134,6 @@ namespace ProjectViews.Controllers
             {
                 GiaBan = lstSPCT.GiaBan,
                 GiaNhap = lstSPCT.GiaNhap,
-                SoLuong = lstSPCT.SoLuong,
                 TrangThai = lstSPCT.TrangThai,
                 IdKichCo= lstSPCT.IdKichCo,
                 IdMauSac = lstSPCT.IdMauSac,

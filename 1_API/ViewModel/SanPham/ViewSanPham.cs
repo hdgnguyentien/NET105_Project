@@ -5,8 +5,7 @@
         public Guid Id { get; set; }
 
         public string? Ten { get; set; }
-        public Guid? IdHang { get; set; }
-        public int? TrangThai { get; set; }
+        public string? TrangThai { get; set; }
         public string? TenHang { get; set; }
     }
 }
