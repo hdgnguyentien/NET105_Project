@@ -1,56 +1,55 @@
-﻿using _1_API.ViewModel.ChucVu;
-using _1_API.ViewModel.GioHang;
+﻿using _1_API.ViewModel.Hang;
+using _1_API.ViewModel.SizeSanPham;
 using Data.IRepositories;
 using Data.ModelsClass;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace _1_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class GioHangsController : ControllerBase
+    public class SizeSanPhamsController : ControllerBase
     {
-        private IAllRepositories<GioHang> _repo;
+        private IAllRepositories<SizeSanPham> _repo;
 
 
-        public GioHangsController(IAllRepositories<GioHang> repo)
+        public SizeSanPhamsController(IAllRepositories<SizeSanPham> repo)
         {
             _repo = repo;
-
         }
-
         [HttpGet]
         [Route("Get-All")]
-        public async Task<IActionResult> GetAllGioHang()
+        public async Task<IActionResult> GetAllSizeSanPham()
         {
             var result = await _repo.GetAllAsync();
-            if (result == null) return Ok("Không có giỏ hàng");
+            if (result == null) return Ok("Không có Size sp nào");
             return Ok(result);
         }
 
         [HttpGet]
         [Route("GetById/{id}")]
-        public async Task<IActionResult> GetGioHangById(Guid id)
+        public async Task<IActionResult> GetSizeSanPhamById(Guid id)
         {
             var result = await _repo.GetByIdAsync(id);
-            if (result == null) return Ok("Không tìm thấy giỏ hàng");
+            if (result == null) return Ok("Không tìm thấy Size sp nào");
             return Ok(result);
         }
 
         [HttpPost]
         [Route("Create")]
-        public async Task<IActionResult> CreateGioHang([FromForm] CreateGioHang ccv)
+        public async Task<IActionResult> CreateSizeSanPham(CreateSizeSanPham ch)
         {
-            GioHang cv = new GioHang()
+            SizeSanPham h = new SizeSanPham()
             {
                 Id = Guid.NewGuid(),
-                IdKH = ccv.IdKhacHang
+                IdSize = ch.IdSize,
+                IdSanPhamChiTiet = ch.IdSanPhamChiTiet,
+                SoLuong = ch.SoLuong,
             };
             try
             {
-                var result = await _repo.AddOneAsyn(cv);
-                return Ok(cv);
+                var result = await _repo.AddOneAsyn(h);
+                return Ok(h);
             }
             catch (Exception ex)
             {
@@ -61,16 +60,18 @@ namespace _1_API.Controllers
 
         [HttpPost]
         [Route("Update/{id}")]
-        public async Task<IActionResult> UpdateGioHang(Guid id,CreateGioHang ucv)
+        public async Task<IActionResult> UpdateSizeSanPham(Guid id, UpdateSizeSanPham uh)
         {
             var result = await _repo.GetByIdAsync(id);
             if (result == null)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Không tìm thấy giỏ hàng");
+                return StatusCode(StatusCodes.Status500InternalServerError, "Không tìm thấy Size sp nào");
             }
             else
             {
-                result.IdKH = ucv.IdKhacHang;
+                result.IdSize = uh.IdSize;
+                result.IdSanPhamChiTiet = uh.IdSanPhamChiTiet;
+                result.SoLuong = uh.SoLuong;
                 try
                 {
                     await _repo.UpdateOneAsyn(result);
@@ -92,7 +93,7 @@ namespace _1_API.Controllers
             var result = await _repo.GetByIdAsync(id);
             if (result == null)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Không tìm thấy giỏ hàng");
+                return StatusCode(StatusCodes.Status500InternalServerError, "Không tìm thấy Size sp nào");
             }
             else
             {
