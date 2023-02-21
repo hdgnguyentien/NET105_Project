@@ -8,9 +8,201 @@
 	var lstSP = ViewData["lstSP"] as List<SanPham>;
 	string tensp = "";
 }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - CustomerViews</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/home.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/CustomerViews.styles.css" asp-append-version="true" />
+</head>
 
+<div class="body">
+    <div class="container">
+        <div class="slide">
+            <div id="carouselExampleCaptions"
+                 class="carousel slide"
+                 data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                    <button type="button"
+                            data-bs-target="#carouselExampleCaptions"
+                            data-bs-slide-to="0"
+                            class="active"
+                            aria-current="true"
+                            aria-label="Slide 1"></button>
+                    <button type="button"
+                            data-bs-target="#carouselExampleCaptions"
+                            data-bs-slide-to="1"
+                            aria-label="Slide 2"></button>
+                    <button type="button"
+                            data-bs-target="#carouselExampleCaptions"
+                            data-bs-slide-to="2"
+                            aria-label="Slide 3"></button>
+                </div>
+                <div class="carousel-inner">
+                    <div class="carousel-item active" data-bs-interval="2000">
+                        <img src="~/img/slide-1.jpg"
+                             class="d-block w-100"
+                             alt="..."
+                             height="450px" />
+                        <div class="carousel-caption d-none d-md-block"
+                             style="max-width: 450px">
+                            <h5 style="font-size: 40px; font-weight: bold">
+                                THE SNEAKER SHOP
+                            </h5>
+                            <p style="font-size: 14px">
+                                Chào mừng bạn đến với ngôi nhà Converse! Tại đây, mỗi một dòng
+                                chữ, mỗi chi tiết và hình ảnh đều là những bằng chứng mang dấu
+                                ấn lịch sử Converse 100 năm, và đang không ngừng phát triển lớn
+                                mạnh.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="carousel-item" data-bs-interval="2000">
+                        <img src="~/img/slide-2.jpg"
+                             class="d-block w-100"
+                             alt="..."
+                             height="450px" />
+                        <div class="carousel-caption d-none d-md-block"
+                             style="max-width: 800px; margin-left: 450px">
+                            <h5 style="font-size: 40px; font-weight: bold">
+                                THE SNEAKER SHOP
+                            </h5>
+                            <p style="font-size: 14px">
+                                Chào mừng bạn đến với ngôi nhà Converse! Tại đây, mỗi một dòng
+                                chữ, mỗi chi tiết và hình ảnh đều là những bằng chứng mang dấu
+                                ấn lịch sử Converse 100 năm, và đang không ngừng phát triển lớn
+                                mạnh.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="carousel-item" data-bs-interval="2000">
+                        <img src="img/slide-5.jpg"
+                             class="d-block w-100"
+                             alt="..."
+                             height="450px" />
+                        <div class="carousel-caption d-none d-md-block"
+                             style="max-width: 800px; margin-bottom: 280px">
+                            <h5 style="font-size: 40px; font-weight: bold">
+                                THE SNEAKER SHOP
+                            </h5>
+                            <p style="font-size: 14px">
+                                Chào mừng bạn đến với ngôi nhà Converse! Tại đây, mỗi một dòng
+                                chữ, mỗi chi tiết và hình ảnh đều là những bằng chứng mang dấu
+                                ấn lịch sử Converse 100 năm, và đang không ngừng phát triển lớn
+                                mạnh.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-control-prev"
+                        type="button"
+                        data-bs-target="#carouselExampleCaptions"
+                        data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next"
+                        type="button"
+                        data-bs-target="#carouselExampleCaptions"
+                        data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
 
-<div>
+        <!-- Banner body -->
+        <div class="banner-body">
+            <div class="container">
+                <div class="row banner3">
+                    <div class="col-4">
+                        <div class="thumb">
+                            <img src="~/img/banner_1.jpg" alt="" />
+                            <img src="~/img/banner_2.jpg" alt="" />
+                        </div>
+                    </div>
+
+                    <div class="col-4">
+                        <div class="thumb">
+                            <img src="~/img/banner_3.jpg" alt="" />
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="thumb">
+                            <img src="~/img/banner_4.jpg" alt="" />
+                            <img src="~/img/banner_5.jpg" alt="" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="title">
+            <h2>DANH MỤC SẢN PHẨM</h2>
+        </div>
+        <form method="get" asp-controller="Home" asp-action="SearchSanPham">
+            <div class="row">
+                <div class="col-2">
+                    <input name="min" type="number" placeholder="Nhập khoảng từ" class="form-control" />
+                </div>
+                <div class="col-2">
+                    <input name="max" type="number" placeholder="Đến" class="form-control" />
+                </div>
+                <div class="col-6">
+                    <input name="name" type="text" placeholder="Nhập tên sản phẩm" class="form-control" />
+                </div>
+                <div class="col-2"><button class="btn btn-success" type="submit">Tìm kiếm</button></div>
+            </div>
+
+        </form>
+        <br />
+        
+
+        @if (thongbao != null)
+        {
+            <p>@thongbao</p>
+        }
+        @if (Model != null)
+        {
+            
+                <div class="product">
+                    <div class="row">
+                    @foreach (var product in Model)
+                    {
+                             <div class="card-columns col-3" style="border: none">
+                                    <div class="card h-70 text-center" style="">
+                                      <img src="~/img/@product.hinhAnhs" class="card-img img-fluid" alt="" />
+                                       <div class="card-body">
+                                       <h5 class="card-title">
+                                     <a asp-controller="Home" asp-action="SanPhamChiTiet" asp-route-spct_id="@product.Id"> @(tensp = lstSP.FirstOrDefault(p => p.Id == product.IdSP).Ten)</a>
+                                     <p class="card-text">@Html.DisplayFor(modelItem => product.GiaBan)  VND</p>
+                                       </h5>
+                                      <h5 class="card-title">
+                                         <b style="color:red">Sale: @Html.DisplayFor(modelItem => product.GiaBan) $</b>
+                                      </h5>
+                                       <p class="">
+                                          <b>Trạng thái: @(product.TrangThai == 1 ? "Còn hàng" : "Hết hàng")</b>
+                                       </p>
+                                      <a asp-controller="Cart" asp-action="Addtocard" asp-route-ma="@product.Id" class="btn btn-primary">Thêm vào giỏ hàng</a>
+                                         </div>
+                                        
+                                    </div>
+                            <br />
+                               </div>      
+                               
+                      }
+                    </div>
+                
+            </div>
+            <br />
+        }
+        <!-- end container -->
+    </div>
+</div>
+
+@*<div>
 	<h1 class="display-4" style=" text-align:center">Chào mừng đến với MAN CLASSIC</h1>
 		<form method="get" asp-controller="Home" asp-action="SearchSanPham">
 				<div class="row">
@@ -38,13 +230,12 @@
 						<li class="col-3">               
 						<div class="card" style="width: 16rem; margin-bottom: 20px">
 							<img src="~/css/IMG_SP/@item.hinhAnhs" class="card-img-top" alt="...">
-						@*<p>@Html.DisplayFor(modelItem => item.HinhAnh)</p>*@
 							<div class="card-body">
 							<h3 style="text-align:center" class="card-title">@(tensp = lstSP.FirstOrDefault(p => p.Id == item.IdSP).Ten)</h3>
 								<div class="card-price">
 									<p class="">
-												Giá gốc: <del> @(@*sale =*@ item.GiaBan*2) $</del>
-									</p>
+												
+									@*</p>
 									<p class="">
 										<b style="color:red">Sale: @Html.DisplayFor(modelItem => item.GiaBan) $</b>
 									</p>
@@ -62,4 +253,4 @@
 			}
 			</ul>  
 	}
-</div>
+</div>*@
