@@ -26,14 +26,12 @@ namespace ProjectViews.Controllers
             var lstMauSac = await _services.GetAll<MauSac>("https://localhost:7203/api/MauSacs/Get-All");
             var spct = from a in lstSPCT.ToList().Where(p => p.IdSP == Guid.Parse(id))
                        join b in lstSP on a.IdSP equals b.Id
-                       join c in lstKichCo on a.IdKichCo equals c.Id
                        join d in lstMauSac on a.IdMauSac equals d.Id
                        select new ViewSanPhamChiTiet()
                        {
                            Id= a.Id,
                            GiaBan = a.GiaBan,
                            TenMauSac=d.TenMau,
-                           TenKichCo = c.Size,
                            TrangThai = a.TrangThai == 1 ? "Đang hoạt động" : "Ngưng hoạt động",
                            MaSPChiTiet = a.MaSPChiTiet,
                            TenSPChiTiet = a.TenSPChiTiet,
@@ -99,7 +97,6 @@ namespace ProjectViews.Controllers
                 GiaBan= spct.GiaBan,
                 GiaNhap= spct.GiaNhap,
                 TrangThai= spct.TrangThai,
-                IdKichCo= spct.IdKichCo,
                 IdMauSac= spct.IdMauSac,
                 IdSP = spct.IdSP
             };
@@ -135,7 +132,6 @@ namespace ProjectViews.Controllers
                 GiaBan = lstSPCT.GiaBan,
                 GiaNhap = lstSPCT.GiaNhap,
                 TrangThai = lstSPCT.TrangThai,
-                IdKichCo= lstSPCT.IdKichCo,
                 IdMauSac = lstSPCT.IdMauSac,
                 IdSP = lstSPCT.IdSP
                 

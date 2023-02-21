@@ -46,7 +46,6 @@ namespace _1_API.Controllers
             {
                 Id = Guid.NewGuid(),
                 IdSP = csp.IdSP,
-                IdKichCo = csp.IdKichCo,
                 IdMauSac= csp.IdMauSac,
                 GiaBan = csp.GiaBan,
                 GiaNhap= csp.GiaNhap,
@@ -76,7 +75,6 @@ namespace _1_API.Controllers
             else
             {
                 result.IdSP = usp.IdSP;
-                result.IdKichCo = usp.IdKichCo;
                 result.IdMauSac = usp.IdMauSac;
                 result.GiaBan = usp.GiaBan;
                 result.GiaNhap = usp.GiaNhap;
