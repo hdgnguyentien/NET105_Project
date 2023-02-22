@@ -4,6 +4,7 @@ using CustomerViews.IServices;
 using CustomerViews.Models;
 using System.Diagnostics;
 using _1_API.ViewModel.GioHangChiTiet;
+using System.Drawing;
 
 namespace CustomerViews.Controllers
 {
@@ -21,8 +22,11 @@ namespace CustomerViews.Controllers
         public async Task<IActionResult> Index()
         {
             var lstSPCT = await _services.GetAll<SanphamChitiet>(Connection.api + "SanphamChitiets/Get-All");
-            var lstSP = await _services.GetAll<SanPham>(Connection.api + "SanPhams/Get-All");
+            var lstSP = await _services.GetAll<SanPham>(Connection.api + "SanPhams/Get-All"); 
+            var lstTL = await _services.GetAll<TheLoai>(Connection.api + "TheLoais/Get-All");
+
             ViewData["lstSP"] = lstSP.ToList();
+            ViewData["lstTL"] = lstTL.ToList();
             return View(lstSPCT.ToList());
         }
         public async Task<IActionResult> SanPhamChiTiet(Guid spct_id)
@@ -38,29 +42,18 @@ namespace CustomerViews.Controllers
             spct.mauSac = lstMS.FirstOrDefault(x => x.Id == spct.IdMauSac);
             return View(spct);
         }
-        public async Task<IActionResult> SearchSanPham(decimal min, decimal max, string name)
+        public async Task<IActionResult> SearchSanPham(string ten,Guid idTheLoai)
         {
-            var lstSanphamChitiet = await _services.GetAll<SanphamChitiet>(Connection.api + "SanphamChitiets/Get-All");
-
-            decimal temp;
-            if (min > max)
+            var lstSPCT = await _services.GetAll<SanphamChitiet>(Connection.api + "SanphamChitiets/Get-All");
+            if (!string.IsNullOrEmpty(ten))
+                lstSPCT = lstSPCT.Where(x => x.TenSPChiTiet.ToLower().Contains(ten.ToLower())).ToList();
+            if (idTheLoai != Guid.Empty)
             {
-                temp = min;
-                min = max;
-                max = temp;
+                var lstTL = await _services.GetAll<TheLoaiSanPham>(Connection.api + "TheLoaiSanPhams/Get-All");
+                var lstSPCT_id = lstTL.Where(x => x.IdTheLoai == idTheLoai).Select(x => x.IdChiTietSP);
+                lstSPCT = lstSPCT.Where(x => lstSPCT_id.Contains(x.Id)).ToList();
             }
-
-            var result = lstSanphamChitiet.Where(p => p.GiaBan >= min && p.GiaBan <= max && p.sanPham.Ten.Contains(name)).ToList();
-            if (result.Count > 0)
-            {
-                ViewData["result"] = "Tìm thấy" + result.Count + "sản phẩm";
-                return View("Index", result);
-            }
-            else
-            {
-                ViewData["thongbao"] = "Không tìm thấy sản phẩm nào phù hợp";
-                return View("Index");
-            }
+            return View("Index", lstSPCT);
         }
 		public async Task<IActionResult> Addtocard(Guid ma)
 		{

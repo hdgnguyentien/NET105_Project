@@ -5,8 +5,11 @@
     ViewData["Title"] = "Home Page";
     var thongbao = ViewData["thongbao"] as string;
     var loginfalse = ViewData["loginfalse"] as string;
-    var lstSP = ViewData["lstSP"] as List<SanPham>;
-    string tensp = "";
+
+	var lstSP = ViewData["lstSP"] as List<SanPham>;
+    var lstTL = ViewData["lstTL"] as List<TheLoai>;
+	string tensp = "";
+
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -138,45 +141,56 @@
                 </div>
             </div>
         </div>
-        <div class="title">
-            <h2>SẢN PHẨM MỚI</h2>
-        </div>
-        <form method="get" asp-controller="Home" asp-action="SearchSanPham">
+
+    </div>
+    <div class="title">
+        <h2>SẢN PHẨM MỚI</h2>
+    </div>
+    				<form class="row g-3 float-end" method="get" asp-controller="Home" asp-action="SearchSanPham">
+			<div class="col-auto">
+				<input class="form-control" name="ten" type="text" placeholder="Nhập tên sản phẩm" />
+			</div>
+			<div class="col-auto">
+				<select class="form-select" name="idTheLoai">
+					<option value="">Tất cả</option>
+				@if (lstTL != null && lstTL.Any())
+				{
+					@foreach (var item in lstTL)
+					{
+						<option value="@item.Id">@item.TenTheLoai</option>
+					}
+				}
+				</select>
+			</div>
+			<div class="col-auto">
+				<button class="btn btn-primary" type="submit">Tìm Kiếm</button>
+			</div>
+		</form>
+	<br />
+    <br />
+
+    @if (Model != null && Model.Any())
+    {
+
+        <div class="product">
             <div class="row">
-                <div class="col-2">
-                    <input name="min" type="number" placeholder="Nhập khoảng từ" class="form-control" />
-                </div>
-                <div class="col-2">
-                    <input name="max" type="number" placeholder="Đến" class="form-control" />
-                </div>
-                <div class="col-6">
-                    <input name="name" type="text" placeholder="Nhập tên sản phẩm" class="form-control" />
-                </div>
-                <div class="col-2"><button class="btn btn-success" type="submit">Tìm kiếm</button></div>
-            </div>
-
-        </form>
-        <br />
-
-        @if (Model != null)
-        {
-
-            <div class="product">
-                <div class="row">
-                    @foreach (var product in Model)
-                    {
-                        <div class="card-columns col-3" style="border: none">
-                            <div class="card h-70 text-center" style="">
-                                <a asp-controller="Home" asp-action="SanPhamChiTiet" asp-route-spct_id="@product.Id"><img src="~/img/@product.hinhAnhs" class="card-img img-fluid" alt="" /></a>
-                                <div class="card-body">
-                                    <h5 class="card-title">
-                                        <a asp-controller="Home" asp-action="SanPhamChiTiet" asp-route-spct_id="@product.Id"> @(tensp = lstSP.FirstOrDefault(p => p.Id == product.IdSP).Ten)</a>
-                                        <p class="card-text">  <span style="color: #c30005; font-weight: lighter;text-decoration: line-through;">@Html.DisplayFor(modelItem => product.GiaBan)</span>  @Html.DisplayFor(modelItem => product.GiaBan){Giá sale}  VND</p>
-                                    </h5>
-                                    <p class="">
-                                        <b>Trạng thái: @(product.TrangThai == 1 ? "Còn hàng" : "Hết hàng")</b>
-                                    </p>
-                                </div>
+                @foreach (var product in Model)
+                {
+                    <div class="card-columns col-3" style="border: none">
+                        <div class="card h-70 text-center" style="">
+                            <img src="~/img/@product.hinhAnhs" class="card-img img-fluid" alt="" />
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <a asp-controller="Home" asp-action="SanPhamChiTiet" asp-route-spct_id="@product.Id"> 
+                                        @Html.DisplayFor(modelItem => product.TenSPChiTiet)
+                                        @*@(tensp = lstSP.FirstOrDefault(p => p.Id == product.IdSP).Ten)*@
+                                        </a>
+                                    <p class="card-text">  <span style="color: #c30005; font-weight: lighter;text-decoration: line-through;">@Html.DisplayFor(modelItem => product.GiaBan)</span>  @Html.DisplayFor(modelItem => product.GiaBan){Giá sale}  VND</p>
+                                </h5>
+                                <p class="">
+                                    <b>Trạng thái: @(product.TrangThai == 1 ? "Còn hàng" : "Hết hàng")</b>
+                                </p>
+                                <a asp-controller="Cart" asp-action="Addtocard" asp-route-ma="@product.Id" class="btn btn-primary">Thêm vào giỏ hàng</a>
 
                             </div>
                             <br />
@@ -191,25 +205,40 @@
         <div class="title">
             <h2>SẢN PHẨM BÁN CHẠY NHẤT</h2>
         </div>
-        @if (Model != null)
-        {
 
-            <div class="product">
-                <div class="row">
-                    @foreach (var product in Model)
-                    {
-                        <div class="card-columns col-3" style="border: none">
-                            <div class="card h-70 text-center" style="">
-                                <a asp-controller="Home" asp-action="SanPhamChiTiet" asp-route-spct_id="@product.Id"><img src="~/img/@product.hinhAnhs" class="card-img img-fluid" alt="" /></a>
-                                <div class="card-body">
-                                    <h5 class="card-title">
-                                        <a asp-controller="Home" asp-action="SanPhamChiTiet" asp-route-spct_id="@product.Id"> @(tensp = lstSP.FirstOrDefault(p => p.Id == product.IdSP).Ten)</a>
-                                        <p class="card-text">  <span style="color: #c30005; font-weight: lighter;text-decoration: line-through;">@Html.DisplayFor(modelItem => product.GiaBan)</span>  @Html.DisplayFor(modelItem => product.GiaBan){Giá sale}  VND</p>
-                                    </h5>
-                                    <p class="">
-                                        <b>Trạng thái: @(product.TrangThai == 1 ? "Còn hàng" : "Hết hàng")</b>
-                                    </p>
-                                </div>
+        <br />
+    }
+                else
+                {
+                    <h3>Không có sản phẩm nào phù hợp</h3>
+                }
+    <div class="title">
+        <h2>SẢN PHẨM BÁN CHẠY NHẤT</h2>
+    </div>
+    @if (Model != null && Model.Any())
+    {
+
+        <div class="product">
+            <div class="row">
+                @foreach (var product in Model)
+                {
+                    <div class="card-columns col-3" style="border: none">
+                        <div class="card h-70 text-center" style="">
+                            <img src="~/img/@product.hinhAnhs" class="card-img img-fluid" alt="" />
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <a asp-controller="Home" asp-action="SanPhamChiTiet" asp-route-spct_id="@product.Id"> 
+                                        @Html.DisplayFor(modelItem => product.TenSPChiTiet)
+                                        @*@(tensp = lstSP.FirstOrDefault(p => p.Id == product.IdSP).Ten)*@
+                                        </a>
+                                    <p class="card-text">  <span style="color: #c30005; font-weight: lighter;text-decoration: line-through;">@Html.DisplayFor(modelItem => product.GiaBan)</span>  @Html.DisplayFor(modelItem => product.GiaBan){Giá sale}  VND</p>
+                                </h5>
+                                <p class="">
+                                    <b>Trạng thái: @(product.TrangThai == 1 ? "Còn hàng" : "Hết hàng")</b>
+                                </p>
+                                <a asp-controller="Cart" asp-action="Addtocard" asp-route-ma="@product.Id" class="btn btn-primary">Thêm vào giỏ hàng</a>
+                            </div>
+
 
                             </div>
                             <br />
@@ -228,29 +257,48 @@
                 <div class="col-3 imggg"><img src="~/img//m_bn_2_3.jpg" alt="" /></div>
             </div>
         </div>
+        <br />
+    }
+                else
+                {
+                    <h3>Không có sản phẩm nào phù hợp</h3>
+                }
+    <div class="body_banner">
+        <div class="row">
+            <div class="col-3 imggg"><img src="~/img//m_bn_2_1.jpg" alt="" /></div>
+            <div class="col-6"><img src="~/img//m_bn_2_2.jpg" alt="" /></div>
+            <div class="col-3 imggg"><img src="~/img//m_bn_2_3.jpg" alt="" /></div>
 
-        <div class="title">
-            <h2>SẢN PHẨM GIẢM GIÁ</h2>
         </div>
         @if (Model != null)
         {
 
-            <div class="product">
-                <div class="row">
-                    @foreach (var product in Model)
-                    {
-                        <div class="card-columns col-3" style="border: none">
-                            <div class="card h-70 text-center" style="">
-                                <a asp-controller="Home" asp-action="SanPhamChiTiet" asp-route-spct_id="@product.Id"><img src="~/img/@product.hinhAnhs" class="card-img img-fluid" alt="" /></a>
-                                <div class="card-body">
-                                    <h5 class="card-title">
-                                        <a asp-controller="Home" asp-action="SanPhamChiTiet" asp-route-spct_id="@product.Id"> @(tensp = lstSP.FirstOrDefault(p => p.Id == product.IdSP).Ten)</a>
-                                        <p class="card-text">  <span style="color: #c30005; font-weight: lighter;text-decoration: line-through;">@Html.DisplayFor(modelItem => product.GiaBan)</span>  @Html.DisplayFor(modelItem => product.GiaBan){Giá sale}  VND</p>
-                                    </h5>
-                                    <p class="">
-                                        <b>Trạng thái: @(product.TrangThai == 1 ? "Còn hàng" : "Hết hàng")</b>
-                                    </p>
-                                </div>
+
+    <div class="title">
+        <h2>SẢN PHẨM GIẢM GIÁ</h2>
+    </div>
+    @if (Model != null && Model.Any())
+    {
+
+        <div class="product">
+            <div class="row">
+                @foreach (var product in Model)
+                {
+                    <div class="card-columns col-3" style="border: none">
+                        <div class="card h-70 text-center" style="">
+                            <img src="~/img/@product.hinhAnhs" class="card-img img-fluid" alt="" />
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <a asp-controller="Home" asp-action="SanPhamChiTiet" asp-route-spct_id="@product.Id"> 
+                                        @Html.DisplayFor(modelItem => product.TenSPChiTiet)
+                                        @*@(tensp = lstSP.FirstOrDefault(p => p.Id == product.IdSP).Ten)*@
+                                        </a>
+                                    <p class="card-text">  <span style="color: #c30005; font-weight: lighter;text-decoration: line-through;">@Html.DisplayFor(modelItem => product.GiaBan)</span>  @Html.DisplayFor(modelItem => product.GiaBan){Giá sale}  VND</p>
+                                </h5>
+                                <p class="">
+                                    <b>Trạng thái: @(product.TrangThai == 1 ? "Còn hàng" : "Hết hàng")</b>
+                                </p>
+                                <a asp-controller="Cart" asp-action="Addtocard" asp-route-ma="@product.Id" class="btn btn-primary">Thêm vào giỏ hàng</a>
 
                             </div>
                             <br />
@@ -259,9 +307,13 @@
                     }
                 </div>
 
-            </div>
-            <br />
-        }
+        </div>
+        <br />
+    }
+                else
+                {
+                    <h3>Không có sản phẩm nào phù hợp</h3>
+                }
 
     </div>
 </div>

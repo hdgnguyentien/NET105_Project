@@ -24,7 +24,7 @@ namespace Data.DbContexts
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            base.OnConfiguring(optionsBuilder.UseSqlServer("Server=DESKTOP-JNDR021\\SQLEXPRESS;Database=Net105Database;Trusted_Connection=True;"));
+            base.OnConfiguring(optionsBuilder.UseSqlServer("Server=DESKTOP-733UBE0\\SQLEXPRESS;Database=Net105Database;Trusted_Connection=True;"));
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

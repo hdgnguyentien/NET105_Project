@@ -77,7 +77,7 @@
                                             <i class="bi bi-person" style="font-size:25px"></i>
                                             </a>
                                             <ul class="dropdown-menu" style="background-color:black">
-                                                <li><a class="dropdown-item" href="#">Thông tin cá nhân</a></li>
+                                            <li><a class="dropdown-item" asp-controller="Login" asp-action="ThongTinKhachHang">Thông tin cá nhân</a></li>
                                             <li>
                                                 <a class="dropdown-item" asp-controller="Login" asp-action="ThayDoiMK">Thay đổi mật khẩu</a>
                                             </li>
@@ -133,6 +133,11 @@
                                 <li class="nav-item">
                                     <a class="nav-link  active" aria-current="page" asp-area="" asp-controller="DichVu" asp-action="CSKH">CHĂM SÓC KHÁCH HÀNG</a>
                                 </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link  active" aria-current="page" asp-area="" asp-controller="DichVu" asp-action="LienHe2">LIÊN HỆ</a>
+                                </li>
+
                             </ul>
                         </div>
                     </div>
