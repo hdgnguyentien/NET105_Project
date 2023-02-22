@@ -1,0 +1,30 @@
+﻿@model CustomerViews.Models.BagCartViewModel
+@if (Model != null)
+{
+    <a class=" nav-link active btn position-relative"
+   aria-current="page"
+   style="border: 0px"
+   asp-controller="Cart"
+   asp-action="Index">
+        <i class="bi bi-bag" style="font-size:25px"></i>
+        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+            @Model.numberOfItems
+        </span>
+    </a>
+
+}
+else
+{
+    <a class=" nav-link active btn position-relative"
+   aria-current="page"
+   style="border: 0px"
+   asp-controller="Cart"
+   asp-action="Index">
+        <i class="bi bi-bag" style="font-size:25px"></i>
+        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+            0
+        </span>
+    </a>
+}
+
+

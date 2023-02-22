@@ -85,9 +85,7 @@
                                         </div>
                                     
                                 </div>
-                                <div class="p-2">
-                                    <a href=""><i class="bi bi-bag" style="font-size:25px"></i></a>
-                                </div>
+                                <div>@await Component.InvokeAsync("BagCart")</div>
                             </div>
                         </div>
                     }
@@ -134,9 +132,6 @@
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link  active" aria-current="page" asp-area="" asp-controller="DichVu" asp-action="CSKH">CHĂM SÓC KHÁCH HÀNG</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link  active" aria-current="page" asp-area="" asp-controller="" asp-action="Index">GIỎ HÀNG</a>
                                 </li>
                             </ul>
                         </div>
