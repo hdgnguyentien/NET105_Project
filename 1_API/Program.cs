@@ -12,7 +12,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped(typeof(IAllRepositories<>), typeof(AllRepositories<>));
-builder.Services.AddDbContext<CuaHangDbContext>(c => c.UseSqlServer("Server=DESKTOP-JNDR021\\SQLEXPRESS;Database=Net105Database;Trusted_Connection=True;"));
+builder.Services.AddDbContext<CuaHangDbContext>(c => c.UseSqlServer("Server=DESKTOP-733UBE0\\SQLEXPRESS;Database=Net105Database;Trusted_Connection=True;"));
 
 var app = builder.Build();
 
