@@ -12,5 +12,9 @@ namespace CustomerViews.Controllers
         {
             return View();
         }
+        public IActionResult LienHe2()
+        {
+            return View();
+        }
     }
 }
