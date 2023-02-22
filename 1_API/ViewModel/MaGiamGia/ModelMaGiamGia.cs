@@ -2,7 +2,7 @@
 
 namespace _1_API.ViewModel.MaGiamGia
 {
-    public class CreateMaGiamGia
+    public class ModelMaGiamGia
     {
         [Required(ErrorMessage = "Vui lòng nhập mã giảm giá")]
         public string? Ma { get; set; }
@@ -16,6 +16,5 @@ namespace _1_API.ViewModel.MaGiamGia
         public int? TrangThai { get; set; }
         [Required(ErrorMessage = "Vui lòng nhập phần trăm ")]
         public int? PhanTramGiam { get; set; }
-        
     }
 }
