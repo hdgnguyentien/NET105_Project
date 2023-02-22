@@ -18,7 +18,7 @@
 }
 
 .title h2 {
-    border-bottom: solid 2px #000 !important;
+    border-bottom: solid 1px #000 !important;
     padding-bottom: 10px;
     text-align: center;
     margin-top: 10px;
@@ -73,3 +73,12 @@
     .product button i {
         font-size: 15px;
     }
+
+.body_banner img {
+    max-width: 100%;
+    border-radius: 10px;
+}
+
+.imggg {
+    margin-top: 100px;
+}

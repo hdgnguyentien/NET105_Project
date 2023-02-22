@@ -20,15 +20,39 @@
         <div class="header_login">
             <div class="container">
                 <ul class="nav justify-content-end">
+                    @if (name == null)
+                    { 
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" asp-area="" asp-controller="" asp-action=""><i class="bi bi-person-bounding-box"></i> ĐĂNG NHẬP</a>
+                        <a class="nav-link active" aria-current="page"
+                           asp-area=""
+                           asp-controller="Login"
+                           asp-action="CheckDangNhap">
+                        <i class="bi bi-person-bounding-box"></i> ĐĂNG NHẬP</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link  active" aria-current="page" asp-area="" asp-controller="" asp-action="">  <i class="bi bi-pencil-square"></i></i> Đăng ký</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" asp-area="" asp-controller="" asp-action=""><i class="bi bi-power"></i> ĐĂNG XUẤT</a>
-                    </li>
+                        <a class="nav-link  active" aria-current="page"
+                           asp-area=""
+                           asp-controller="Login"
+                           asp-action="DangKy">
+                         <i class="bi bi-pencil-square"></i> Đăng ký
+                         </a>
+                     </li>
+                    }
+                    
+                    
+                    @if(name != null)
+                    {
+                        <li class="nav-item">
+                        <a class="nav-link active" aria-current="page"
+                        asp-area="" 
+                        asp-controller="Login"
+                           asp-action="DangXuat">
+                        <i class="bi bi-power"></i> ĐĂNG XUẤT</a>
+                        </li>
+                        <li class="nav-item">
+                            <p style="margin-top:7px" aria-current="page">Xin chào: @name </p>                                                         
+                        </li>
+                    }                   
                 </ul>
             </div>
         </div>
@@ -42,6 +66,32 @@
                             <img src="~/img/Layer 2.png" class="item-img" alt="" width="90%" height="90%"  />
                         </div>
                     </div>
+                    @if (name != null)
+                    {
+                        <div class="colum col-4" style="font-size: 20px">
+                            <div class="d-flex justify-content-end">
+                                <div class="p-2">
+                                    
+                                        <div class="dropdown">
+                                            <a class="dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="bi bi-person" style="font-size:25px"></i>
+                                            </a>
+                                            <ul class="dropdown-menu" style="background-color:black">
+                                                <li><a class="dropdown-item" href="#">Thông tin cá nhân</a></li>
+                                            <li>
+                                                <a class="dropdown-item" asp-controller="Login" asp-action="ThayDoiMK">Thay đổi mật khẩu</a>
+                                            </li>
+                                            </ul>
+                                        </div>
+                                    
+                                </div>
+                                <div class="p-2">
+                                    <a href=""><i class="bi bi-bag" style="font-size:25px"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    
                 </div>
             </div>
         </div>
@@ -62,19 +112,28 @@
 
                                 <li class="nav-item">
                                     <div class="dropdown">
-                                        <button class="btn dropdown-toggle" style="font-weight: bold; font-size: 14px" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <button class="btn dropdown-toggle"
+                                        style="font-weight: bold; font-size: 14px" 
+                                        type="button" id="dropdownMenuButton"
+                                        data-toggle="dropdown" 
+                                        aria-haspopup="true" 
+                                        aria-expanded="false">
                                             SẢN PHẨM
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <a class="dropdown-item" asp-area="" asp-controller="" asp-action="">CÁC Thể loại sản phẩm</a>>
+                                            <a class="dropdown-item" 
+                                            asp-area="" 
+                                            asp-controller=""
+                                            asp-action="">
+                                            CÁC Thể loại sản phẩm</a>>
                                         </div>
                                     </div>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link  active" aria-current="page" asp-area="" asp-controller="Home" asp-action="Index">LIÊN HỆ</a>
+                                    <a class="nav-link  active" aria-current="page" asp-area="" asp-controller="DichVu" asp-action="LienHe">GIỚI THIỆU</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link  active" aria-current="page" asp-area="" asp-controller="Home" asp-action="Index">CHĂM SÓC KHÁCH HÀNG</a>
+                                    <a class="nav-link  active" aria-current="page" asp-area="" asp-controller="DichVu" asp-action="CSKH">CHĂM SÓC KHÁCH HÀNG</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link  active" aria-current="page" asp-area="" asp-controller="" asp-action="Index">GIỎ HÀNG</a>
