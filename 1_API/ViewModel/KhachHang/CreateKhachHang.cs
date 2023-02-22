@@ -4,11 +4,7 @@ namespace _1_API.ViewModel.KhachHang
 {
     public class CreateKhachHang
     {
-<<<<<<< HEAD
         [Required(ErrorMessage = "Vui lòng nhập tên khách hàng")]
-=======
-        //[Required(ErrorMessage = "Vui lòng nhập họ và tên")]
->>>>>>> master
         public string? Ten { get; set; }
         [Required(ErrorMessage = "Vui lòng nhập email")]
         [RegularExpression(@"^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$", ErrorMessage = "Vui lòng nhập đúng email")]
