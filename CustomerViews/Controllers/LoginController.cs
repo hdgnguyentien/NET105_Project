@@ -51,7 +51,7 @@ namespace CustomerViews.Controllers
                     else
                     {
                         HttpContext.Session.SetString("idkh", kh.Id.ToString());
-                        HttpContext.Session.SetString("ten", kh.Ten??"");
+                        HttpContext.Session.SetString("ten", kh.Ten ?? "");
 
                         var lstGH = await _services.GetAll<GioHang>(Connection.api + "GioHangs/Get-All");
                         var gh = lstGH.FirstOrDefault(x => x.IdKH == kh.Id);
@@ -134,7 +134,7 @@ namespace CustomerViews.Controllers
             }
         }
         public IActionResult DoiMK()
-        { 
+        {
             return View();
         }
 
@@ -147,13 +147,13 @@ namespace CustomerViews.Controllers
             }
 
             var lstKH = await _services.GetAll<KhachHang>(Connection.api + "KhachHangs/Get-All");
-            var tk = lstKH.FirstOrDefault(p => p.Email == request.Email && p.Sdt == request.Sdt && p.MatKhau==request.MatKhau);
-            if (request.MatKhauMoi == request.NhapLaiMkm) 
+            var tk = lstKH.FirstOrDefault(p => p.Email == request.Email && p.Sdt == request.Sdt && p.MatKhau == request.MatKhau);
+            if (request.MatKhauMoi == request.NhapLaiMkm)
             {
                 if (tk != null)
                 {
                     tk.MatKhau = request.MatKhauMoi;
-                    
+
                     await _services.Update<KhachHang>(Connection.api + "KhachHangs/Update/", tk, tk.Id);
                     HttpContext.Session.Remove("idkh");
                     HttpContext.Session.Remove("ten");
@@ -170,10 +170,27 @@ namespace CustomerViews.Controllers
             else
             {
                 ViewData["loidmk"] = "Mật khẩu mới không trùng khớp, hãy nhập lại";
-                return View("DoiMK"); 
+                return View("DoiMK");
             }
 
 
+        }
+
+        public async Task<IActionResult> ThongTinKhachHang()
+        {
+            var id = HttpContext.Session.GetString("idkh");
+            Guid guidID = Guid.Parse(id);
+            var kh = await _services.GetById<KhachHang>(Connection.api + "KhachHangs/GetById/", guidID);
+            ViewKhachHang view = new ViewKhachHang()
+            {
+                Ten = kh.Ten,
+                DiaChi = kh.DiaChi,
+                Email = kh.Email,
+                GioiTinh = kh.GioiTinh,
+                Sdt = kh.Sdt,
+                NgaySinh = kh.NgaySinh
+            };
+            return View(view);
         }
     }
 }
