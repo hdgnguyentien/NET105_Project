@@ -2,12 +2,14 @@
 @model IEnumerable<Data.ModelsClass.SanphamChitiet>
 
 @{
-	ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Home Page";
     var thongbao = ViewData["thongbao"] as string;
     var loginfalse = ViewData["loginfalse"] as string;
+
 	var lstSP = ViewData["lstSP"] as List<SanPham>;
     var lstTL = ViewData["lstTL"] as List<TheLoai>;
 	string tensp = "";
+
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -114,30 +116,32 @@
                 </button>
             </div>
         </div>
-    <!-- Banner body -->
-    <div class="banner-body">
-        <div class="container">
-            <div class="row banner3">
-                <div class="col-4">
-                    <div class="thumb">
-                        <img src="~/img/banner_1.jpg" alt="" />
-                        <img src="~/img/banner_2.jpg" alt="" />
+        <!-- Banner body -->
+        <div class="banner-body">
+            <div class="container">
+                <div class="row banner3">
+                    <div class="col-4">
+                        <div class="thumb">
+                            <img src="~/img/banner_1.jpg" alt="" />
+                            <img src="~/img/banner_2.jpg" alt="" />
+                        </div>
                     </div>
-                </div>
 
-                <div class="col-4">
-                    <div class="thumb">
-                        <img src="~/img/banner_3.jpg" alt="" />
+                    <div class="col-4">
+                        <div class="thumb">
+                            <img src="~/img/banner_3.jpg" alt="" />
+                        </div>
                     </div>
-                </div>
-                <div class="col-4">
-                    <div class="thumb">
-                        <img src="~/img/banner_4.jpg" alt="" />
-                        <img src="~/img/banner_5.jpg" alt="" />
+                    <div class="col-4">
+                        <div class="thumb">
+                            <img src="~/img/banner_4.jpg" alt="" />
+                            <img src="~/img/banner_5.jpg" alt="" />
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
     <div class="title">
         <h2>SẢN PHẨM MỚI</h2>
@@ -187,16 +191,21 @@
                                     <b>Trạng thái: @(product.TrangThai == 1 ? "Còn hàng" : "Hết hàng")</b>
                                 </p>
                                 <a asp-controller="Cart" asp-action="Addtocard" asp-route-ma="@product.Id" class="btn btn-primary">Thêm vào giỏ hàng</a>
+
                             </div>
-
+                            <br />
                         </div>
-                        <br />
-                    </div>
 
-                }
+                    }
+                </div>
+
             </div>
-
+            <br />
+        }
+        <div class="title">
+            <h2>SẢN PHẨM BÁN CHẠY NHẤT</h2>
         </div>
+
         <br />
     }
                 else
@@ -230,13 +239,23 @@
                                 <a asp-controller="Cart" asp-action="Addtocard" asp-route-ma="@product.Id" class="btn btn-primary">Thêm vào giỏ hàng</a>
                             </div>
 
+
+                            </div>
+                            <br />
                         </div>
-                        <br />
-                    </div>
 
-                }
+                    }
+                </div>
+
             </div>
-
+            <br />
+        }
+        <div class="body_banner">
+            <div class="row">
+                <div class="col-3 imggg"><img src="~/img//m_bn_2_1.jpg" alt="" /></div>
+                <div class="col-6"><img src="~/img//m_bn_2_2.jpg" alt="" /></div>
+                <div class="col-3 imggg"><img src="~/img//m_bn_2_3.jpg" alt="" /></div>
+            </div>
         </div>
         <br />
     }
@@ -249,8 +268,11 @@
             <div class="col-3 imggg"><img src="~/img//m_bn_2_1.jpg" alt="" /></div>
             <div class="col-6"><img src="~/img//m_bn_2_2.jpg" alt="" /></div>
             <div class="col-3 imggg"><img src="~/img//m_bn_2_3.jpg" alt="" /></div>
+
         </div>
-    </div>
+        @if (Model != null)
+        {
+
 
     <div class="title">
         <h2>SẢN PHẨM GIẢM GIÁ</h2>
@@ -277,14 +299,13 @@
                                     <b>Trạng thái: @(product.TrangThai == 1 ? "Còn hàng" : "Hết hàng")</b>
                                 </p>
                                 <a asp-controller="Cart" asp-action="Addtocard" asp-route-ma="@product.Id" class="btn btn-primary">Thêm vào giỏ hàng</a>
+
                             </div>
-
+                            <br />
                         </div>
-                        <br />
-                    </div>
 
-                }
-            </div>
+                    }
+                </div>
 
         </div>
         <br />
@@ -294,7 +315,7 @@
                     <h3>Không có sản phẩm nào phù hợp</h3>
                 }
 
-</div>
+    </div>
 </div>
 
 @*<div>
@@ -318,18 +339,18 @@
 
 
 	@if (Model != null)
-	{       
+	{
 			<ul class="row" style="list-style: none">
 			@foreach (var item in Model)
 			{
-						<li class="col-3">               
+						<li class="col-3">
 						<div class="card" style="width: 16rem; margin-bottom: 20px">
 							<img src="~/css/IMG_SP/@item.hinhAnhs" class="card-img-top" alt="...">
 							<div class="card-body">
 							<h3 style="text-align:center" class="card-title">@(tensp = lstSP.FirstOrDefault(p => p.Id == item.IdSP).Ten)</h3>
 								<div class="card-price">
 									<p class="">
-												
+
 									@*</p>
 									<p class="">
 										<b style="color:red">Sale: @Html.DisplayFor(modelItem => item.GiaBan) $</b>
@@ -343,9 +364,9 @@
 								</div>
 							<a asp-controller="Cart" asp-action="Addtocard" asp-route-ma="@item.Id" class="btn btn-primary">Thêm vào giỏ hàng</a>
 							</div>
-						</div>                   
+						</div>
 						</li>
 			}
-			</ul>  
+			</ul>
 	}
 </div>*@
