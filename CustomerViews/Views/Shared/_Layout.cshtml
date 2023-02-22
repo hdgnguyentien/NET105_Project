@@ -66,16 +66,30 @@
                             <img src="~/img/Layer 2.png" class="item-img" alt="" width="90%" height="90%"  />
                         </div>
                     </div>
-                    <div class="colum col-4" style="font-size: 20px">
-                        <div class="d-flex justify-content-end">
-                            <div class="p-2">
-                                <a href="" ><i class="bi bi-person" style="font-size:25px"></i></a>
-                            </div>
-                            <div class="p-2">
-                                <a href=""><i class="bi bi-bag" style="font-size:25px"></i></a>
+                    @if (name != null)
+                    {
+                        <div class="colum col-4" style="font-size: 20px">
+                            <div class="d-flex justify-content-end">
+                                <div class="p-2">
+                                    
+                                        <div class="dropdown">
+                                            <a class="dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="bi bi-person" style="font-size:25px"></i>
+                                            </a>
+                                            <ul class="dropdown-menu" style="background-color:black">
+                                                <li><a class="dropdown-item" href="#">Thông tin cá nhân</a></li>
+                                                <li><a class="dropdown-item" href="#">Thay đổi mật khẩu</a></li>
+                                            </ul>
+                                        </div>
+                                    
+                                </div>
+                                <div class="p-2">
+                                    <a href=""><i class="bi bi-bag" style="font-size:25px"></i></a>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    }
+                    
                 </div>
             </div>
         </div>
