@@ -113,93 +113,160 @@
                 </button>
             </div>
         </div>
-
-        <!-- Banner body -->
-        <div class="banner-body">
-            <div class="container">
-                <div class="row banner3">
-                    <div class="col-4">
-                        <div class="thumb">
-                            <img src="~/img/banner_1.jpg" alt="" />
-                            <img src="~/img/banner_2.jpg" alt="" />
-                        </div>
+    <!-- Banner body -->
+    <div class="banner-body">
+        <div class="container">
+            <div class="row banner3">
+                <div class="col-4">
+                    <div class="thumb">
+                        <img src="~/img/banner_1.jpg" alt="" />
+                        <img src="~/img/banner_2.jpg" alt="" />
                     </div>
+                </div>
 
-                    <div class="col-4">
-                        <div class="thumb">
-                            <img src="~/img/banner_3.jpg" alt="" />
-                        </div>
+                <div class="col-4">
+                    <div class="thumb">
+                        <img src="~/img/banner_3.jpg" alt="" />
                     </div>
-                    <div class="col-4">
-                        <div class="thumb">
-                            <img src="~/img/banner_4.jpg" alt="" />
-                            <img src="~/img/banner_5.jpg" alt="" />
-                        </div>
+                </div>
+                <div class="col-4">
+                    <div class="thumb">
+                        <img src="~/img/banner_4.jpg" alt="" />
+                        <img src="~/img/banner_5.jpg" alt="" />
                     </div>
                 </div>
             </div>
         </div>
-        <div class="title">
-            <h2>DANH MỤC SẢN PHẨM</h2>
-        </div>
-        <form method="get" asp-controller="Home" asp-action="SearchSanPham">
-            <div class="row">
-                <div class="col-2">
-                    <input name="min" type="number" placeholder="Nhập khoảng từ" class="form-control" />
-                </div>
-                <div class="col-2">
-                    <input name="max" type="number" placeholder="Đến" class="form-control" />
-                </div>
-                <div class="col-6">
-                    <input name="name" type="text" placeholder="Nhập tên sản phẩm" class="form-control" />
-                </div>
-                <div class="col-2"><button class="btn btn-success" type="submit">Tìm kiếm</button></div>
-            </div>
-
-        </form>
-        <br />
-        
-
-        @if (thongbao != null)
-        {
-            <p>@thongbao</p>
-        }
-        @if (Model != null)
-        {
-            
-                <div class="product">
-                    <div class="row">
-                    @foreach (var product in Model)
-                    {
-                             <div class="card-columns col-3" style="border: none">
-                                    <div class="card h-70 text-center" style="">
-                                      <img src="~/img/@product.hinhAnhs" class="card-img img-fluid" alt="" />
-                                       <div class="card-body">
-                                       <h5 class="card-title">
-                                     <a asp-controller="Home" asp-action="SanPhamChiTiet" asp-route-spct_id="@product.Id"> @(tensp = lstSP.FirstOrDefault(p => p.Id == product.IdSP).Ten)</a>
-                                     <p class="card-text">@Html.DisplayFor(modelItem => product.GiaBan)  VND</p>
-                                       </h5>
-                                      <h5 class="card-title">
-                                         <b style="color:red">Sale: @Html.DisplayFor(modelItem => product.GiaBan) $</b>
-                                      </h5>
-                                       <p class="">
-                                          <b>Trạng thái: @(product.TrangThai == 1 ? "Còn hàng" : "Hết hàng")</b>
-                                       </p>
-                                      <a asp-controller="Cart" asp-action="Addtocard" asp-route-ma="@product.Id" class="btn btn-primary">Thêm vào giỏ hàng</a>
-                                         </div>
-                                        
-                                    </div>
-                            <br />
-                               </div>      
-                               
-                      }
-                    </div>
-                
-            </div>
-            <br />
-        }
-        <!-- end container -->
     </div>
+    <div class="title">
+        <h2>SẢN PHẨM MỚI</h2>
+    </div>
+    <form method="get" asp-controller="Home" asp-action="SearchSanPham">
+        <div class="row">
+            <div class="col-2">
+                <input name="min" type="number" placeholder="Nhập khoảng từ" class="form-control" />
+            </div>
+            <div class="col-2">
+                <input name="max" type="number" placeholder="Đến" class="form-control" />
+            </div>
+            <div class="col-6">
+                <input name="name" type="text" placeholder="Nhập tên sản phẩm" class="form-control" />
+            </div>
+            <div class="col-2"><button class="btn btn-success" type="submit">Tìm kiếm</button></div>
+        </div>
+
+    </form>
+    <br />
+
+    @if (Model != null)
+    {
+
+        <div class="product">
+            <div class="row">
+                @foreach (var product in Model)
+                {
+                    <div class="card-columns col-3" style="border: none">
+                        <div class="card h-70 text-center" style="">
+                            <img src="~/img/@product.hinhAnhs" class="card-img img-fluid" alt="" />
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <a asp-controller="Home" asp-action="SanPhamChiTiet" asp-route-spct_id="@product.Id"> @(tensp = lstSP.FirstOrDefault(p => p.Id == product.IdSP).Ten)</a>
+                                    <p class="card-text">  <span style="color: #c30005; font-weight: lighter;text-decoration: line-through;">@Html.DisplayFor(modelItem => product.GiaBan)</span>  @Html.DisplayFor(modelItem => product.GiaBan){Giá sale}  VND</p>
+                                </h5>
+                                <p class="">
+                                    <b>Trạng thái: @(product.TrangThai == 1 ? "Còn hàng" : "Hết hàng")</b>
+                                </p>
+                                <a asp-controller="Cart" asp-action="Addtocard" asp-route-ma="@product.Id" class="btn btn-primary">Thêm vào giỏ hàng</a>
+                            </div>
+
+                        </div>
+                        <br />
+                    </div>
+
+                }
+            </div>
+
+        </div>
+        <br />
+    }
+    <div class="title">
+        <h2>SẢN PHẨM BÁN CHẠY NHẤT</h2>
+    </div>
+    @if (Model != null)
+    {
+
+        <div class="product">
+            <div class="row">
+                @foreach (var product in Model)
+                {
+                    <div class="card-columns col-3" style="border: none">
+                        <div class="card h-70 text-center" style="">
+                            <img src="~/img/@product.hinhAnhs" class="card-img img-fluid" alt="" />
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <a asp-controller="Home" asp-action="SanPhamChiTiet" asp-route-spct_id="@product.Id"> @(tensp = lstSP.FirstOrDefault(p => p.Id == product.IdSP).Ten)</a>
+                                    <p class="card-text">  <span style="color: #c30005; font-weight: lighter;text-decoration: line-through;">@Html.DisplayFor(modelItem => product.GiaBan)</span>  @Html.DisplayFor(modelItem => product.GiaBan){Giá sale}  VND</p>
+                                </h5>
+                                <p class="">
+                                    <b>Trạng thái: @(product.TrangThai == 1 ? "Còn hàng" : "Hết hàng")</b>
+                                </p>
+                                <a asp-controller="Cart" asp-action="Addtocard" asp-route-ma="@product.Id" class="btn btn-primary">Thêm vào giỏ hàng</a>
+                            </div>
+
+                        </div>
+                        <br />
+                    </div>
+
+                }
+            </div>
+
+        </div>
+        <br />
+    }
+    <div class="body_banner">
+        <div class="row">
+            <div class="col-3 imggg"><img src="~/img//m_bn_2_1.jpg" alt="" /></div>
+            <div class="col-6"><img src="~/img//m_bn_2_2.jpg" alt="" /></div>
+            <div class="col-3 imggg"><img src="~/img//m_bn_2_3.jpg" alt="" /></div>
+        </div>
+    </div>
+
+    <div class="title">
+        <h2>SẢN PHẨM GIẢM GIÁ</h2>
+    </div>
+    @if (Model != null)
+    {
+
+        <div class="product">
+            <div class="row">
+                @foreach (var product in Model)
+                {
+                    <div class="card-columns col-3" style="border: none">
+                        <div class="card h-70 text-center" style="">
+                            <img src="~/img/@product.hinhAnhs" class="card-img img-fluid" alt="" />
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <a asp-controller="Home" asp-action="SanPhamChiTiet" asp-route-spct_id="@product.Id"> @(tensp = lstSP.FirstOrDefault(p => p.Id == product.IdSP).Ten)</a>
+                                    <p class="card-text">  <span style="color: #c30005; font-weight: lighter;text-decoration: line-through;">@Html.DisplayFor(modelItem => product.GiaBan)</span>  @Html.DisplayFor(modelItem => product.GiaBan){Giá sale}  VND</p>
+                                </h5>
+                                <p class="">
+                                    <b>Trạng thái: @(product.TrangThai == 1 ? "Còn hàng" : "Hết hàng")</b>
+                                </p>
+                                <a asp-controller="Cart" asp-action="Addtocard" asp-route-ma="@product.Id" class="btn btn-primary">Thêm vào giỏ hàng</a>
+                            </div>
+
+                        </div>
+                        <br />
+                    </div>
+
+                }
+            </div>
+
+        </div>
+        <br />
+    }
+
+</div>
 </div>
 
 @*<div>
