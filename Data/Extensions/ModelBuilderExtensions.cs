@@ -162,23 +162,6 @@ namespace Data.Extensions
                     Sdt = "2",
                     NgaySinh = DateTime.Now,
                 });
-            modelBuilder.Entity<GiohangChitiet>().HasData(
-                new GiohangChitiet()
-                {
-                    Id = new Guid("040174D7-FB1C-4FFF-912C-215F1562E2EA"),
-                    IdGioHang = new Guid("9779E43B-FCFC-40A0-B778-FA6F4757FD55"),
-                    IdSPChitiet = new Guid("7AAF5675-683D-4608-9534-EA737A4247B3"),
-                    SoLuong = 3,
-                    GiaBan = 20000
-                },
-                new GiohangChitiet()
-                {
-                    Id = new Guid("E5FB1F37-454C-4AAE-968D-D19C6E8CC9FA"),
-                    IdGioHang = new Guid("87C18DE0-9653-408E-9F7D-36B2F5A3D890"),
-                    IdSPChitiet = new Guid("51A13AFD-08D1-4A20-A0E0-FB4447BD215D"),
-                    SoLuong = 2,
-                    GiaBan = 10000
-                });
         }
     }
 }
