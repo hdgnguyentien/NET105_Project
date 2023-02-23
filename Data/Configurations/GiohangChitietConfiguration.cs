@@ -21,7 +21,7 @@ namespace Data.Configurations
             builder.Property(x => x.IdGioHang).IsRequired();
             builder.HasOne(x => x.sanphamChitiet).WithMany(x => x.giohangChitiets).HasForeignKey(x => x.IdSPChitiet);
             builder.HasOne(x => x.gioHang).WithMany(x => x.giohangChitiets).HasForeignKey(x => x.IdGioHang);
-            builder.HasOne(x => x.kichCo).WithMany(x => x.giohangChitiets).HasForeignKey(x => x.IdGioHang);
+            builder.HasOne(x => x.kichCo).WithMany(x => x.giohangChitiets).HasForeignKey(x => x.IdKichCo);
         }
     }
 }
