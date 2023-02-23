@@ -1,0 +1,44 @@
+﻿.TTLH h3 {
+    font-size: 28px;
+    font-weight: bold;
+    color: #c30005;
+}
+
+.TTLH li {
+    list-style: none;
+    margin-left: -30px;
+    color: #000000;
+    margin-top: 15px;
+    font-size: 20px;
+}
+
+    .TTLH li i {
+        margin-right: 15px;
+    }
+
+.TTLH {
+    margin-top: 50px;
+    margin-bottom: 20px;
+}
+
+    .TTLH .btn {
+        margin: 0 auto;
+        display: block;
+        margin-top: 20px;
+        padding: 5px 100px;
+    }
+.card-img-overlay h5 {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 30px;
+    font-weight: bold;
+    color: aliceblue;
+}
+.card-img-overlay a {
+    background-image: linear-gradient( to right, #54b3d6, #54b3d6 50%, rgb(255, 255, 255) 50% );
+}
+.card-img-overlay p {
+    text-align: center;
+    font-size: 20px;
+    color: aliceblue;
+}

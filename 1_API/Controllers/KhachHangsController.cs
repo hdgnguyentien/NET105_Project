@@ -71,8 +71,8 @@ namespace _1_API.Controllers
         }
 
         [HttpPost]
-        [Route("Update/id")]
-        public async Task<IActionResult> UpdateKhachHang(Guid id, [FromForm] UpdateKhachHang ukh)
+        [Route("Update/{id}")]
+        public async Task<IActionResult> UpdateKhachHang(Guid id, UpdateKhachHang ukh)
 
         {
             var result = await _repo.GetByIdAsync(id);

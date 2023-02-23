@@ -11,7 +11,7 @@ namespace Data.ModelsClass
         public Guid Id { get; set; }
         public Guid? IdSanPhamChiTiet { get; set; }
         public Guid? IdSize { get; set; }
-        public int? SoLuong { get; set; }
+        public int SoLuong { get; set; }
         public KichCo? KichCo { get; set; }
         public SanphamChitiet? SanPhamChitiet { get; set; }
 

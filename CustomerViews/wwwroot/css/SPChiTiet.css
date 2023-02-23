@@ -1,0 +1,123 @@
+﻿.detail_product img {
+    width: 100%;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+.detail_product .name {
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+.product_span i {
+    color: #ee4d2d;
+    font-size: 16px;
+}
+
+.product_span span {
+    margin-right: 20px;
+    border-right: 1px solid #ee4d2d;
+    font-size: 16px;
+    padding-right: 10px;
+}
+
+.detail_product .money {
+    background-color: #fafafa;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+    .detail_product .money p {
+        padding: 20px 10px;
+        font-size: 30px;
+        color: #ee4d2d;
+    }
+
+.detail_product .ship i {
+    color: #00bfa5;
+    font-size: 25px;
+    margin-right: 5px;
+}
+
+.detail_product .ship p {
+    font-size: 16px;
+    color: #757575;
+}
+
+.detail_product .ship {
+    display: inline-block;
+    font-size: 16px;
+}
+
+    .detail_product .ship span {
+        margin-left: 20px;
+        color: #000;
+    }
+
+    .detail_product .ship .p {
+        margin-left: 110px;
+    }
+
+    .detail_product .ship .p2 {
+        margin-left: 145px;
+    }
+
+.detail_product .p3 input {
+    margin-left: 30px;
+    width: 50px;
+    height: 32px;
+    text-align: center;
+    font-size: 16px;
+}
+
+.detail_product .p4 input {
+    width: 50px;
+    height: 32px;
+    text-align: center;
+    font-size: 16px;
+    margin-right: 10px;
+    border-radius: 8px;
+}
+
+.detail_product .p5 input {
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    font-size: 16px;
+    margin-right: 10px;
+    border-radius: 15px;
+    border: none;
+}
+
+.detail_button a {
+    background-color: #c30005;
+    /* --btn-hover-border-tint-amount: 10%; */
+    border-radius: 0px;
+    font-weight: bold;
+    padding: 10px 50px;
+    font-size: 18px;
+}
+
+.detail_button i {
+    margin-right: 10px;
+}
+
+.detail_body h2 {
+    margin-top: 30px;
+    font-size: 22px;
+    font-weight: bold;
+    border-bottom: 1px solid #868686;
+    margin-bottom: 30px;
+}
+
+.CT_product {
+    font-size: 15px;
+}
+
+    .CT_product .col-sm-1 {
+        color: #757575;
+    }
+
+.MT_product span {
+    display: block;
+}

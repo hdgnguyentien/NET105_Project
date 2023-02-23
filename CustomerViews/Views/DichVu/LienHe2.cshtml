@@ -1,0 +1,77 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - CustomerViews</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/LienHe2.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/CustomerViews.styles.css" asp-append-version="true" />
+</head>
+
+<div class="card text-bg-dark">
+    <img src="~/img/banner-gioiThieu.jpg" class="card-img" alt="..." />
+    <div class="card-img-overlay">
+        <h5>LIÊN HỆ</h5>
+        <p><a>Trang chủ </a> / Liên Hệ</p>
+    </div>
+</div>
+<div class="container">
+    <div class="TTLH">
+        <div class="row">
+            <div class="col-6">
+                <h3>Thông tin liên hệ</h3>
+                <ul>
+                    <li>
+                        <i class="bi bi-geo-alt"></i> 43 ngách 100/193 Phú Diễn, quận Bắc Từ
+                        Liêm, Hà Nội
+                    </li>
+                    <li><i class="bi bi-telephone"></i> 076 922 0162</li>
+                    <li><i class="bi bi-envelope-open"></i> dao7773@gmail.com</li>
+                    <li><i class="bi bi-skype"></i> dao7773</li>
+                    <li style="font-size: 35px">
+                        <i class="bii bi-facebook"> </i>
+                        <i class="bii bi-twitter"></i>
+                        <i class="bii bi-youtube"></i>
+                        <i class="bii bi-instagram"></i>
+                        <i class="bii bi-tiktok"></i>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-6">
+                <div class="row row-cols-1 row-cols-md-2 g-4">
+                    <div class="col">
+                        <input type="email" class="form-control" placeholder="Họ và tên" />
+                    </div>
+                    <div class="col">
+                        <input type="email" class="form-control" placeholder="Email" />
+                    </div>
+                    <div class="col">
+                        <input type="email"
+                               class="form-control"
+                               placeholder="Số điện thoại" />
+                    </div>
+                    <div class="col">
+                        <input type="email" class="form-control" placeholder="Địa chỉ" />
+                    </div>
+                </div>
+                <textarea class="form-control"
+                          id="exampleFormControlTextarea1"
+                          rows="4"
+                          placeholder="Lời nhắn"
+                          style="margin-top: 20px"></textarea>
+                <button type="button" class="btn btn-danger">Gửi</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="map" style="height: 470px">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d930.8858690852837!2d105.75984920259168!3d21.05094508015495!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3134557e10aac7eb%3A0x412bc0e816a86589!2zSG9tZXN0YXkgTHV4dXJ5IFBow7ogRGnhu4Vu!5e0!3m2!1svi!2s!4v1665766715440!5m2!1svi!2s"
+            width="100%"
+            height="450"
+            style="border: 0"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"></iframe>
+</div>
