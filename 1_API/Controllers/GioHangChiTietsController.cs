@@ -43,6 +43,7 @@ namespace _1_API.Controllers
             {
                 Id = Guid.NewGuid(),
                 IdSPChitiet = cnv.IdSPChitiet,
+                IdKichCo = cnv.IdKichCo,
                 IdGioHang = cnv.IdGioHang,
                 SoLuong = cnv.SoLuong,
                 GiaBan = cnv.GiaBan,
@@ -71,6 +72,7 @@ namespace _1_API.Controllers
             else
             {
                 result.IdSPChitiet = unv.IdSPChitiet;
+                result.IdKichCo = unv.IdKichCo;
                 result.IdGioHang = unv.IdGioHang;
                 result.SoLuong = unv.SoLuong;
                 result.GiaBan = unv.GiaBan;

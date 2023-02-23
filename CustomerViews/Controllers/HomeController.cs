@@ -44,6 +44,7 @@ namespace CustomerViews.Controllers
                            join b in lstSPCT.ToList() on a.IdSanPhamChiTiet equals b.Id
                            join c in lstKC.ToList() on a.IdSize equals c.Id
                            where a.SoLuong >= 1
+                           orderby c.Size ascending
                            select new SizeSanPhamModel()
                            {
                                Id = a.IdSize,

@@ -22,6 +22,7 @@ namespace Data.Configurations
 
             builder.HasOne(x => x.hoaDon).WithMany(x => x.hoadonChitiets).HasForeignKey(x => x.IdHoaDon);
             builder.HasOne(x => x.sanphamChitiet).WithMany(x => x.hoadonChitiets).HasForeignKey(x => x.IdSPChitiet);
+            builder.HasOne(x => x.kichCo).WithMany(x => x.hoadonChitiets).HasForeignKey(x => x.IdSPChitiet);
         }
     }
 }
