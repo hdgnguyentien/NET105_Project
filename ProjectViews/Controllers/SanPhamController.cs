@@ -107,6 +107,7 @@ namespace ProjectViews.Controllers
             {
                 UpdateSanPham updateSP = new UpdateSanPham()
                 {
+                    Id= sp.Id,
                     IdHang = sp.IdHang,
                     Ten = sp.Ten,
                     TrangThai = sp.TrangThai,

@@ -16,6 +16,7 @@
     <div class="col-md-4">
         <form asp-action="Update">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
             <div class="form-group">
                 <label asp-for="IdHang" class="control-label">Hãng</label>
                 <select asp-for="IdHang" class="form-select">
