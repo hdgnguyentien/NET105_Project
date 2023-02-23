@@ -8,6 +8,7 @@ namespace CustomerViews.Models
     public class LoginRequest : ValidationAttribute
     {
         [Required(ErrorMessage = "Vui lòng không để trống")]
+        [EmailAddress(ErrorMessage = "Email không hợp lệ")]
         public string? Email { get; set; }
 
         [Required(ErrorMessage = "Vui lòng không để trống")]

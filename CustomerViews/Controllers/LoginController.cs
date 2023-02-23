@@ -80,16 +80,31 @@ namespace CustomerViews.Controllers
         }
         public async Task<IActionResult> CheckDangKy(CreateKhachHang khachHang)
         {
-            var success = await _services.Add<CreateKhachHang>(Connection.api + "KhachHangs/", khachHang);
-            if (success != null)
+            if (ModelState.IsValid)
             {
-                ViewData["dangkythanhcong"] = "Đăng ký thành công!!!";
-                return View("DangNhap");
+                var lstKH = await _services.GetAll<KhachHang>(Connection.api + "KhachHangs/Get-All");
+                if (lstKH.FirstOrDefault(x=>x.Email == khachHang.Email)!=null)
+                {
+                    ViewData["thongbao"] = "Email đã tồn tại";
+                    return View("DangKy");
+                }
+                if (lstKH.FirstOrDefault(x => x.Sdt == khachHang.Sdt) != null)
+                {
+                    ViewData["thongbao"] = "Số điện thoại đã tồn tại";
+                    return View("DangKy");
+                }
+                var success = await _services.Add<CreateKhachHang>(Connection.api + "KhachHangs/", khachHang);
+                if (success != null)
+                {
+                    ViewData["dangkythanhcong"] = "Đăng ký thành công!!!";
+                    return View("DangNhap");
+                }
+                else
+                {
+                    return View("DangKy");
+                }
             }
-            else
-            {
-                return View("DangKy");
-            }
+            return View("DangKy");
         }
         public IActionResult QuenMK()
         {
@@ -223,11 +238,11 @@ namespace CustomerViews.Controllers
             {
                 Id = kh.Id,
                 Ten = kh.Ten,
-                    DiaChi = kh.DiaChi,
-                    Sdt = kh.Sdt,
-                    NgaySinh = kh.NgaySinh,
-                    GioiTinh = kh.GioiTinh,
-                };
+                DiaChi = kh.DiaChi,
+                Sdt = kh.Sdt,
+                NgaySinh = kh.NgaySinh,
+                GioiTinh = kh.GioiTinh,
+            };
             var khachhang = await _services.Update<UpdateKhachHang>("https://localhost:7203/api/KhachHangs/Update/", up, guidID);
             var viewkh = new ViewKhachHang
             {
@@ -239,12 +254,12 @@ namespace CustomerViews.Controllers
                 Sdt = khachhang.Sdt,
                 NgaySinh = khachhang.NgaySinh
             };
-                return View("ThongTinKhachHang", viewkh);
-            
-            
+            return View("ThongTinKhachHang", viewkh);
+
+
 
         }
 
-        
+
     }
 }
