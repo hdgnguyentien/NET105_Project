@@ -3,86 +3,225 @@
 @{
     ViewData["Title"] = "DetailSPCT";
 }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - CustomerViews</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/SPChiTiet.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/CustomerViews.styles.css" asp-append-version="true" />
+</head>
 
+<div class="container">
+    <div class="detail_product">
+        <div class="row">
+            <div class="col-5">
+                <img src="~/css//img/@Html.DisplayFor(model => model.hinhAnhs)" alt="" />
+            </div>
+            <div class="col-7">
+                <div class="name">
+                    <h4> @Html.DisplayFor(model => model.sanPham.Ten)</h4>
+                </div>
+                <div class="product_span">
+                    <span>
+                        <b>4.5</b> <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"> </i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i> <i class="bi bi-star-half"> </i>
+                    </span>
+                    <span> <b>100</b> Đánh giá</span>
+                    <span> <b>{SỐ LƯỢNG SẢN PHẨM}</b> Số lượng</span>
+                </div>
 
-<h1>Chi tiết sản phẩm</h1>
+                <div class="money">
+                    <p>
+                        <span style="color: #e0826f; font-weight: lighter;text-decoration: line-through;"> @Html.DisplayFor(model => model.GiaBan)</span>  @Html.DisplayFor(model => model.GiaBan) {giá sale} <span>VND</span>
+                    </p>
+                </div>
+                <div class="ship">
+                    <p>
+                        Vận chuyển
+                        <span class><i class="bi bi-truck"></i> Miễn phí vận chuyển</span>
+                    </p>
+                    <p class="p">
+                        <i class="bi bi-truck" style="color: #000"></i> Vận chuyển tới
+                        <span>{đỊA CHỈ KHÁCH} </span>
+                    </p>
+                    <p class="p2">
+                        Phí vận chuyển
+                        <span> ₫0</span>
+                    </p>
+                    <p class="p4">
+                        Size
+                        {Size}
+                    </p>
+                    <p class="p5">
+                        Màu sắc:
+                        @Html.DisplayFor(model => model.mauSac.TenMau)
+                    </p>
+                    <p class="p3">
+                        Số lượng
+                        <button asp-controller="Cart" asp-action="TangSL">+</button>
+                        <input type="number" value="1" min="1" max="10" />
+                        <button asp-controller="Cart" asp-action="GiamSL">-</button>
+                    </p>
+                </div>
+                <div class="detail_button">
+                    <div class="d-grid gap-2 d-md-block"
+                         style="text-align: center; margin-top: 20px">
+                        <button class="btn btn-outline-light border-radius-sm"
+                                type="button"
+                                style="background-color: #c30005">
 
-<div>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            Tên sản phẩm
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.sanPham.Ten)
-        </dd>
+                            <a class="nav-link" asp-area="" asp-controller="Cart" asp-action="Addtocard" asp-route-ma="@Model.Id"> <i class="bi bi-cart2"></i> Mua Ngay</a>
+                        </button>
+                        <button class="btn btn-outline-light border-radius-sm"
+                                type="button"
+                                style="background-color: #23ab9b">
 
-        <dt class = "col-sm-2">
-            Màu sắc
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.mauSac.TenMau)
-        </dd>
-
-        <dt class = "col-sm-2">
-            Kích cỡ
-        </dt>
-
-        <dt class = "col-sm-2">
-            Giá gốc
-        </dt>
-        <dd class = "col-sm-10">
-            @*@(gg = Model.GiaBan * 2)*@
-            @Html.DisplayFor(model => model.GiaBan)
-        </dd>
-        <dt class = "col-sm-2">
-            Giá sale
-        </dt>
-        <dd class = "col-sm-10">
-            @*@(gb = Model.GiaBan)*@
-            @Html.DisplayFor(model => model.GiaBan)
-        </dd>
-
-        <dt class = "col-sm-2">
-            Số lượng trong kho
-        </dt>
-        <dt class = "col-sm-2">
-            Hình ảnh
-        </dt>
-        <dd class = "col-sm-10">
-            <img src="~/css//IMG_SP/@Html.DisplayFor(model => model.hinhAnhs)" style="width:100px" height="100px" />
-
-        </dd>
-        <dt class = "col-sm-2">
-            Trạng thái
-        </dt>
-        <dd class = "col-sm-10">
-            @(Model.TrangThai == 1 ? "Còn hàng" : "Hết hàng")
-        </dd>
-        @*<dt class = "col-sm-2">
-            Hãng
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.sanPham.hang.TenHang)
-        </dd>
-
-        <dt class = "col-sm-2">
-            Hãng
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.theLoaiSanPhams.Select(x=>x.theLoai.TenTheLoai))
-        </dd>*@
-    </dl>
-</div>
-<div class="row">
-<div class="col">
-    <button class="btn btn-primary" style="height:40px">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Cart" asp-action="Addtocard" asp-route-ma="@Model.Id" style="margin-top : -7px">Thêm vào giỏ hàng</a>
-    </button>
-</div>
-<div class="col">
-    <button class="btn btn-primary" style="height:40px">
-        <a class="nav-link text-dark" asp-area="" asp-controller="Cart" asp-action="MuaHang" style="margin-top : -7px">Mua hàng</a>
-    </button>
-</div>
+                            <a class="nav-link" asp-area="" asp-controller="Cart" asp-action="Add" asp-route-ma="@Model.Id"> <i class="bi bi-cart-plus"></i> Thêm vào giỏ hàng</a>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="detail_body">
+                <div class="CT_product">
+                    <h2>CHI TIẾT SẢN PHẨM</h2>
+                    <div class="mb-1 row">
+                        <label for="staticEmail" class="col-sm-1 col-form-label">Tình trạng</label>
+                        <div class="col-sm-10">
+                            <div class="col-sm-6">
+                                <input type="text"
+                                       readonly
+                                       class="form-control-plaintext"
+                                       id="staticEmail"
+                                       value="Đã Sử Dụng" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-1 row">
+                        <label for="staticEmail" class="col-sm-1 col-form-label">Xuất xứ</label>
+                        <div class="col-sm-10">
+                            <div class="col-sm-2">
+                                <input type="text"
+                                       readonly
+                                       class="form-control-plaintext"
+                                       id="staticEmail"
+                                       value="Việt Nam" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-1 row">
+                        <label for="staticEmail" class="col-sm-1 col-form-label">Chất liệu</label>
+                        <div class="col-sm-10">
+                            <div class="col-sm-2">
+                                <input type="text"
+                                       readonly
+                                       class="form-control-plaintext"
+                                       id="staticEmail"
+                                       value="Khác" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-1 row">
+                        <label for="staticEmail" class="col-sm-1 col-form-label">Dịp</label>
+                        <div class="col-sm-10">
+                            <div class="col-sm-2">
+                                <input type="text"
+                                       readonly
+                                       class="form-control-plaintext"
+                                       id="staticEmail"
+                                       value="Thể thao" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-1 row">
+                        <label for="staticEmail" class="col-sm-1 col-form-label">Cổ giày</label>
+                        <div class="col-sm-10">
+                            <div class="col-sm-2">
+                                <input type="text"
+                                       readonly
+                                       class="form-control-plaintext"
+                                       id="staticEmail"
+                                       value="Cổ thấp" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-1 row">
+                        <label for="staticEmail" class="col-sm-1 col-form-label">Kho hàng</label>
+                        <div class="col-sm-10">
+                            <div class="col-sm-2">
+                                <input type="text"
+                                       readonly
+                                       class="form-control-plaintext"
+                                       id="staticEmail"
+                                       value="10000" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-4 row">
+                        <label for="staticEmail" class="col-sm-1 col-form-label">Gửi từ</label>
+                        <div class="col-sm-10">
+                            <div class="col-sm-2">
+                                <input type="text"
+                                       readonly
+                                       class="form-control-plaintext"
+                                       id="staticEmail"
+                                       value="Hà Nội" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="MT_product">
+                    <h2>MÔ TẢ SẢN PHẨM</h2>
+                    <p>
+                        Đôi giày màu trắng là một phụ kiện "phải có" trong tủ đồ của các bạn
+                        trẻ. Bởi tính ứng dụng cao trong thời trang, giày trắng thường giúp
+                        chúng ta dễ phối đồ hơn và có thể mang phù hợp với bất cứ dịp nào
+                        (đi học, đi chơi, ...). The sneaker shop đảm bảo mang lại cho các bạn
+                        một đôi giày trắng vừa xinh vừa hời. Ngại gì không tậu ngay một đôi
+                        nào!!
+                    </p>
+                    <p>
+                        - THÔNG TIN SẢN PHẨM:
+                        <span>+ Chất liệu giày: da sần, da trơn nhẵn.</span>
+                        <span>+ Màu: trắng</span>
+                        <span>
+                            + Size: từ 36 đến 43 (các bạn tham khảo thêm bảng size để chọn
+                            được một đôi giày ưng ý nhất nhé)
+                        </span>
+                        <span>+ Chiều cao: đế cao 2,5 cm</span>
+                        <span>+ Trọng lượng Giày : 800g</span>
+                    </p>
+                    <p>
+                        - Gợi ý các dịp phù hợp để sử dụng:
+                        <span>
+                            + Mọi hoạt động hàng ngày (đi chơi, đi học, thể dục thể thao,...)
+                        </span>
+                        <span>
+                            + Phối với các trang phục năng động hoặc đồ âu đều dễ dàng và tôn
+                            dáng
+                        </span>
+                    </p>
+                    <p>
+                        - CHẾ ĐỘ BẢO HÀNH VÀ ĐỔI TRẢ <span> Chế độ đổi trả:</span><span>+ Nếu giày lỗi bên shop sẽ hỗ trợ đổi, trả miễn phí 100%</span><span>
+                            + Trường hợp mua giày về mà size quá rộng hoặc quá chật, liên hệ
+                            lại shop trong vòng 7 ngày (kể từ ngày nhận sản phẩm) để nhận đổi
+                            trả
+                        </span>
+                    </p>
+                    <p>
+                        Cảm ơn các bạn đã quan tâm đến sản phẩm của shop. Đừng quên đánh giá
+                        5 sao khi nhận được hàng nhé!!
+                        <span>
+                            * Mọi chi tiết và thắc mắc xin liên hệ lại shop để được giải đáp
+                            tận tình.
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

@@ -1,18 +1,115 @@
-html {
-  font-size: 14px;
+.container {
+    font-family: "Roboto", sans-serif;
+    font-size: 14px;
 }
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+a {
+    background-image: linear-gradient(to right, #54b3d6, #54b3d6 50%, #000 50%);
+    background-size: 200% 100%;
+    background-position: -100%;
+    display: inline-block;
+    padding: 5px 0;
+    position: relative;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: all 0.3s ease-in-out;
 }
 
-html {
-  position: relative;
-  min-height: 100%;
+    a:before {
+        content: "";
+        background: #54b3d6;
+        display: block;
+        position: absolute;
+        bottom: -3px;
+        left: 0;
+        width: 0;
+        height: 3px;
+        transition: all 0.3s ease-in-out;
+    }
+
+    a:hover {
+        background-position: 0;
+    }
+
+        a:hover::before {
+            width: 100%;
+        }
+
+.header_login {
+    background-color: #d8d8d8;
+    font-weight: bold;
+    font-size: 14px;
 }
 
-body {
-  margin-bottom: 60px;
+.header_top {
+    background-color: black;
+    padding: 10px;
+    font-size: 18px;
+}
+
+    .header_top a {
+        background-size: 200% 100%;
+        background-position: -100%;
+        display: inline-block;
+        padding: 5px 0;
+        position: relative;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: white;
+        transition: all 0.3s ease-in-out;
+        /*text-decoration: none;
+        color: white;
+        font-weight: bold*/;
+    }
+
+.header_buttom .form-control {
+    padding-right: 60px;
+    font-size: 14px;
+}
+
+.header_buttom {
+    background-color: rgb(234, 234, 234);
+    color: #ffffff;
+    border-bottom: 0.2px solid #000;
+}
+
+.nav-link {
+    font-weight: bold;
+}
+
+footer {
+    background-color: #292929;
+    margin-top: 20px;
+    color: aliceblue;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+    footer h5 {
+        margin-top: 20px;
+    }
+
+    footer li {
+        list-style: none;
+        margin-left: -30px;
+        color: #a4a4a4;
+        margin-top: 10px;
+        /* text-decoration: underline; */
+    }
+
+    footer a {
+        text-decoration: none;
+    }
+
+    footer h5 {
+        font-weight: bold;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #c10000;
+    }
+
+.bii {
+    margin-right: 10px;
+}
+
+.manhLogo{
+    color:white;
 }

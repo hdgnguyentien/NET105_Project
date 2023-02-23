@@ -22,7 +22,7 @@ namespace _1_API.Controllers
 
         [HttpGet]
         [Route("Get-All")]
-        public async Task<IActionResult> GetAllChucVu()
+        public async Task<IActionResult> GetAllGioHang()
         {
             var result = await _repo.GetAllAsync();
             if (result == null) return Ok("Không có giỏ hàng");
@@ -31,7 +31,7 @@ namespace _1_API.Controllers
 
         [HttpGet]
         [Route("GetById/{id}")]
-        public async Task<IActionResult> GetChucVuById(Guid id)
+        public async Task<IActionResult> GetGioHangById(Guid id)
         {
             var result = await _repo.GetByIdAsync(id);
             if (result == null) return Ok("Không tìm thấy giỏ hàng");
@@ -40,7 +40,7 @@ namespace _1_API.Controllers
 
         [HttpPost]
         [Route("Create")]
-        public async Task<IActionResult> CreateChucVu([FromForm] CreateGioHang ccv)
+        public async Task<IActionResult> CreateGioHang([FromForm] CreateGioHang ccv)
         {
             GioHang cv = new GioHang()
             {
