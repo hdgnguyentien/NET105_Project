@@ -26,41 +26,46 @@ namespace CustomerViews.Controllers
         }
         public async Task<IActionResult> CheckDangNhap(LoginRequest request)
         {
-            ViewData["loginfalse"] = "";
-            if (HttpContext.Session.GetString("idkh") != null)
+            if (ModelState.IsValid)
             {
-                ViewData["loginfalse"] = "Bạn đã đăng nhập rồi";
-                return View("DangNhap");
-            }
-            else
-            {
-                var lstKH = await _services.GetAll<KhachHang>(Connection.api + "KhachHangs/Get-All");
-                if (string.IsNullOrEmpty(request.Email) || string.IsNullOrEmpty(request.MatKhau))
+
+                ViewData["loginfalse"] = "";
+                if (HttpContext.Session.GetString("idkh") != null)
                 {
-                    ViewData["loginfalse"] = "Tài khoản hoặc mật khẩu không được để trống";
+                    ViewData["loginfalse"] = "Bạn đã đăng nhập rồi";
                     return View("DangNhap");
                 }
                 else
                 {
-                    var kh = lstKH.FirstOrDefault(p => p.Email == request.Email && p.MatKhau == request.MatKhau);
-                    if (kh == null)
+                    var lstKH = await _services.GetAll<KhachHang>(Connection.api + "KhachHangs/Get-All");
+                    if (string.IsNullOrEmpty(request.Email) || string.IsNullOrEmpty(request.MatKhau))
                     {
-                        ViewData["loginfalse"] = "Sai tài khoản hoặc mật khẩu";
+                        ViewData["loginfalse"] = "Tài khoản hoặc mật khẩu không được để trống";
                         return View("DangNhap");
                     }
                     else
                     {
-                        HttpContext.Session.SetString("idkh", kh.Id.ToString());
-                        HttpContext.Session.SetString("ten", kh.Ten ?? "");
+                        var kh = lstKH.FirstOrDefault(p => p.Email == request.Email && p.MatKhau == request.MatKhau);
+                        if (kh == null)
+                        {
+                            ViewData["loginfalse"] = "Sai tài khoản hoặc mật khẩu";
+                            return View("DangNhap");
+                        }
+                        else
+                        {
+                            HttpContext.Session.SetString("idkh", kh.Id.ToString());
+                            HttpContext.Session.SetString("ten", kh.Ten ?? "");
 
-                        var lstGH = await _services.GetAll<GioHang>(Connection.api + "GioHangs/Get-All");
-                        var gh = lstGH.FirstOrDefault(x => x.IdKH == kh.Id);
-                        if (gh != null)
-                            HttpContext.Session.SetString("idgh", gh.Id.ToString());
-                        return RedirectToAction("Index", "Home");
+                            var lstGH = await _services.GetAll<GioHang>(Connection.api + "GioHangs/Get-All");
+                            var gh = lstGH.FirstOrDefault(x => x.IdKH == kh.Id);
+                            if (gh != null)
+                                HttpContext.Session.SetString("idgh", gh.Id.ToString());
+                            return RedirectToAction("Index", "Home");
+                        }
                     }
                 }
             }
+            return View("DangNhap");
         }
         public IActionResult DangXuat()
         {
@@ -183,6 +188,7 @@ namespace CustomerViews.Controllers
             var kh = await _services.GetById<KhachHang>(Connection.api + "KhachHangs/GetById/", guidID);
             ViewKhachHang view = new ViewKhachHang()
             {
+                Id = kh.Id,
                 Ten = kh.Ten,
                 DiaChi = kh.DiaChi,
                 Email = kh.Email,
@@ -192,5 +198,53 @@ namespace CustomerViews.Controllers
             };
             return View(view);
         }
+        public async Task<IActionResult> UpdateKH()
+        {
+            var id = HttpContext.Session.GetString("idkh");
+            Guid guidID = Guid.Parse(id);
+            var kh = await _services.GetById<KhachHang>(Connection.api + "KhachHangs/GetById/", guidID);
+            UpdateKhachHang view = new UpdateKhachHang()
+            {
+                Id = kh.Id,
+                Ten = kh.Ten,
+                DiaChi = kh.DiaChi,
+                GioiTinh = kh.GioiTinh,
+                Sdt = kh.Sdt,
+                NgaySinh = kh.NgaySinh
+            };
+            return View(view);
+        }
+
+        public async Task<IActionResult> Updateing(UpdateKhachHang kh)
+        {
+            var id = HttpContext.Session.GetString("idkh");
+            Guid guidID = Guid.Parse(id);
+            UpdateKhachHang up = new UpdateKhachHang()
+            {
+                Id = kh.Id,
+                Ten = kh.Ten,
+                    DiaChi = kh.DiaChi,
+                    Sdt = kh.Sdt,
+                    NgaySinh = kh.NgaySinh,
+                    GioiTinh = kh.GioiTinh,
+                };
+            var khachhang = await _services.Update<UpdateKhachHang>("https://localhost:7203/api/KhachHangs/Update/", up, guidID);
+            var viewkh = new ViewKhachHang
+            {
+                Id = khachhang.Id,
+                Ten = khachhang.Ten,
+                DiaChi = khachhang.DiaChi,
+                Email = khachhang.Email,
+                GioiTinh = khachhang.GioiTinh,
+                Sdt = khachhang.Sdt,
+                NgaySinh = khachhang.NgaySinh
+            };
+                return View("ThongTinKhachHang", viewkh);
+            
+            
+
+        }
+
+        
     }
 }
