@@ -5,6 +5,7 @@ using CustomerViews.Models;
 using System.Diagnostics;
 using _1_API.ViewModel.GioHangChiTiet;
 using System.Drawing;
+using _1_API.ViewModel.SizeSanPham;
 
 namespace CustomerViews.Controllers
 {
@@ -34,9 +35,22 @@ namespace CustomerViews.Controllers
             var spct = await _services.GetById<SanphamChitiet>(Connection.api + "SanphamChitiets/GetById/", spct_id);
 
             var lstSP = await _services.GetAll<SanPham>(Connection.api + "SanPhams/Get-All");
+            var lstSPCT = await _services.GetAll<SanphamChitiet>(Connection.api + "SanphamChitiets/Get-All");
             var lstMS = await _services.GetAll<MauSac>(Connection.api + "MauSacs/Get-All");
             var lstKC = await _services.GetAll<KichCo>(Connection.api + "KichCos/Get-All");
             var lstTL = await _services.GetAll<TheLoai>(Connection.api + "TheLoais/Get-All");
+            var lstsizesp = await _services.GetAll<SizeSanPham>(Connection.api + "SizeSanPhams/Get-All");
+            var listsize = (from a in lstsizesp.ToList().Where(x => x.IdSanPhamChiTiet == spct_id)
+                           join b in lstSPCT.ToList() on a.IdSanPhamChiTiet equals b.Id
+                           join c in lstKC.ToList() on a.IdSize equals c.Id
+                           where a.SoLuong >= 1
+                           select new SizeSanPhamModel()
+                           {
+                               Id = a.IdSize,
+                               Size = c.Size.ToString(),
+                               SoLuong = a.SoLuong
+                           });
+            ViewData["listSize"] = listsize.ToList();
 
             spct.sanPham = lstSP.FirstOrDefault(x => x.Id == spct.IdSP);
             spct.mauSac = lstMS.FirstOrDefault(x => x.Id == spct.IdMauSac);
