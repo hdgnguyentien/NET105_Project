@@ -1,7 +1,9 @@
-﻿@model Data.ModelsClass.SanphamChitiet
+﻿@using _1_API.ViewModel.SizeSanPham;
+@model Data.ModelsClass.SanphamChitiet
 
 @{
     ViewData["Title"] = "DetailSPCT";
+    var lstSize = ViewData["listSize"] as List<SizeSanPhamModel>;
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -54,18 +56,22 @@
                         <span> ₫0</span>
                     </p>
                     <p class="p4">
-                        Size
-                        {Size}
+                        Size:
+                        @foreach(var item in lstSize)
+                        {
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" value="@item.Id">
+                                <label class="form-check-label" for="inlineRadio1">@item.Size</label>
+                            </div>
+                        }
                     </p>
                     <p class="p5">
                         Màu sắc:
-                        @Html.DisplayFor(model => model.mauSac.TenMau)
+                        <button type="button" value="" class="btn btn-secondary">@Html.DisplayFor(model => model.mauSac.TenMau)</button>
                     </p>
                     <p class="p3">
                         Số lượng
-                        <button asp-controller="Cart" asp-action="TangSL">+</button>
                         <input type="number" value="1" min="1" max="10" />
-                        <button asp-controller="Cart" asp-action="GiamSL">-</button>
                     </p>
                 </div>
                 <div class="detail_button">
