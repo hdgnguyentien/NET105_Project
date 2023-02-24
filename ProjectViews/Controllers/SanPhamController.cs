@@ -23,7 +23,8 @@ namespace ProjectViews.Controllers
         public async Task<IActionResult> Index()
         {
             var lstSanPham = await _services.GetAll<SanPham>("https://localhost:7203/api/SanPhams/Get-All");           
-            var lstHang = await _services.GetAll<Hang>("https://localhost:7203/api/Hangs/Get-All");           
+            var lstHang = await _services.GetAll<Hang>("https://localhost:7203/api/Hangs/Get-All");
+            ViewData["ListHang"] = lstHang.ToList();
             var sp = from a in lstSanPham.ToList()
                      join b in lstHang.ToList() on a.IdHang equals b.Id
                      select new ViewSanPham()
@@ -119,6 +120,56 @@ namespace ProjectViews.Controllers
             
             
         }
-    
-}
+        public async Task<IActionResult> Search(string ten, string idHang)
+        {
+            var lstHang = await _services.GetAll<Hang>("https://localhost:7203/api/hangs/Get-All");
+            ViewData["ListHang"] = lstHang.ToList();
+            var lstSanPham = await _services.GetAll<SanPham>("https://localhost:7203/api/SanPhams/Get-All");
+
+            if (!string.IsNullOrEmpty(ten) || !string.IsNullOrEmpty(idHang))
+            {
+                if (!string.IsNullOrEmpty(idHang))
+                {
+                    var id = Guid.Parse(idHang);
+                    lstHang = lstHang.Where(p => p.Id == id);
+                    var viewSP = from a in lstSanPham.ToList()
+                              join b in lstHang.ToList() on a.IdHang equals b.Id
+                              select new ViewSanPham()
+                              {
+                                  Id = a.Id,
+                                  Ten = a.Ten,
+                                  TenHang = b.TenHang,
+                                  TrangThai = a.TrangThai == 1 ? "Đang hoạt động" : "Ngưng hoạt động"
+                              };
+                    if (!string.IsNullOrEmpty(ten))
+                    {
+                        viewSP = viewSP.Where(p => p.Ten.ToLower().Contains(ten.ToLower()));
+                        return View("Index", viewSP);
+                    }
+                    return View("Index", viewSP);
+
+                }
+                else
+                {
+                    var sp = from a in lstSanPham.ToList()
+                             join b in lstHang.ToList() on a.IdHang equals b.Id
+                             select new ViewSanPham()
+                             {
+                                 Id = a.Id,
+                                 Ten = a.Ten,
+                                 TenHang = b.TenHang,
+                                 TrangThai = a.TrangThai == 1 ? "Đang hoạt động" : "Ngưng hoạt động"
+                             };
+                    sp = sp.Where(p => p.Ten.ToLower().Contains(ten.ToLower()));
+                    return View("Index", sp);
+                }
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
+            return RedirectToAction("Index");
+        }
+
+    }
 }

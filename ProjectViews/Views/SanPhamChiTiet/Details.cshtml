@@ -4,50 +4,85 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
-
+<h1>Chi Tiết Sản Phẩm Chi Tiết </h1>
 <div>
-    <h4>SanPhamChiTietDetails</h4>
     <hr />
-    <dl class="row">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="row">
+                <label class="control-label">Ảnh đại diện</label>
+            </div>
+            <img src="@("~/AnhChiTietSanPham/"+Model.AnhDaiDien)" alt="@Model.AnhDaiDien" asp-append-version="true" width="120px" height="140px" />
+        </div>
+        <div class="col-md-3">
+            <div class="row">
+                <label class="control-label">Ảnh phụ 1</label>
+            </div>
+            <img src="@("~/AnhChiTietSanPham/"+Model.AnhPhu1)" alt="@Model.AnhPhu1" asp-append-version="true" width="120px" height="140px" />
+        </div>
+        <div class="col-md-3">
+            <div class="row">
+                <label class="control-label">Ảnh phụ 2</label>
+            </div>
+            <img src="@("~/AnhChiTietSanPham/"+Model.AnhPhu2)" alt="@Model.AnhPhu2" asp-append-version="true" width="120px" height="140px" />
+        </div>
+        <div class="col-md-3">
+            <div class="row">
+                <label class="control-label">Ảnh phụ 3</label>
+            </div>
+            <img src="@("~/AnhChiTietSanPham/"+Model.AnhPhu3)" alt="@Model.AnhPhu3" asp-append-version="true" width="120px" height="140px" />
+        </div>
+    </div>
+    <dl class="row mt-3">
+        
+        <div class="col-md-6">
+            <dt class="col-sm-2">
+                Tên Sản Phẩm
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.TenSP)
+            </dd>
+            <dt class="col-sm-2">
+                Tên Chi Tiết
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.TenChiTiet)
+            </dd>
+            <dt class="col-sm-2">
+                Màu Sắc
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.MauSac)
+            </dd>
+            <dt class="col-sm-2">
+                Thể Loại
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.TheLoai)
+            </dd>
+        </div>
+        <div class="col-md-6">
+            <dt class="col-sm-2">
+                Giá Nhập
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.GiaNhap)
+            </dd>
+            <dt class="col-sm-2">
+                Giá Bán
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.GiaBan)
+            </dd>
+            <dt class="col-sm-2">
+                Trạng Thái
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.TrangThai)
+            </dd>
+        </div>
         
         
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IdSP)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IdSP)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IdMauSac)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IdMauSac)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IdKichCo)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IdKichCo)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.GiaNhap)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.GiaNhap)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.GiaBan)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.GiaBan)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TrangThai)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TrangThai)
-        </dd>
     </dl>
 </div>
 <div>
