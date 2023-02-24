@@ -123,23 +123,41 @@ namespace ProjectViews.Controllers
                     var filestream = new FileStream(filepath, FileMode.Create);
                     model.ImageFile.CopyTo(filestream);
 
-                    string uploadFolder1 = Path.Combine(_webHost.WebRootPath, "AnhChiTietSanPham");
+                    string uploadFolder1 = Path.Combine("C:\\Users\\nguye\\Source\\Repos\\NET105_Project\\CustomerViews\\wwwroot\\", "img");
+                    var anh1 = uniqueFileName1;
+                    string filepath5 = Path.Combine(uploadFolder1, anh1);
+                    var filestream5 = new FileStream(filepath5, FileMode.Create);
+                    model.ImageFile.CopyTo(filestream5);
+
                     uniqueFileName2 = Guid.NewGuid().ToString() + "_" + model.ImageFile1.FileName;
-                    string filepath1 = Path.Combine(uploadFolder1, uniqueFileName2);
+                    string filepath1 = Path.Combine(uploadFolder, uniqueFileName2);
                     var filestream1 = new FileStream(filepath1, FileMode.Create);
                     model.ImageFile1.CopyTo(filestream1);
 
-                    string uploadFolder2 = Path.Combine(_webHost.WebRootPath, "AnhChiTietSanPham");
+                    var anh2 = uniqueFileName2;
+                    string filepath6 = Path.Combine(uploadFolder1, anh2);
+                    var filestream6 = new FileStream(filepath6, FileMode.Create);
+                    model.ImageFile1.CopyTo(filestream6);
+
                     uniqueFileName3 = Guid.NewGuid().ToString() + "_" + model.ImageFile2.FileName;
-                    string filepath2 = Path.Combine(uploadFolder2, uniqueFileName3);
+                    string filepath2 = Path.Combine(uploadFolder, uniqueFileName3);
                     var filestream2 = new FileStream(filepath2, FileMode.Create);
                     model.ImageFile2.CopyTo(filestream2);
 
-                    string uploadFolder3 = Path.Combine(_webHost.WebRootPath, "AnhChiTietSanPham");
+                    var anh3 = uniqueFileName3;
+                    string filepath7 = Path.Combine(uploadFolder1, anh3);
+                    var filestream7 = new FileStream(filepath7, FileMode.Create);
+                    model.ImageFile2.CopyTo(filestream7);
+
                     uniqueFileName4 = Guid.NewGuid().ToString() + "_" + model.ImageFile3.FileName;
-                    string filepath3 = Path.Combine(uploadFolder3, uniqueFileName4);
+                    string filepath3 = Path.Combine(uploadFolder, uniqueFileName4);
                     var filestream3 = new FileStream(filepath3, FileMode.Create);
                     model.ImageFile3.CopyTo(filestream3);
+
+                    var anh4 = uniqueFileName4;
+                    string filepath8 = Path.Combine(uploadFolder1, anh4);
+                    var filestream8 = new FileStream(filepath8, FileMode.Create);
+                    model.ImageFile3.CopyTo(filestream8);
                 };
                 CreateSanphamChitiet spct = new CreateSanphamChitiet()
                 {
@@ -277,37 +295,58 @@ namespace ProjectViews.Controllers
                 string uniqueFileName2 = null;
                 string uniqueFileName3 = null;
                 string uniqueFileName4 = null;
+                string uploadFolder1 = Path.Combine("C:\\Users\\nguye\\Source\\Repos\\NET105_Project\\CustomerViews\\wwwroot\\", "img");
+                string uploadFolder = Path.Combine(_webHost.WebRootPath, "AnhChiTietSanPham");
                 if (model.ImageFile != null)
                 {
-                    string uploadFolder = Path.Combine(_webHost.WebRootPath, "AnhChiTietSanPham");
+                    
                     uniqueFileName1 = Guid.NewGuid().ToString() + "_" + model.ImageFile.FileName;
                     string filepath = Path.Combine(uploadFolder, uniqueFileName1);
                     var filestream = new FileStream(filepath, FileMode.Create);
                     model.ImageFile.CopyTo(filestream);
+
+                    var anh1 = uniqueFileName1;
+                    string filepath5 = Path.Combine(uploadFolder1, anh1);
+                    var filestream5 = new FileStream(filepath5, FileMode.Create);
+                    model.ImageFile.CopyTo(filestream5);
                 };
                 if (model.ImageFile1 != null)
                 {
-                    string uploadFolder1 = Path.Combine(_webHost.WebRootPath, "AnhChiTietSanPham");
+
                     uniqueFileName2 = Guid.NewGuid().ToString() + "_" + model.ImageFile1.FileName;
-                    string filepath1 = Path.Combine(uploadFolder1, uniqueFileName2);
+                    string filepath1 = Path.Combine(uploadFolder, uniqueFileName2);
                     var filestream1 = new FileStream(filepath1, FileMode.Create);
                     model.ImageFile1.CopyTo(filestream1);
+
+                    var anh2 = uniqueFileName2;
+                    string filepath6 = Path.Combine(uploadFolder1, anh2);
+                    var filestream6 = new FileStream(filepath6, FileMode.Create);
+                    model.ImageFile1.CopyTo(filestream6);
                 };
                 if (model.ImageFile2 != null)
                 {
-                    string uploadFolder2 = Path.Combine(_webHost.WebRootPath, "AnhChiTietSanPham");
+
                     uniqueFileName3 = Guid.NewGuid().ToString() + "_" + model.ImageFile2.FileName;
-                    string filepath2 = Path.Combine(uploadFolder2, uniqueFileName3);
+                    string filepath2 = Path.Combine(uploadFolder, uniqueFileName3);
                     var filestream2 = new FileStream(filepath2, FileMode.Create);
                     model.ImageFile2.CopyTo(filestream2);
+
+                    var anh3 = uniqueFileName3;
+                    string filepath7 = Path.Combine(uploadFolder1, anh3);
+                    var filestream7 = new FileStream(filepath7, FileMode.Create);
+                    model.ImageFile2.CopyTo(filestream7);
                 };
                 if (model.ImageFile3 != null)
                 {
-                    string uploadFolder3 = Path.Combine(_webHost.WebRootPath, "AnhChiTietSanPham");
                     uniqueFileName4 = Guid.NewGuid().ToString() + "_" + model.ImageFile3.FileName;
-                    string filepath3 = Path.Combine(uploadFolder3, uniqueFileName4);
+                    string filepath3 = Path.Combine(uploadFolder, uniqueFileName4);
                     var filestream3 = new FileStream(filepath3, FileMode.Create);
                     model.ImageFile3.CopyTo(filestream3);
+                    
+                    var anh4 = uniqueFileName4;
+                    string filepath8 = Path.Combine(uploadFolder1, anh4);
+                    var filestream8 = new FileStream(filepath8, FileMode.Create);
+                    model.ImageFile3.CopyTo(filestream8);
                 };
                 UpdateSanphamChitiet updateSPCT = new UpdateSanphamChitiet()
                 {
