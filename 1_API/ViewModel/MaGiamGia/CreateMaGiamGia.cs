@@ -15,7 +15,7 @@ namespace _1_API.ViewModel.MaGiamGia
         [Required(ErrorMessage = "Vui lòng nhập trạng thái")]
         public int? TrangThai { get; set; }
         [Required(ErrorMessage = "Vui lòng nhập phần trăm ")]
-        public int? PhanTramGiam { get; set; }
+        public int PhanTramGiam { get; set; }
         
     }
 }
