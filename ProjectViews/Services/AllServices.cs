@@ -31,7 +31,7 @@ namespace ProjectViews.Services
             return models.ToList();
         }
 
-        public async Task<T> GetById<T>(string url, Guid id)
+        public async Task<T> GetById<T>(string url, Guid? id)
         {
             
             var httpClient = new HttpClient();
