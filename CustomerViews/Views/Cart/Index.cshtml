@@ -10,16 +10,17 @@
 }
 @if (Model.Any() == true)
 {
-<h3>Giỏ hàng </h3>
-    <table class="table" >
+    <h3>Giỏ hàng </h3>
+    <table class="table">
         <thead>
             <tr>
                 <th>Ảnh sản phẩm</th>
                 <th>Tên sản phẩm</th>
+                <th>Phân loại hàng</th>
                 <th>Giá bán</th>
                 <th>Số lượng</th>
-                <th></th>
-                <th>Thành tiền</th>
+                <th>Xóa</th>
+                <th class="text-end">Thành tiền</th>
             </tr>
         </thead>
         <tbody>
@@ -27,31 +28,32 @@
             {
                 <tr>
                     <td><img src="@(lstSPCT.FirstOrDefault(x=>x.Id == item.IdSPChitiet).AnhDaiDien)" width="60" /></td>
-                    <td>@(tensp = lstSPCT.FirstOrDefault(x=>x.Id == item.IdSPChitiet).TenSPChiTiet)</td>
+                    <td>@(tensp = lstSPCT.FirstOrDefault(x => x.Id == item.IdSPChitiet).TenSPChiTiet)</td>
+                    <td>@(tensp)</td>
                     <td>@item.GiaBan</td>
-                    <td>@item.SoLuong</td>
                     <td>
-                        <a asp-action="TangSL" asp-route-id="@item.IdSPChitiet" class="btn btn-sm btn-primary">+</a>
-                        <a asp-action="GiamSL" asp-route-id="@item.IdSPChitiet" class="btn btn-sm btn-success">-</a>
-                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Xóa</a>
+                        <a asp-action="TangSL" asp-route-id="@item.IdSPChitiet" class="btn btn-sm btn-primary"> + </a>
+                        <a>@item.SoLuong</a>
+                        <a asp-action="GiamSL" asp-route-id="@item.IdSPChitiet" class="btn btn-sm btn-success"> - </a>
                     </td>
-                    <td>@(thanhtien = item.GiaBan * item.SoLuong)</td>
 
+                    <td><a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Xóa</a></td>
+                    <td class="text-end">@(thanhtien = item.GiaBan * item.SoLuong)</td>
                 </tr>
             }
             <tr>
-                    <td class="text-right" colspan="6"><h6>Tổng tiền: @tt</h6> </td>
+                <td class="text-end" colspan="7"><h6>Tổng tiền: @tt</h6> </td>
             </tr>
             <tr>
-                <td colspan="6"class="text-right">
+                <td colspan="7" class="text-end">
                     <a asp-action="MuaHang" class="btn btn-primary">Đặt hàng</a>
-                   
+
                 </td>
             </tr>
         </tbody>
         <tfoot>
             <tr>
-                <td colspan="6"class="text-left "><a asp-controller="Home" asp-action="Index" class="btn btn-success">Tiếp tục mua</a></td>
+                <td colspan="7" class="text-start "><a asp-controller="Home" asp-action="Index" class="btn btn-success">Tiếp tục mua</a></td>
             </tr>
         </tfoot>
     </table>
