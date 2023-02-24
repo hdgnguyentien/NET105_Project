@@ -1,8 +1,10 @@
 ﻿using _1_API.ViewModel.HoaDon;
 using _1_API.ViewModel.HoaDonChiTiet;
+using _1_API.ViewModel.NhanVien;
 using Data.ModelsClass;
 using Microsoft.AspNetCore.Mvc;
 using ProjectViews.IServices;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace ProjectViews.Controllers
 {
@@ -28,11 +30,11 @@ namespace ProjectViews.Controllers
             var lstkhachhang = await _services.GetAll<KhachHang>("https://localhost:7203/api/KhachHangs/Get-All");
 
             decimal? tongtienhoadon = 0;
-            
-            
+
+
             var hoadonct = lsthoadonct.ToList().Where(p => p.IdHoaDon == Guid.Parse(id));
             var kh = lstkhachhang.ToList().FirstOrDefault(p => p.Id == hoadon.IdKH);
-      
+
             foreach (var item in lsthoadonct)
             {
                 tongtienhoadon += (item.SoLuong * item.GiaBan);
@@ -48,7 +50,7 @@ namespace ProjectViews.Controllers
                        select new ViewHoaDonChiTiet()
                        {
                            Id = a.Id,
-                           TenSP = "["+d.TenHang +"]" + " " + c.Ten + " " + b.TenSPChiTiet,
+                           TenSP = "[" + d.TenHang + "]" + " " + c.Ten + " " + b.TenSPChiTiet,
                            TenMauSac = g.TenMau,
                            Size = f.Size.ToString(),
                            SoLuong = a.SoLuong,
@@ -66,10 +68,10 @@ namespace ProjectViews.Controllers
                 TenKhachHang = kh.Ten,
                 SDT = kh.Sdt,
                 DiaChi = kh.DiaChi,
-                TongTien = tongtienhoadon,
+                TongTien = hoadon.TongTien,
                 viewHoaDonChiTiets = lstob
             };
-            
+
 
             return View(viewhdct);
         }
@@ -88,19 +90,43 @@ namespace ProjectViews.Controllers
                 TrangThai = 2,
             };
             await _services.Update<UpdateHoaDon>("https://localhost:7203/api/HoaDons/Update/", updateHoaDon, Guid.Parse(id));
-            return RedirectToAction("Index","HoaDon");
+            return RedirectToAction("Index", "HoaDon");
         }
         public async Task<IActionResult> Delete(string id)
         {
+            
             await _services.Remove<HoaDon>("https://localhost:7203/api/HoaDons/GetById/", "https://localhost:7203/api/HoaDons/Delete/", Guid.Parse(id));
-            return RedirectToAction("Index","HoaDon");
+            return RedirectToAction("Index", "HoaDon");
         }
 
         public async Task<IActionResult> DeleteSP(string id)
         {
+            var hoadonct = await _services.GetById<HoadonChitiet>("https://localhost:7203/api/HoaDonChitiets/GetById/", Guid.Parse(id));
+            var idhoadon = hoadonct.IdHoaDon;
+
             var hd = _services.GetById<HoadonChitiet>("https://localhost:7203/api/HoaDonChiTiets/GetById/", Guid.Parse(id));
             await _services.Remove<HoadonChitiet>("https://localhost:7203/api/HoaDonChiTiets/GetById/", "https://localhost:7203/api/HoaDonChiTiets/Delete/", Guid.Parse(id));
-            return RedirectToAction("Index", "HoaDonChiTiet", new {id = hd.Result.IdHoaDon.ToString()});
+
+            var lsthoadonct = await _services.GetAll<HoadonChitiet>("https://localhost:7203/api/HoaDonChiTiets/Get-All");
+            var hdct = lsthoadonct.Where(p => p.IdHoaDon == hoadonct.IdHoaDon);
+            decimal? tongtien = 0;
+            foreach (var item in hdct)
+            {
+                tongtien += (item.GiaBan * item.SoLuong);
+            }
+            var hoadon = await _services.GetById<HoaDon>("https://localhost:7203/api/HoaDons/GetById/", idhoadon);
+            UpdateHoaDon updatehd = new UpdateHoaDon()
+            {
+                IdMaGiamGia = hoadon.IdMaGiamGia,
+                IdKH = hoadon.IdKH,
+                IdNV = hoadon.IdNV,
+                NgayTao = hoadon.NgayTao,
+                TrangThai = hoadon.TrangThai,
+                TongTien = tongtien,
+                DiaChi = hoadon.DiaChi
+            };
+            await _services.Update<UpdateHoaDon>("https://localhost:7203/api/HoaDons/Update/", updatehd, hoadon.Id);
+            return RedirectToAction("Index", "HoaDonChiTiet", new { id = hd.Result.IdHoaDon.ToString() });
         }
 
     }
