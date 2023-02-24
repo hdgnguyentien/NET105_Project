@@ -23,7 +23,11 @@ namespace Data.Extensions
                     GiaBan = 100000,
                     GiaNhap = 80000,
                     TrangThai = 1,
-                    AnhDaiDien = "null"
+                    AnhDaiDien = "null",
+                    AnhPhu1 = "null",
+                    AnhPhu2 = "null",
+                    AnhPhu3 = "null",
+                    NgayTao = DateTime.Now
                 },
                 new SanphamChitiet()
                 {
@@ -35,7 +39,11 @@ namespace Data.Extensions
                     GiaBan = 200000,
                     GiaNhap = 180000,
                     TrangThai = 1,
-                    AnhDaiDien = "null"
+                    AnhDaiDien = "null",
+                    AnhPhu1 = "null",
+                    AnhPhu2 = "null",
+                    AnhPhu3 = "null",
+                    NgayTao = DateTime.Now
                 },
                 new SanphamChitiet()
                 {
@@ -47,7 +55,11 @@ namespace Data.Extensions
                     GiaBan = 100000,
                     GiaNhap = 80000,
                     TrangThai = 1,
-                    AnhDaiDien = "null"
+                    AnhDaiDien = "null",
+                    AnhPhu1 = "null",
+                    AnhPhu2 = "null",
+                    AnhPhu3 = "null",
+                    NgayTao = DateTime.Now
                 },
                 new SanphamChitiet()
                 {
@@ -59,7 +71,11 @@ namespace Data.Extensions
                     GiaBan = 200000,
                     GiaNhap = 180000,
                     TrangThai = 1,
-                    AnhDaiDien = "null"
+                    AnhDaiDien = "null",
+                    AnhPhu1 = "null",
+                    AnhPhu2 = "null",
+                    AnhPhu3 = "null",
+                    NgayTao = DateTime.Now
                 }
                 );
             modelBuilder.Entity<KichCo>().HasData(
