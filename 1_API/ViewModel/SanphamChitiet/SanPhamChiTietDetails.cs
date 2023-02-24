@@ -2,16 +2,16 @@
 {
     public class SanPhamChiTietDetails
     {
-        public Guid Id { get; set; }
-        public Guid? IdSP { get; set; }
-        public Guid? IdMauSac { get; set; }
-        public Guid? IdKichCo { get; set; }
-        public int? SoLuong { get; set; }
-        public decimal? GiaNhap { get; set; }
-        public decimal? GiaBan { get; set; }
-        public int? TrangThai { get; set; }
-        //public string? TenSP { get; set; }
-        //public string? TenMauSac { get; set; }
-        //public float? TenKichCo { get; set; }
+        public string? TenSP { get; set; }
+        public string? TenChiTiet { get; set; }
+        public string? MauSac { get; set; }
+        public string? GiaNhap { get; set; }
+        public string? GiaBan { get; set; }
+        public string? TrangThai { get; set; }
+        public string? AnhDaiDien { get; set; }
+        public string? AnhPhu1 { get; set; }
+        public string? AnhPhu2 { get; set; }
+        public string? AnhPhu3 { get; set; }
+        public string? TheLoai { get; set; }
     }
 }

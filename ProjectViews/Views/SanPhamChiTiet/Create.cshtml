@@ -1,75 +1,151 @@
 ﻿@model _1_API.ViewModel.SanphamChitiet.SanPhamChiTietModel
 @using Data.ModelsClass
+@using _1_API.ViewModel.SanPham
+@using _1_API.ViewModel.SanphamChitiet
 @{
     ViewData["Title"] = "Create";
     var lstSp = ViewData["lstSP"] as List<SanPham>;
-    var lstKC = ViewData["lstKichCo"] as List<KichCo>;
     var lstMS = ViewData["lstMauSac"] as List<MauSac>;
+    var sanpham = ViewData["SanPham"] as ViewSanPham;
+    var lstTheloai = ViewData["lstTheLoai"] as List<TheLoai>;
 }
 
-<h1>Create</h1>
-
-<h4>SanPhamChiTietModel</h4>
+<h1>Thêm Chi Tiết Sản Phẩm</h1>
 <hr />
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
+    <div class="col-md-12">
+        <form asp-action="Create" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label>Sản Phẩm</label>
-                <select asp-for="IdSP" class="form-control">
-                    @foreach (var item in lstSp)
-                    {
-                            <option value="@item.Id">
-                            @item.Ten
-                            </option>
-                    }
-                </select>
+            <input type="hidden" asp-for="IdSP" />
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label class="control-label">Tên sản phẩm</label>
+                        <input class="form-control" value="[@sanpham.TenHang]@sanpham.Ten" disabled/>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="TenSPChiTiet" class="control-label">Tên chi tiết</label>
+                        <input asp-for="TenSPChiTiet" class="form-control" />
+                        <span asp-validation-for="TenSPChiTiet" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label>Màu sắc</label>
+                        <select asp-for="IdMauSac" class="form-select">
+                            @foreach (var item in lstMS)
+                            {
+                                <option value="@item.Id">
+                                    @item.TenMau
+                                </option>
+                            }
+                        </select>
+                    </div>
+                    
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label asp-for="GiaNhap" class="control-label">Giá Nhập</label>
+                        <input asp-for="GiaNhap" type="number" class="form-control" />
+                        <span asp-validation-for="GiaNhap" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="GiaBan" class="control-label">Giá Bán</label>
+                        <input asp-for="GiaBan" type="number" class="form-control" />
+                        <span asp-validation-for="GiaBan" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="TrangThai" class="control-label">Trạng thái</label>
+                        <select asp-for="TrangThai" class="form-select">
+                            <option value="1" selected>Đang hoạt động</option>
+                            <option value="0">Ngưng hoạt động</option>
+                        </select>
+                        <span asp-validation-for="TrangThai" class="text-danger"></span>
+                    </div>
+
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label asp-for="TheLoai" class="control-label">Thể loại</label>
+                        @foreach (var item in Model.TheLoai)
+                        {
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox"
+                                       name="Selected"
+                                       value="@item.Value"
+                                       @if(Model.Selected.Contains(item.Value))
+                                       {
+                                <text> checked </text>
+                                }
+                                /> @item.Text
+                                </label>
+                            </div>
+                        }
+                        <span asp-validation-for="Selected" class="text-danger"></span>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label>Màu sắc</label>
-                <select asp-for="IdMauSac" class="form-control">
-                    @foreach (var item in lstMS)
-                    {
-                                    <option value="@item.Id">
-                            @item.TenMau
-                                    </option>
-                    }
-                </select>
+
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="row">
+                        <label asp-for="ImageFile" class="control-label">Ảnh đại diện</label>
+                    </div>
+
+                    <img id="FrontImagePrv" src="" alt="Logo Image" width="150px" height="150px" style="border:1px; margin-top: 0px; margin-left:0px" />
+                    <div class="custom-file mt-2">
+                        <input asp-for="ImageFile" class="custom-file-input" id="FLFrontImage" accept="image/*"
+                               onchange="document.getElementById('FrontImagePrv').src = window.URL.createObjectURL(this.files[0])" />
+                    </div>
+                    <span asp-validation-for="ImageFile" class="text-danger"></span>
+                </div>
+                <div class="col-md-3">
+                    <div class="row">
+                        <label asp-for="ImageFile1" class="control-label">Ảnh phụ 1</label>
+                    </div>
+
+                    <img id="FrontImagePrv1" src="" alt="Logo Image" width="150px" height="150px" style="border:1px; margin-top: 0px; margin-left:0px" />
+                    <div class="custom-file mt-2">
+                        <input asp-for="ImageFile1" class="custom-file-input" id="FLFrontImage" accept="image/*"
+                               onchange="document.getElementById('FrontImagePrv1').src = window.URL.createObjectURL(this.files[0])" />
+                    </div>
+                    <span asp-validation-for="ImageFile1" class="text-danger"></span>
+                </div>
+                <div class="col-md-3">
+                    <div class="row">
+                        <label asp-for="ImageFile2" class="control-label">Ảnh phụ 2</label>
+                    </div>
+
+                    <img id="FrontImagePrv2" src="" alt="Logo Image" width="150px" height="150px" style="border:1px; margin-top: 0px; margin-left:0px" />
+                    <div class="custom-file mt-2">
+                        <input asp-for="ImageFile2" class="custom-file-input" id="FLFrontImage" accept="image/*"
+                               onchange="document.getElementById('FrontImagePrv2').src = window.URL.createObjectURL(this.files[0])" />
+                    </div>
+                    <span asp-validation-for="ImageFile2" class="text-danger"></span>
+                </div>
+                <div class="col-md-3">
+                    <div class="row">
+                        <label asp-for="ImageFile3" class="control-label">Ảnh phụ 3</label>
+                    </div>
+
+                    <img id="FrontImagePrv3" src="" alt="Logo Image" width="150px" height="150px" style="border:1px; margin-top: 0px; margin-left:0px" />
+                    <div class="custom-file mt-2">
+                        <input asp-for="ImageFile3" class="custom-file-input" id="FLFrontImage" accept="image/*"
+                               onchange="document.getElementById('FrontImagePrv3').src = window.URL.createObjectURL(this.files[0])" />
+                    </div>
+                    <span asp-validation-for="ImageFile3" class="text-danger"></span>
+                </div>
             </div>
-            <div class="form-group">
-                <label>Kích cỡ</label>
-                <select asp-for="IdKichCo" class="form-control">
-                    @foreach (var item in lstKC)
-                    {
-                                    <option value="@item.Id">
-                            @item.Size
-                                    </option>
-                    }
-                </select>
-            </div>
-            <div class="form-group">
-                <label asp-for="SoLuong" class="control-label"></label>
-                <input asp-for="SoLuong" class="form-control" />
-                <span asp-validation-for="SoLuong" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="GiaNhap" class="control-label"></label>
-                <input asp-for="GiaNhap" class="form-control" />
-                <span asp-validation-for="GiaNhap" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="GiaBan" class="control-label"></label>
-                <input asp-for="GiaBan" class="form-control" />
-                <span asp-validation-for="GiaBan" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TrangThai" class="control-label"></label>
-                <input asp-for="TrangThai" class="form-control" />
-                <span asp-validation-for="TrangThai" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+
+
+
+            <div class="row mt-3">
+
+                <div class="col-md-12">
+                    <div class="form-group" style="text-align: center">
+                        <input type="submit" value="Thêm" class="btn btn-primary" />
+                    </div>
+                </div>
+                <div class="col-md-2"></div>
             </div>
         </form>
     </div>
@@ -80,5 +156,16 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script type="text/javascript">
+        $(".custom-file-input").on("change", function () {
+            var filename = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(filename);
+        });
+    </script>
+    
+
 }
+
