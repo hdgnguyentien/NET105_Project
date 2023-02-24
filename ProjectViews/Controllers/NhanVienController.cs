@@ -211,8 +211,9 @@ namespace ProjectViews.Controllers
 
             var lstNhanVien = await _services.GetAll<NhanVien>("https://localhost:7203/api/NhanViens/Get-All");
 
-
             var model = await _services.GetById<NhanVien>("https://localhost:7203/api/NhanViens/GetById/", id);
+
+            var guibc = lstNhanVien.FirstOrDefault(p => p.Id == model.IdGuiBaoCao);
             var nvs = from a in lstNhanVien.ToList()
                      join b in lstChucVu.ToList() on a.IdCvu equals b.Id
                      select new ViewNhanVien()
@@ -226,7 +227,7 @@ namespace ProjectViews.Controllers
                          MatKhau = a.MatKhau,
                          ChucVu = b.Ten,
                          AnhNhanVien = a.AnhNhanVien,
-                         NguoiGuiBC = a.MaNV,
+                         NguoiGuiBC = guibc == null ? "Chưa có" : guibc.MaNV,
                          Sdt = a.Sdt,
                          TrangThai = a.TrangThai == 1 ? "Đang hoạt động" : "Ngưng Hoạt động",
                          GioiTinh = a.GioiTinh == true ? "Nam" : "Nữ",
