@@ -21,6 +21,7 @@ namespace Data.Configurations
             builder.Property(x=>x.DiaChi).IsRequired();
             builder.Property(x=>x.IdNV);
             builder.Property(x=>x.IdKH).IsRequired();
+            builder.Property(x=>x.MaHD).IsRequired();
 
             builder.HasOne(x => x.maGiamGia).WithMany(x => x.hoaDons).HasForeignKey(x => x.IdMaGiamGia);
             builder.HasOne(x => x.khachHang).WithMany(x => x.hoaDons).HasForeignKey(x => x.IdKH);

@@ -21,6 +21,7 @@ namespace Data.ModelsClass
         public int? TrangThai { get; set; }
         public decimal? TongTien { get; set; }
         public string? DiaChi { get; set; }
+        public string? MaHD { get; set; }
 
         public MaGiamGia? maGiamGia { get; set; }
         public KhachHang? khachHang { get; set; }
