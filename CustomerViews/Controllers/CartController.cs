@@ -88,7 +88,7 @@ namespace CustomerViews.Controllers
             await _services.Update(Connection.api + "GioHangChiTiets/Update/", respon, respon.Id);
             return RedirectToAction("Index");
         }
-        public async Task<IActionResult> Add(Guid ma, string idSize)
+        public async Task<IActionResult> Add(Guid ma, string idSize, string soluong)
         {
             string idkh = HttpContext.Session.GetString("idkh");
             HttpContext.Session.SetString("idSize", idSize);
@@ -98,50 +98,70 @@ namespace CustomerViews.Controllers
             }
             else
             {
-                var maND = await _services.GetAll<KhachHang>(Connection.api + "KhachHangs/Get-All");
-                var maKH = maND.FirstOrDefault(p => p.Id.ToString() == idkh);
-
-                var laymaGH = await _services.GetAll<GioHang>(Connection.api + "GioHangs/Get-All");
-                var maGH = laymaGH.FirstOrDefault(p => p.IdKH.ToString() == idkh);
-
-                var lstSanphamChitiet = await _services.GetAll<SanphamChitiet>(Connection.api + "SanphamChitiets/Get-All");
-                var spct = lstSanphamChitiet.FirstOrDefault(x => x.Id == ma);
-
-
-                var lstSizeSP = await _services.GetAll<SizeSanPham>(Connection.api + "SizeSanPhams/Get-All");
-                var lstKichCo = await _services.GetAll<KichCo>(Connection.api + "KichCos/Get-All");
-                var dataa = await _services.GetAll<GiohangChitiet>(Connection.api + "GioHangChiTiets/Get-All");
-                var data = dataa.FirstOrDefault(p => p.IdSPChitiet == spct.Id && p.IdGioHang == maGH.Id && p.IdKichCo.ToString() == idSize);
-                if (data == null)
+                if (idSize == null)
                 {
-                    CreateGioHangChiTiet ghct = new CreateGioHangChiTiet()
-                    {
-                        IdGioHang = maGH.Id,
-                        IdSPChitiet = spct.Id,
-                        GiaBan = spct.GiaBan,
-                        SoLuong = 1,
-                        IdKichCo = Guid.Parse(idSize),
-                    };
-                    await _services.Add(Connection.api + "GioHangChiTiets/", ghct);
-                    return RedirectToAction("Index");
+                    return Ok("Vui lòng chọn size");
+                }
+                else if (soluong == null)
+                {
+                    return Ok("Vui lòng nhập số lượng");
                 }
                 else
                 {
-                    var respon = (from a in lstSanphamChitiet.ToList()
-                                  join b in lstSizeSP.ToList() on a.Id equals b.IdSanPhamChiTiet
-                                  join c in lstKichCo.ToList() on b.IdSize equals c.Id
-                                  where a.Id == ma
-                                  select new { a, b, c });
+                    var maND = await _services.GetAll<KhachHang>(Connection.api + "KhachHangs/Get-All");
+                    var maKH = maND.FirstOrDefault(p => p.Id.ToString() == idkh);
 
-                    var sl = respon.FirstOrDefault(x => x.a.Id == ma);
-                    data.SoLuong++;
-                    if (data.SoLuong > sl.b.SoLuong)
+                    var laymaGH = await _services.GetAll<GioHang>(Connection.api + "GioHangs/Get-All");
+                    var maGH = laymaGH.FirstOrDefault(p => p.IdKH.ToString() == idkh);
+
+                    var lstSanphamChitiet = await _services.GetAll<SanphamChitiet>(Connection.api + "SanphamChitiets/Get-All");
+                    var spct = lstSanphamChitiet.FirstOrDefault(x => x.Id == ma);
+
+
+                    var lstSizeSP = await _services.GetAll<SizeSanPham>(Connection.api + "SizeSanPhams/Get-All");
+                    var sizesp = lstSizeSP.FirstOrDefault(x => x.IdSize == Guid.Parse(idSize) && x.IdSanPhamChiTiet == ma);
+                    var lstKichCo = await _services.GetAll<KichCo>(Connection.api + "KichCos/Get-All");
+                    var dataa = await _services.GetAll<GiohangChitiet>(Connection.api + "GioHangChiTiets/Get-All");
+                    var data = dataa.FirstOrDefault(p => p.IdSPChitiet == spct.Id && p.IdGioHang == maGH.Id && p.IdKichCo.ToString() == idSize);
+                    if (data == null)
                     {
-                        return Ok("Vượt quá số lượng trong kho");
+                        if (int.Parse(soluong) > sizesp.SoLuong)
+                        {
+                            return Ok("Vượt quá số lượng trong kho");
+                        }
+                        else
+                        {
+                            CreateGioHangChiTiet ghct = new CreateGioHangChiTiet()
+                            {
+                                IdGioHang = maGH.Id,
+                                IdSPChitiet = spct.Id,
+                                GiaBan = spct.GiaBan,
+                                SoLuong = int.Parse(soluong),
+                                IdKichCo = Guid.Parse(idSize),
+                            };
+                            await _services.Add(Connection.api + "GioHangChiTiets/", ghct);
+                            return RedirectToAction("Index");
+                        }
+
                     }
                     else
                     {
-                        await _services.Update(Connection.api + "GioHangChiTiets/Update/", data, data.Id);
+                        var respon = (from a in lstSanphamChitiet.ToList()
+                                      join b in lstSizeSP.ToList() on a.Id equals b.IdSanPhamChiTiet
+                                      join c in lstKichCo.ToList() on b.IdSize equals c.Id
+                                      where a.Id == ma
+                                      select new { a, b, c });
+
+                        var sl = respon.FirstOrDefault(x => x.a.Id == ma);
+                        data.SoLuong++;
+                        if (data.SoLuong > sl.b.SoLuong)
+                        {
+                            return Ok("Vượt quá số lượng trong kho");
+                        }
+                        else
+                        {
+                            await _services.Update(Connection.api + "GioHangChiTiets/Update/", data, data.Id);
+                        }
                     }
                 }
                 return RedirectToAction("Index");
@@ -216,7 +236,8 @@ namespace CustomerViews.Controllers
                     }
                     ViewBag.tt = tongtien;
                     return View("MuaHang", ls);
-                }else if (ma.TrangThai == 0)
+                }
+                else if (ma.TrangThai == 0)
                 {
                     ViewData["thongbao"] = "Mã giảm giá không khả dụng";
                     foreach (var item in ls)
@@ -234,7 +255,7 @@ namespace CustomerViews.Controllers
                         tongtien += (item.SoLuong * item.GiaBan) * (100 - ma.PhanTramGiam) / 100;
                     }
                     --ma.SoLuong;
-                    if (ma.SoLuong<= 0 )
+                    if (ma.SoLuong <= 0)
                     {
                         ma.TrangThai = 0;
                     }
