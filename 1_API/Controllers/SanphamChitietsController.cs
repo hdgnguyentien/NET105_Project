@@ -12,12 +12,17 @@ namespace _1_API.Controllers
     public class SanphamChitietsController : ControllerBase
     {
         private IAllRepositories<SanphamChitiet> _repo;
+        private IAllRepositories<TheLoaiSanPham> _theloaisprepo;
+        private IAllRepositories<HinhAnh> _hinhanhprepo;
+        private IAllRepositories<MauSac> _mausacrepo;
 
 
-        public SanphamChitietsController(IAllRepositories<SanphamChitiet> repo)
+        public SanphamChitietsController(IAllRepositories<SanphamChitiet> repo, IAllRepositories<TheLoaiSanPham> theloaisprepo, IAllRepositories<HinhAnh> hinhanhprepo, IAllRepositories<MauSac> mausacrepo)
         {
             _repo = repo;
-
+            _theloaisprepo = theloaisprepo;
+            _hinhanhprepo = hinhanhprepo;
+            _mausacrepo = mausacrepo;
         }
 
         [HttpGet]
@@ -42,18 +47,42 @@ namespace _1_API.Controllers
         [Route("Create")]
         public async Task<IActionResult> CreateSanPhamCt(CreateSanphamChitiet csp)
         {
+            var ma = await _repo.GetAllAsync();
+            
+            var listmau = await _mausacrepo.GetAllAsync();
+            var tenmau = listmau.ToList().FirstOrDefault(p => p.Id == csp.IdMauSac);
             SanphamChitiet spct = new SanphamChitiet()
             {
                 Id = Guid.NewGuid(),
                 IdSP = csp.IdSP,
-                IdMauSac= csp.IdMauSac,
+                IdMauSac = csp.IdMauSac,
                 GiaBan = csp.GiaBan,
-                GiaNhap= csp.GiaNhap,
+                GiaNhap = csp.GiaNhap,
                 TrangThai = csp.TrangThai,
+                TenSPChiTiet = csp.TenChiTiet + " Màu " + tenmau.TenMau,
+                AnhDaiDien = csp.AnhDaiDien,
+                MaSPChiTiet = "SP" + ma.Count(),
+                AnhPhu1 = csp.AnhPhu1,
+                AnhPhu2 = csp.AnhPhu2,
+                AnhPhu3 = csp.AnhPhu3,
+                NgayTao = DateTime.Now
             };
+
             try
             {
                 var result = await _repo.AddOneAsyn(spct);
+                foreach (var item in csp.Selected)
+                {
+                    TheLoaiSanPham tlsp = new TheLoaiSanPham()
+                    {
+                        Id = Guid.NewGuid(),
+                        IdChiTietSP = spct.Id,
+                        IdTheLoai = Guid.Parse(item),
+                    };
+                    await _theloaisprepo.AddOneAsyn(tlsp);
+                }
+
+
                 return Ok(spct);
             }
             catch (Exception ex)
@@ -68,20 +97,45 @@ namespace _1_API.Controllers
         public async Task<IActionResult> UpdateSanPhamCt(Guid id, UpdateSanphamChitiet usp)
         {
             var result = await _repo.GetByIdAsync(id);
+            var listmau = await _mausacrepo.GetAllAsync();
+            var tenmau = listmau.ToList().FirstOrDefault(p => p.Id == usp.IdMauSac);
             if (result == null)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, "Không tìm thấy sản phẩm chi tiết");
             }
             else
             {
+
                 result.IdSP = usp.IdSP;
                 result.IdMauSac = usp.IdMauSac;
                 result.GiaBan = usp.GiaBan;
                 result.GiaNhap = usp.GiaNhap;
+                result.AnhDaiDien = usp.AnhDaiDien;
+                result.AnhPhu1 = usp.AnhPhu1;
+                result.AnhPhu2 = usp.AnhPhu2;
+                result.AnhPhu3 = usp.AnhPhu3;
                 result.TrangThai = usp.TrangThai;
+                result.TenSPChiTiet = usp.TenSPChiTiet + " Màu " + tenmau.TenMau;
+                var lsttlsp = await _theloaisprepo.GetAllAsync();
+                lsttlsp = lsttlsp.Where(p => p.IdChiTietSP == result.Id);
+
                 try
                 {
                     await _repo.UpdateOneAsyn(result);
+                    foreach (var item in lsttlsp)
+                    {
+                        await _theloaisprepo.DeleteOneAsyn(item);
+                    }
+                    foreach (var item in usp.Selected)
+                    {
+                        TheLoaiSanPham tlsp = new TheLoaiSanPham()
+                        {
+                            Id = Guid.NewGuid(),
+                            IdChiTietSP = result.Id,
+                            IdTheLoai = Guid.Parse(item),
+                        };
+                        await _theloaisprepo.AddOneAsyn(tlsp);
+                    }
                     return Ok(result);
                 }
                 catch (Exception ex)

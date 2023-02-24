@@ -23,6 +23,10 @@ namespace Data.Configurations
             builder.Property(x=>x.TenSPChiTiet).IsRequired();
             builder.Property(x=>x.MaSPChiTiet).IsRequired();
             builder.Property(x=>x.AnhDaiDien).IsRequired();
+            builder.Property(x=>x.AnhPhu1).IsRequired();
+            builder.Property(x=>x.AnhPhu2).IsRequired();
+            builder.Property(x=>x.AnhPhu3).IsRequired();
+            builder.Property(x=>x.NgayTao).IsRequired();
 
             builder.HasOne(x => x.sanPham).WithMany(x => x.sanphamChitiets).HasForeignKey(x => x.IdSP);
             builder.HasOne(x => x.mauSac).WithMany(x => x.sanphamChitiets).HasForeignKey(x => x.IdMauSac);

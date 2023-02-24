@@ -1,7 +1,9 @@
-﻿@model IEnumerable<_1_API.ViewModel.SanPham.ViewSanPham>
+﻿@using Data.ModelsClass
+@model IEnumerable<_1_API.ViewModel.SanPham.ViewSanPham>
 
 @{
     ViewData["Title"] = "Index";
+    var lstHang = ViewData["ListHang"] as List<Hang>;
 }
 
 <h1>Danh Sách Sản Phẩm</h1>
@@ -9,6 +11,32 @@
 <p>
     <a asp-action="Create">Thêm Sản Phẩm</a>
 </p>
+
+<div class="row mb-3">
+    <div class="col-md-6"></div>
+    <div class="col-md-6">
+        <form class="row g-3 float-end" method="get" asp-controller="SanPham" asp-action="Search">
+            <div class="col-auto">
+                <input class="form-control" name="ten" type="text" placeholder="Nhập tên nhân viên" />
+            </div>
+            <div class="col-auto">
+                <select class="form-select" name="idHang">
+                    <option value="">Tất cả</option>
+                    @foreach (var item in lstHang)
+                    {
+                        <option value="@item.Id">@item.TenHang</option>
+                    }
+                </select>
+            </div>
+            <div class="col-auto">
+                <button class="btn btn-primary" type="submit">Tìm Kiếm</button>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+
 <table class="table table-striped table-bordered table-hover align-middle" style="text-align:center">
     <thead>
         <tr class="table-info">
