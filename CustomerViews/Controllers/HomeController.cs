@@ -32,8 +32,17 @@ namespace CustomerViews.Controllers
         }
         public async Task<IActionResult> SanPhamChiTiet(Guid spct_id)
         {
-            var spct = await _services.GetById<SanphamChitiet>(Connection.api + "SanphamChitiets/GetById/", spct_id);
+            if (HttpContext.Session.GetString("ten") != null)
+            {
+                var khid = HttpContext.Session.GetString("idkh");
+                Guid guidID = Guid.Parse(khid);
+                var lstKH = await _services.GetAll<KhachHang>(Connection.api + "KhachHangs/Get-All");
+                var diachi = lstKH.FirstOrDefault(p => p.Id == guidID).DiaChi;
+                ViewData["diachi"] = diachi;
+            }
+           
 
+            var spct = await _services.GetById<SanphamChitiet>(Connection.api + "SanphamChitiets/GetById/", spct_id);
             var lstSP = await _services.GetAll<SanPham>(Connection.api + "SanPhams/Get-All");
             var lstSPCT = await _services.GetAll<SanphamChitiet>(Connection.api + "SanphamChitiets/Get-All");
             var lstMS = await _services.GetAll<MauSac>(Connection.api + "MauSacs/Get-All");
