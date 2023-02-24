@@ -12,10 +12,12 @@ namespace _1_API.Controllers
     public class HoaDonsController : ControllerBase
     {
         private IAllRepositories<HoaDon> _repo;
+        private IAllRepositories<HoadonChitiet> _hoaDonCTrepo;
 
-        public HoaDonsController(IAllRepositories<HoaDon> repo)
+        public HoaDonsController(IAllRepositories<HoaDon> repo, IAllRepositories<HoadonChitiet> hoaDonCTrepo)
         {
             _repo = repo;
+            _hoaDonCTrepo = hoaDonCTrepo;
         }
         [HttpGet]
         [Route("Get-All")]
@@ -39,6 +41,7 @@ namespace _1_API.Controllers
         [Route("Create")]
         public async Task<IActionResult> CreateHoaDon(CreateHoaDon cnv)
         {
+            var lsthoadon = await _repo.GetAllAsync();
             HoaDon nv = new HoaDon()
             {
                 Id = cnv.Id,
@@ -49,6 +52,7 @@ namespace _1_API.Controllers
                 TrangThai = cnv.TrangThai,
                 TongTien = cnv.TongTien,
                 NgayTao = cnv.NgayTao,
+                MaHD = "HD" + (lsthoadon.ToList().Count() + 1)
             };
             try
             {
@@ -63,8 +67,8 @@ namespace _1_API.Controllers
         }
 
         [HttpPost]
-        [Route("Update/id")]
-        public async Task<IActionResult> UpdateHoaDon(Guid id, [FromForm] UpdateHoaDon unv)
+        [Route("Update/{id}")]
+        public async Task<IActionResult> UpdateHoaDon(Guid id,UpdateHoaDon unv)
         {
             var result = await _repo.GetByIdAsync(id);
             if (result == null)
@@ -99,6 +103,8 @@ namespace _1_API.Controllers
         public async Task<IActionResult> DeleteHoaDon(Guid id)
         {
             var result = await _repo.GetByIdAsync(id);
+            var lsthoadonct = await _hoaDonCTrepo.GetAllAsync();
+            lsthoadonct = lsthoadonct.ToList().Where(p => p.IdHoaDon == result.Id);
             if (result == null)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, "Không tìm thấy hóa đơn");
@@ -107,6 +113,10 @@ namespace _1_API.Controllers
             {
                 try
                 {
+                    foreach(var item in lsthoadonct)
+                    {
+                        await _hoaDonCTrepo.DeleteOneAsyn(item);
+                    }
                     await _repo.DeleteOneAsyn(result);
                     return Ok("Xóa thành công");
                 }
