@@ -4,7 +4,11 @@
 @{
     ViewData["Title"] = "Index";
     var lstSPCT = ViewData["lstSPCT"] as List<SanphamChitiet>;
+    var lstKC = ViewData["lstKC"] as List<KichCo>;
+    var lstms = ViewData["lstMauSac"] as List<MauSac>;
     string tensp = "";
+    string size = "";
+    string ms = "";
     decimal thanhtien = 0;
     var tt = ViewBag.tt;
 }
@@ -29,12 +33,13 @@
                 <tr>
                     <td><img src="@(lstSPCT.FirstOrDefault(x=>x.Id == item.IdSPChitiet).AnhDaiDien)" width="60" /></td>
                     <td>@(tensp = lstSPCT.FirstOrDefault(x => x.Id == item.IdSPChitiet).TenSPChiTiet)</td>
-                    <td>@(tensp)</td>
+                    <td>@(size = lstKC.FirstOrDefault(x=>x.Id == item.IdKichCo).Size.ToString())
+                    </td>
                     <td>@item.GiaBan</td>
                     <td>
-                        <a asp-action="TangSL" asp-route-id="@item.IdSPChitiet" class="btn btn-sm btn-primary"> + </a>
+                        <a asp-action="TangSL" asp-route-id="@item.Id" class="btn btn-sm btn-primary"> + </a>
                         <a>@item.SoLuong</a>
-                        <a asp-action="GiamSL" asp-route-id="@item.IdSPChitiet" class="btn btn-sm btn-success"> - </a>
+                        <a asp-action="GiamSL" asp-route-id="@item.Id" class="btn btn-sm btn-success"> - </a>
                     </td>
 
                     <td><a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Xóa</a></td>

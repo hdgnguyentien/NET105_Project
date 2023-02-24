@@ -3,9 +3,11 @@
 
 @{
     ViewData["Title"] = "Index";
-    var lstSP = ViewData["lstSP"] as List<SanPham>;
     var lstSPCT = ViewData["lstSPCT"] as List<SanphamChitiet>;
+    var lstKC = ViewData["lstKC"] as List<KichCo>;
+    var thongbao = ViewData["thongbao"] as string;
     string tensp = "";
+    string size = "";
     decimal thanhtien = 0;
     var tt = ViewBag.tt;
 }
@@ -28,7 +30,7 @@
             <tr>
                 <td><img src="@(lstSPCT.FirstOrDefault(x=>x.Id == item.IdSPChitiet).AnhDaiDien)" width="60" /></td>
                 <td>@(tensp = lstSPCT.FirstOrDefault(x => x.Id == item.IdSPChitiet).TenSPChiTiet)</td>
-                <td>@(tensp)</td>
+                <td>@(size = lstKC.FirstOrDefault(x=>x.Id == item.IdKichCo).Size.ToString())</td>
                 <td>@item.GiaBan</td>
                 <td>@item.SoLuong</td>
                 <td class="text-end">@(thanhtien = item.GiaBan * item.SoLuong)</td>
@@ -37,10 +39,13 @@
         }
 
         <tr>
+            <form asp-action="CheckMaGiamGia" asp-controller="Cart">   
             <td colspan="7" class="text-end row-cols-3">
-                <input class="form-control" placeholder="Nhập mã giảm giảm giá" name="magiamgia" />
-                <button asp-action="CheckMaGiamGia" asp-controller="Cart" class="btn btn-primary" type="submit">Áp dụng</button>
+                <h3 style="color:red;text-align:center;margin-bottom:20px">@thongbao</h3>
+                <input class="form-control" placeholder="Nhập mã giảm giảm giá" name="magiamgia"/>
+                <button class="btn btn-primary" type="submit">Áp dụng</button>
             </td>
+            </form>
         </tr>
         <tr>
             <td class="text-end" colspan="7"><h6>Tổng tiền: @tt</h6> </td>
@@ -48,7 +53,7 @@
         <tr>
             <td colspan="7" class="text-end">
 
-                <a asp-action="CheckOut" class="btn btn-success">Thanh toán</a>
+                <a asp-action="CheckOut"asp-route-tongtien="@tt" class="btn btn-success">Thanh toán</a>
             </td>
         </tr>
     </tbody>
