@@ -42,6 +42,7 @@
                         <span style="color: #e0826f; font-weight: lighter;text-decoration: line-through;"> @Html.DisplayFor(model => model.GiaBan)</span>  @Html.DisplayFor(model => model.GiaBan) {giá sale} <span>VND</span>
                     </p>
                 </div>
+                <form asp-controller="Cart" asp-action="Add" asp-route-ma="@Model.Id">
                 <div class="ship">
                     <p>
                         Vận chuyển
@@ -60,7 +61,7 @@
                         @foreach(var item in lstSize)
                         {
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="inlineRadioOptions" value="@item.Id">
+                                <input class="form-check-input" type="radio" name="idSize" value="@item.Id">
                                 <label class="form-check-label" for="inlineRadio1">@item.Size</label>
                             </div>
                         }
@@ -77,20 +78,21 @@
                 <div class="detail_button">
                     <div class="d-grid gap-2 d-md-block"
                          style="text-align: center; margin-top: 20px">
-                        <button class="btn btn-outline-light border-radius-sm"
+                        @*<button class="btn btn-outline-light border-radius-sm"
                                 type="button"
                                 style="background-color: #c30005">
 
                             <a class="nav-link" asp-area="" asp-controller="Cart" asp-action="Addtocard" asp-route-ma="@Model.Id"> <i class="bi bi-cart2"></i> Mua Ngay</a>
-                        </button>
+                        </button>*@
                         <button class="btn btn-outline-light border-radius-sm"
-                                type="button"
+                                type="submit"
                                 style="background-color: #23ab9b">
 
-                            <a class="nav-link" asp-area="" asp-controller="Cart" asp-action="Add" asp-route-ma="@Model.Id"> <i class="bi bi-cart-plus"></i> Thêm vào giỏ hàng</a>
+                            <a class="nav-link"> <i class="bi bi-cart-plus"></i> Thêm vào giỏ hàng</a>
                         </button>
                     </div>
                 </div>
+                </form>
             </div>
             <div class="detail_body">
                 <div class="CT_product">

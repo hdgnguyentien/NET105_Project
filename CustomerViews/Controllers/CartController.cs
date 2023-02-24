@@ -89,7 +89,7 @@ namespace CustomerViews.Controllers
             await _services.Update(Connection.api + "GioHangChiTiets/Update/", respon, respon.Id);
             return RedirectToAction("Index");
         }
-        public async Task<IActionResult> Add(Guid ma)
+        public async Task<IActionResult> Add(Guid ma,string idSize)
         {
             string idkh = HttpContext.Session.GetString("idkh");
             if (idkh == null)
@@ -120,7 +120,8 @@ namespace CustomerViews.Controllers
                         IdGioHang = maGH.Id,
                         IdSPChitiet = spct.Id,
                         GiaBan = spct.GiaBan,
-                        SoLuong = 1
+                        SoLuong = 1,
+                        IdKichCo = Guid.Parse(idSize),
                     };
                     await _services.Add(Connection.api + "GioHangChiTiets/", ghct);
                     return RedirectToAction("Index","Home");
