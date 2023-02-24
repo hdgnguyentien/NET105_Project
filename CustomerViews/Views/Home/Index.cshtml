@@ -7,6 +7,8 @@
     var loginfalse = ViewData["loginfalse"] as string;
     var lstSP = ViewData["lstSP"] as List<SanPham>;
     var lstTL = ViewData["lstTL"] as List<TheLoai>;
+    var lstNgayT = ViewData["lstNgayT"] as List<SanphamChitiet>;
+    var lstNoiBat = ViewData["lstNoiBat"] as List<SanphamChitiet>;
     string tensp = "";
 }
 <!DOCTYPE html>
@@ -170,7 +172,7 @@
 
             <div class="product">
                 <div class="row">
-                    @foreach (var product in Model)
+                    @foreach (var product in lstNgayT)
                     {
                         <div class="card-columns col-3" style="border: none">
                             <div class="card h-70 text-center" style="">
@@ -199,11 +201,21 @@
 
             </div>
             <br />
+            <div class="more">
+                <a asp-controller="SanPham" asp-action="Index">XEM TẤT CẢ</a>
+            </div>
         }
         else
         {
             <h3>Không có sản phẩm nào phù hợp</h3>
         }
+        <div class="body_banner">
+            <div class="row">
+                <div class="col-3 imggg"><img src="~/img//m_bn_2_1.jpg" alt="" /></div>
+                <div class="col-6"><img src="~/img//m_bn_2_2.jpg" alt="" /></div>
+                <div class="col-3 imggg"><img src="~/img//m_bn_2_3.jpg" alt="" /></div>
+            </div>
+        </div>
         <div class="title">
             <h2>SẢN PHẨM BÁN CHẠY NHẤT</h2>
         </div>
@@ -212,7 +224,7 @@
 
             <div class="product">
                 <div class="row">
-                    @foreach (var product in Model)
+                    @foreach (var product in lstNoiBat)
                     {
                         <div class="card-columns col-3" style="border: none">
                             <div class="card h-70 text-center" style="">
@@ -240,18 +252,15 @@
 
             </div>
             <br />
+            <div class="more">
+                <a asp-controller="SanPham" asp-action="Index">XEM TẤT CẢ</a>
+            </div>
         }
         else
         {
             <h3>Không có sản phẩm nào phù hợp</h3>
         }
-        <div class="body_banner">
-            <div class="row">
-                <div class="col-3 imggg"><img src="~/img//m_bn_2_1.jpg" alt="" /></div>
-                <div class="col-6"><img src="~/img//m_bn_2_2.jpg" alt="" /></div>
-                <div class="col-3 imggg"><img src="~/img//m_bn_2_3.jpg" alt="" /></div>
-            </div>
-        </div>
+        
 
         
        
