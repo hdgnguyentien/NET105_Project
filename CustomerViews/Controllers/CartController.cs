@@ -29,7 +29,7 @@ namespace CustomerViews.Controllers
             ViewData["lstKC"] = lstKC.ToList();
             ViewData["lstSPCT"] = lstSPCT.ToList();
             decimal tongtien = 0;
-            var ls = lstGHCT.Where(x => x.IdGioHang.ToString() == idgh); 
+            var ls = lstGHCT.Where(x => x.IdGioHang.ToString() == idgh);
             foreach (var item in ls)
             {
                 tongtien += (item.SoLuong * item.GiaBan);
@@ -48,15 +48,15 @@ namespace CustomerViews.Controllers
             var respons = await _services.GetAll<GiohangChitiet>(Connection.api + "GioHangChiTiets/Get-All");
 
 
-            var respon = respons.FirstOrDefault(x=>x.IdGioHang.ToString() == idgh && x.Id == id);
+            var respon = respons.FirstOrDefault(x => x.IdGioHang.ToString() == idgh && x.Id == id);
             var kc = lstKichCo.FirstOrDefault(x => x.Id == respon.IdKichCo);
             var sizesp = lstSizeSP.FirstOrDefault(x => x.IdSize == kc.Id);
 
             var lstsl = (from a in lstSanphamChitiet.ToList()
-                          join b in lstSizeSP.ToList() on a.Id equals b.IdSanPhamChiTiet
-                          join c in lstKichCo.ToList().Where(x=>x.Id == kc.Id) on b.IdSize equals c.Id
-                          join d in respons.ToList() on c.Id equals d.IdKichCo
-                          select new { a, b, c,d }).FirstOrDefault();
+                         join b in lstSizeSP.ToList() on a.Id equals b.IdSanPhamChiTiet
+                         join c in lstKichCo.ToList().Where(x => x.Id == kc.Id) on b.IdSize equals c.Id
+                         join d in respons.ToList() on c.Id equals d.IdKichCo
+                         select new { a, b, c, d }).FirstOrDefault();
 
             respon.SoLuong++;
             if (respon.SoLuong > sizesp.SoLuong)
@@ -171,11 +171,11 @@ namespace CustomerViews.Controllers
         }
 
         public async Task<IActionResult> CheckMaGiamGia(string magiamgia)
-        {   
-            
+        {
+
             string idgh = HttpContext.Session.GetString("idgh");
 
-            var lstMa =  await _services.GetAll<MaGiamGia>(Connection.api + "MaGiamGias/Get-All");
+            var lstMa = await _services.GetAll<MaGiamGia>(Connection.api + "MaGiamGias/Get-All");
             var lstSPCT = await _services.GetAll<SanphamChitiet>(Connection.api + "SanphamChitiets/Get-All");
             var lstKC = await _services.GetAll<KichCo>(Connection.api + "KichCos/Get-All");
             var lstGHCT = await _services.GetAll<GiohangChitiet>(Connection.api + "GioHangChiTiets/Get-All");
@@ -183,7 +183,7 @@ namespace CustomerViews.Controllers
             var ls = lstGHCT.Where(x => x.IdGioHang.ToString() == idgh);
             ViewData["lstKC"] = lstKC.ToList();
             ViewData["lstSPCT"] = lstSPCT.ToList();
-            var ma = lstMa.FirstOrDefault(x=>x.Ma == magiamgia);
+            var ma = lstMa.FirstOrDefault(x => x.Ma == magiamgia);
             decimal tongtien = 0;
             if (ma == null)
             {
@@ -193,7 +193,7 @@ namespace CustomerViews.Controllers
                     tongtien += (item.SoLuong * item.GiaBan);
                 }
                 ViewBag.tt = tongtien;
-                return View("MuaHang",ls);
+                return View("MuaHang", ls);
             }
             else
             {
@@ -202,36 +202,50 @@ namespace CustomerViews.Controllers
                     ViewData["thongbao"] = "Mã giảm giá đã hết hạn";
                     foreach (var item in ls)
                     {
-                        tongtien += (item.SoLuong * item.GiaBan) ;
+                        tongtien += (item.SoLuong * item.GiaBan);
                     }
                     ViewBag.tt = tongtien;
                     return View("MuaHang", ls);
                 }
-                else if(ma.SoLuong<=0)
+                else if (ma.SoLuong <= 0)
                 {
                     ViewData["thongbao"] = "Mã giảm giá đã hết.";
                     foreach (var item in ls)
                     {
-                        tongtien += (item.SoLuong * item.GiaBan) ;
+                        tongtien += (item.SoLuong * item.GiaBan);
                     }
                     ViewBag.tt = tongtien;
-                    return View("MuaHang",ls);
+                    return View("MuaHang", ls);
+                }else if (ma.TrangThai == 0)
+                {
+                    ViewData["thongbao"] = "Mã giảm giá không khả dụng";
+                    foreach (var item in ls)
+                    {
+                        tongtien += (item.SoLuong * item.GiaBan);
+                    }
+                    ViewBag.tt = tongtien;
+                    return View("MuaHang", ls);
                 }
                 else
                 {
                     ViewData["thongbao"] = "Đã áp dụng mã thành công";
                     foreach (var item in ls)
                     {
-                        tongtien += (item.SoLuong * item.GiaBan)*(100-ma.PhanTramGiam)/100;
+                        tongtien += (item.SoLuong * item.GiaBan) * (100 - ma.PhanTramGiam) / 100;
                     }
-                    //--ma.SoLuong;
+                    --ma.SoLuong;
+                    if (ma.SoLuong<= 0 )
+                    {
+                        ma.TrangThai = 0;
+                    }
+                    await _services.Update(Connection.api + "MaGiamGias/Update/", ma, ma.Id);
                     ViewBag.tt = tongtien;
                     HttpContext.Session.SetString("idmgg", ma.Id.ToString());
                     return View("MuaHang", ls);
                 }
 
             }
-            
+
         }
 
         public async Task<IActionResult> CheckOut(string tongtien)
@@ -248,11 +262,10 @@ namespace CustomerViews.Controllers
             var lstSizeSP = await _services.GetAll<SizeSanPham>(Connection.api + "SizeSanPhams/Get-All");
             var lstKichCo = await _services.GetAll<KichCo>(Connection.api + "KichCos/Get-All");
             var lstSanphamChitiet = await _services.GetAll<SanphamChitiet>(Connection.api + "SanphamChitiets/Get-All");
-
             CreateHoaDon hd = new CreateHoaDon()
             {
                 Id = Guid.NewGuid(),
-                IdMaGiamGia = Guid.Parse(idmgg),
+                IdMaGiamGia = idmgg != null ? Guid.Parse(idmgg) : null,
                 IdKH = Guid.Parse(idkh),
                 NgayTao = DateTime.Now,
                 TrangThai = 1,
