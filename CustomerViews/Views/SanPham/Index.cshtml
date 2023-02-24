@@ -1,0 +1,97 @@
+﻿@using Data.ModelsClass;
+@model IEnumerable<Data.ModelsClass.SanphamChitiet>
+
+@{
+    ViewData["Title"] = "Home Page";
+    var thongbao = ViewData["thongbao"] as string;
+    var loginfalse = ViewData["loginfalse"] as string;
+    var lstSP = ViewData["lstSP"] as List<SanPham>;
+    var lstTL = ViewData["lstTL"] as List<TheLoai>;
+    string tensp = "";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - CustomerViews</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/home.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/CustomerViews.styles.css" asp-append-version="true" />
+</head>
+
+<div class="body">
+    <div class="container">
+        
+        <!-- Banner body -->
+        <div class="title">
+            <h2>TẤT CẢ SẢN PHẨM</h2>
+        </div>
+        <form class="row g-3 float-end" method="get" asp-controller="Home" asp-action="SearchSanPham">
+            <div class="col-auto">
+                <input class="form-control" name="ten" type="text" placeholder="Nhập tên sản phẩm" />
+            </div>
+            <div class="col-auto">
+                <select class="form-select" name="idTheLoai">
+                    <option value="">Tất cả</option>
+                    @if (lstTL != null && lstTL.Any())
+                    {
+                        @foreach (var item in lstTL)
+                        {
+                            <option value="@item.Id">@item.TenTheLoai</option>
+                        }
+                    }
+                </select>
+            </div>
+            <div class="col-auto">
+                <button class="btn btn-primary" type="submit">Tìm Kiếm</button>
+            </div>
+        </form>
+        <br />
+        <br />
+
+        @if (Model != null && Model.Any())
+        {
+
+            <div class="product">
+                <div class="row">
+                    @foreach (var product in Model)
+                    {
+                        <div class="card-columns col-3" style="border: none">
+                            <div class="card h-70 text-center" style="">
+                                <a asp-controller="Home" asp-action="SanPhamChiTiet" asp-route-spct_id="@product.Id">
+                                    <img src="~/img/@product.AnhDaiDien" class="card-img img-fluid" alt="" />
+                                </a>
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        <a asp-controller="Home" asp-action="SanPhamChiTiet" asp-route-spct_id="@product.Id">
+                                            @Html.DisplayFor(modelItem => product.TenSPChiTiet)
+
+                                        </a>
+                                        <p class="card-text">  <span style="color: #c30005; font-weight: lighter;text-decoration: line-through;"></span>  @Html.DisplayFor(modelItem => product.GiaBan)VND</p>
+                                    </h5>
+                                    <p class="">
+                                        <b>Trạng thái: @(product.TrangThai == 1 ? "Còn hàng" : "Hết hàng")</b>
+                                    </p>
+                                </div>
+
+                            </div>
+                            <br />
+                        </div>
+
+                    }
+                </div>
+
+            </div>
+            <br />
+        }
+        else
+        {
+            <h3>Không có sản phẩm nào phù hợp</h3>
+        }
+        
+
+
+
+    
+</div>

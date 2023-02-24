@@ -110,24 +110,10 @@
                                 </li>
 
                                 <li class="nav-item">
-                                    <div class="dropdown">
-                                        <button class="btn dropdown-toggle"
-                                        style="font-weight: bold; font-size: 14px" 
-                                        type="button" id="dropdownMenuButton"
-                                        data-toggle="dropdown" 
-                                        aria-haspopup="true" 
-                                        aria-expanded="false">
-                                            SẢN PHẨM
-                                        </button>
-                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <a class="dropdown-item" 
-                                            asp-area="" 
-                                            asp-controller=""
-                                            asp-action="">
-                                            CÁC Thể loại sản phẩm</a>>
-                                        </div>
-                                    </div>
+                                    <a class="nav-link  active" aria-current="page" asp-area="" asp-controller="SanPham" asp-action="Index">SẢN PHẨM</a>
                                 </li>
+
+                                
                                 <li class="nav-item">
                                     <a class="nav-link  active" aria-current="page" asp-area="" asp-controller="DichVu" asp-action="LienHe">GIỚI THIỆU</a>
                                 </li>
@@ -138,6 +124,7 @@
                                 <li class="nav-item">
                                     <a class="nav-link  active" aria-current="page" asp-area="" asp-controller="DichVu" asp-action="LienHe2">LIÊN HỆ</a>
                                 </li>
+                                
 
                             </ul>
                         </div>

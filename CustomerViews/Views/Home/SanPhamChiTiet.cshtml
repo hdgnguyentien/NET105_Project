@@ -1,10 +1,16 @@
 ﻿@using _1_API.ViewModel.SizeSanPham;
+@using _1_API.ViewModel.KhachHang;
 @model Data.ModelsClass.SanphamChitiet
+
 
 @{
     ViewData["Title"] = "DetailSPCT";
     var lstSize = ViewData["listSize"] as List<SizeSanPhamModel>;
+    var listKH = ViewData["listKH"] as List<ViewKhachHang>;
+    var name = Context.Session.GetString("ten");
+    var diachi = ViewData["diachi"] as string;
 }
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,7 +26,30 @@
     <div class="detail_product">
         <div class="row">
             <div class="col-5">
-                <img src="~/css//img/@Html.DisplayFor(model => model.hinhAnhs)" alt="" />
+                <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="~/img/@Model.AnhDaiDien" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="~/img/@Model.AnhPhu1" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="~/img/@Model.AnhPhu2" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="~/img/@Model.AnhPhu3" class="d-block w-100" alt="...">
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
             </div>
             <div class="col-7">
                 <div class="name">
@@ -34,12 +63,15 @@
                         <i class="bi bi-star-fill"></i> <i class="bi bi-star-half"> </i>
                     </span>
                     <span> <b>100</b> Đánh giá</span>
-                    <span> <b>{SỐ LƯỢNG SẢN PHẨM}</b> Số lượng</span>
+                    <span> <b>
+                        
+
+                    </b> Số lượng</span>
                 </div>
 
                 <div class="money">
                     <p>
-                        <span style="color: #e0826f; font-weight: lighter;text-decoration: line-through;"> @Html.DisplayFor(model => model.GiaBan)</span>  @Html.DisplayFor(model => model.GiaBan) {giá sale} <span>VND</span>
+                        <span style="color: #e0826f; font-weight: lighter;text-decoration: line-through;"> </span> Giá : @Html.DisplayFor(model => model.GiaBan) <span>VNĐ</span>
                     </p>
                 </div>
                 <form asp-controller="Cart" asp-action="Add" asp-route-ma="@Model.Id">
@@ -48,13 +80,19 @@
                         Vận chuyển
                         <span class><i class="bi bi-truck"></i> Miễn phí vận chuyển</span>
                     </p>
-                    <p class="p">
-                        <i class="bi bi-truck" style="color: #000"></i> Vận chuyển tới
-                        <span>{đỊA CHỈ KHÁCH} </span>
+                        @if(name != null)
+                        {
+                            <p class="p">
+                                <i class="bi bi-truck" style="color: #000"></i> Vận chuyển tới
+                                <span>                                        
+                                    @diachi
+                        </span>
                     </p>
+                        }
+                        
                     <p class="p2">
                         Phí vận chuyển
-                        <span> ₫0</span>
+                        <span> 0đ</span>
                     </p>
                     <p class="p4">
                         Size:
