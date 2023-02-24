@@ -23,7 +23,7 @@ namespace ProjectViews.Controllers
                      select new ViewHoaDon()
                      {
                          Id = a.Id,
-                         MaHD = "a",
+                         MaHD = a.MaHD,
                          NgayTao = a.NgayTao.Value.Day + "" + "/" + a.NgayTao.Value.Month + "" + "/" + a.NgayTao.Value.Year + ""
                      };
             return View(hd);
