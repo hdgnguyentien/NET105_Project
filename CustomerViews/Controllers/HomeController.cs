@@ -25,6 +25,29 @@ namespace CustomerViews.Controllers
             var lstSPCT = await _services.GetAll<SanphamChitiet>(Connection.api + "SanphamChitiets/Get-All");
             var lstSP = await _services.GetAll<SanPham>(Connection.api + "SanPhams/Get-All"); 
             var lstTL = await _services.GetAll<TheLoai>(Connection.api + "TheLoais/Get-All");
+            var lstNgayT = (from a in lstSPCT.ToList()
+                            orderby a.NgayTao descending
+                            select new SanphamChitiet()
+                            {
+                                Id = a.Id,
+                                NgayTao = a.NgayTao,
+                                GiaBan = a.GiaBan,
+                                MaSPChiTiet = a.MaSPChiTiet,
+                                TenSPChiTiet = a.TenSPChiTiet,
+                                AnhDaiDien = a.AnhDaiDien
+                            }).Take(4);
+            var lstNoiBat = (from a in lstSPCT.ToList()
+                            select new SanphamChitiet()
+                            {
+                                Id = a.Id,
+                                NgayTao = a.NgayTao,
+                                GiaBan = a.GiaBan,
+                                MaSPChiTiet = a.MaSPChiTiet,
+                                TenSPChiTiet = a.TenSPChiTiet,
+                                AnhDaiDien = a.AnhDaiDien
+                            }).Take(8);
+            ViewData["lstNgayT"] = lstNgayT.ToList();
+            ViewData["lstNoiBat"] = lstNoiBat.ToList();
 
             ViewData["lstSP"] = lstSP.ToList();
             ViewData["lstTL"] = lstTL.ToList();
