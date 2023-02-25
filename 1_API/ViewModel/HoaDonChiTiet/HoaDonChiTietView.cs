@@ -7,6 +7,8 @@
         public string? SDT { get; set; }
         public string? DiaChi { get; set; }
         public decimal? TongTien { get; set; }
+        public string? MaGiamGia { get; set; }
+        public string? MaHoaDon { get; set; }
         public List<ViewHoaDonChiTiet> viewHoaDonChiTiets { get; set; }
     }
 }
