@@ -3,49 +3,65 @@
 
 @{
     ViewData["Title"] = "Index";
-    var lstSP = ViewData["lstSP"] as List<SanPham>;
     var lstSPCT = ViewData["lstSPCT"] as List<SanphamChitiet>;
+    var lstKC = ViewData["lstKC"] as List<KichCo>;
+    var thongbao = ViewData["thongbao"] as string;
     string tensp = "";
+    string size = "";
     decimal thanhtien = 0;
     var tt = ViewBag.tt;
 }
 
-    <h3>Đặt hàng </h3>
-    <table class="table">
-        <thead>
+<h3>Đặt hàng </h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Ảnh sản phẩm</th>
+            <th>Tên sản phẩm</th>
+            <th>Phân Loại Hàng</th>
+            <th>Giá bán</th>
+            <th>Số lượng</th>
+            <th class="text-end">Thành tiền</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
             <tr>
-                <th>Ảnh sản phẩm</th>
-                <th>Tên sản phẩm</th>
-                <th>Giá bán</th>
-                <th>Số lượng</th>
-                <th>Thành tiền</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td><img src="@(lstSPCT.FirstOrDefault(x=>x.Id == item.IdSPChitiet).AnhDaiDien)" width="60" /></td>
-                    <td>@(tensp = lstSPCT.FirstOrDefault(x => x.Id == item.IdSPChitiet).TenSPChiTiet)</td>
-                    <td>@item.GiaBan</td>
-                    <td>@item.SoLuong</td>
-                    <td>@(thanhtien = item.GiaBan * item.SoLuong)</td>
+                <td><img src="@(lstSPCT.FirstOrDefault(x=>x.Id == item.IdSPChitiet).AnhDaiDien)" width="60" /></td>
+                <td>@(tensp = lstSPCT.FirstOrDefault(x => x.Id == item.IdSPChitiet).TenSPChiTiet)</td>
+                <td>@(size = lstKC.FirstOrDefault(x=>x.Id == item.IdKichCo).Size.ToString())</td>
+                <td>@item.GiaBan</td>
+                <td>@item.SoLuong</td>
+                <td class="text-end">@(thanhtien = item.GiaBan * item.SoLuong)</td>
 
-                </tr>
-            }
-            <tr>
-                <td class="text-right" colspan="6"><h6>Tổng tiền: @tt</h6> </td>
             </tr>
-            <tr>
-                <td colspan="6" class="text-right">      
+        }
 
-                    <a asp-action="CheckOut" class="btn btn-primary">Thanh toán</a>
-                </td>
-            </tr>
-        </tbody>
-        <tfoot>
-            <tr>
-                <td colspan="6" class="text-left "><a asp-controller="Home" asp-action="Index" class="btn btn-success">Tiếp tục mua</a></td>
-            </tr>
-        </tfoot>
-    </table>
+        <tr>
+            <form asp-action="CheckMaGiamGia" asp-controller="Cart">   
+            <td colspan="7" class="text-end row-cols-3">
+                <h3 style="color:red;text-align:center;margin-bottom:20px">@thongbao</h3>
+                <div class="input-group mb-3">
+                    <input class="form-control"name="magiamgia" placeholder="Nhập mã giảm giảm giá">
+                    <button class="btn btn-success" type="submit">Áp dụng</button>
+                </div>
+            </td>
+            </form>
+        </tr>
+        <tr>
+            <td class="text-end" colspan="7"><h6>Tổng tiền: @tt</h6> </td>
+        </tr>
+        <tr>
+            <td colspan="7" class="text-end">
+
+                <a asp-action="CheckOut"asp-route-tongtien="@tt" class="btn btn-success">Thanh toán</a>
+            </td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="7" class="text-start "><a asp-controller="Home" asp-action="Index" class="btn btn-success">Tiếp tục mua</a></td>
+        </tr>
+    </tfoot>
+</table>

@@ -2,7 +2,9 @@ using ProjectViews.IServices;
 using ProjectViews.Services;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Services.AddSession(p => {
+    p.IdleTimeout = TimeSpan.FromMinutes(30);
+});
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddMvc();
@@ -22,11 +24,11 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
-
+app.UseSession();
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Login}/{action=Index}/{id?}");
 
 app.Run();

@@ -18,7 +18,7 @@ namespace Data.ModelsClass
         public DateTime? NgayKetthuc { get; set; }
         public int? SoLuong { get; set; }
         public int? TrangThai { get; set; }
-        public int? PhanTramGiam { get; set; }
+        public int PhanTramGiam { get; set; }
         public virtual ICollection<HoaDon> hoaDons { get; set; }
     }
 }

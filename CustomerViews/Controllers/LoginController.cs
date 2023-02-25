@@ -225,7 +225,9 @@ namespace CustomerViews.Controllers
                 DiaChi = kh.DiaChi,
                 GioiTinh = kh.GioiTinh,
                 Sdt = kh.Sdt,
-                NgaySinh = kh.NgaySinh
+                NgaySinh = kh.NgaySinh,
+                Email = kh.Email,
+                MatKhau = kh.MatKhau
             };
             return View(view);
         }
@@ -240,6 +242,8 @@ namespace CustomerViews.Controllers
                 Ten = kh.Ten,
                 DiaChi = kh.DiaChi,
                 Sdt = kh.Sdt,
+                Email = kh.Email,
+                MatKhau = kh.MatKhau,
                 NgaySinh = kh.NgaySinh,
                 GioiTinh = kh.GioiTinh,
             };

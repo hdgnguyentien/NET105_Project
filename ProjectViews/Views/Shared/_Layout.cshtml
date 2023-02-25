@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var name = Context.Session.GetString("name");
+    var id = Context.Session.GetString("idnv");
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -10,25 +14,67 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ProjectViews</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="NhanVien" asp-action="Index">Nhân Viên</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
+        <div class="header_top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-4"></div>
+                    <div class="col-4">
+                        <div class="d-flex justify-content-center">
+                            <img src="~/img/Layer 2.png" class="item-img" alt="" width="90%" height="90%" />
+                        </div>
+                    </div>
+                    
+                        <div class="colum col-4" style="font-size: 20px">
+                            <div class="d-flex justify-content-end">
+                                <div class="p-2">
+                                    <div class="dropdown">
+                                        <a class="dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="bi bi-person" style="font-size:25px">@name</i>
+                                        </a>
+                                        <ul class="dropdown-menu" style="background-color:black">
+                                        <li><a class="dropdown-item" asp-controller="NhanVien" asp-action="Detail" asp-route-id="@id">Thông tin cá nhân</a></li>
+                                            <li>
+                                                <a class="dropdown-item" asp-controller="Login" asp-action="ThayDoiMK">Thay đổi mật khẩu</a>
+                                            </li>
+
+                                        </ul>
+                                    </div>
+
+                                </div>
+                                
+                            </div>
+                        </div>
+                    
+
                 </div>
             </div>
-        </nav>
+        </div>
+        <div class="header_buttom">
+            <div class="container">
+                <nav class="navbar navbar-expand-lg">
+                    <div class="container-fluid">
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                                aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav me-auto mb-2 mb-lg-0 mx-auto">
+                                <li class="nav-item">
+                                    <a class="nav-link  active" aria-current="page" asp-area="" asp-controller="NhanVien" asp-action="Index">Nhân Viên</a>
+                                </li>                               
+                                <li class="nav-item">
+                                    <a class="nav-link  active" aria-current="page" asp-area="" asp-controller="SanPham" asp-action="Index">Sản Phẩm</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link  active" aria-current="page" asp-area="" asp-controller="HoaDon" asp-action="Index">Hóa Đơn</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+
     </header>
     <div class="container">
         <main role="main" class="pb-3">
@@ -36,9 +82,55 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer>
         <div class="container">
-            &copy; 2023 - ProjectViews - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <div class="row">
+                <div class="col-3">
+                    <h5>GIỚI THIỆU</h5>
+                    <ul>
+                        <li>
+                            Chào mừng bạn đến với ngôi nhà Converse! Tại đây, mỗi một dòng
+                            chữ, mỗi chi tiết và hình ảnh đều là những bằng chứng mang dấu
+                            ấn lịch sử Converse 100 năm, và đang không ngừng phát triển lớn
+                            mạnh.
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-3">
+                    <h5>ĐỊA CHỈ</h5>
+                    <ul>
+                        <li>
+                            <i class="bi bi-geo-alt"></i> 43 ngách 100/193 Phú Diễn, quận
+                            Bắc Từ Liêm, Hà Nội
+                        </li>
+                        <li><i class="bi bi-telephone"></i> 076 922 0162</li>
+                        <li><i class="bi bi-envelope-open"></i> 7773@gmail.com</li>
+                        <li><i class="bi bi-skype"></i> 7773</li>
+                    </ul>
+                </div>
+                <div class="col-3">
+                    <h5>HỖ TRỢ</h5>
+                    <ul>
+                        <li>Hướng dẫn mua hàng</li>
+                        <li>Hướng dẫn thanh toán</li>
+                        <li>Chính sách bảo hành</li>
+                        <li>Chính sách đổi trả</li>
+                        <li>Tư vấn khách hàng</li>
+                    </ul>
+                </div>
+                <div class="col-3">
+                    <h5>KẾT NỐI</h5>
+                    <ul>
+                        <li style="font-size: 20px">
+                            <i class="bii bi-facebook"> </i>
+                            <i class="bii bi-twitter"></i>
+                            <i class="bii bi-youtube"></i>
+                            <i class="bii bi-instagram"></i>
+                            <i class="bii bi-tiktok"></i>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

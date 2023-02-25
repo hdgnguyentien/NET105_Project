@@ -1,0 +1,84 @@
+﻿@model _1_API.ViewModel.HoaDonChiTiet.HoaDonChiTietView
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Danh sách sản phẩm</h1>
+
+<p>Mã hóa đơn: @Html.DisplayFor(model => model.MaHoaDon)</p>
+<p>Tên khách hàng: @Html.DisplayFor(model => model.TenKhachHang)</p>
+<p>SDT:            @Html.DisplayFor(model => model.SDT)</p>
+<p>Địa chỉ:        @Html.DisplayFor(model => model.DiaChi)</p>
+<p>Mã giảm giá:        @Html.DisplayFor(model => model.MaGiamGia)</p>
+<p>Tổng tiền:        @Html.DisplayFor(model => model.TongTien)</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Mã Sản Phẩm
+            </th>
+            <th>
+                Tên Sản Phẩm
+            </th>
+            <th>
+                Màu Sắc
+            </th>
+            <th>
+                Size
+            </th>
+            <th>
+                Số Lượng
+            </th>
+            <th>
+                Giá Bán
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.viewHoaDonChiTiets)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MaSP)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TenSP)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TenMauSac)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Size)
+                </td>
+                <td>
+                    <a asp-action="TangSL" asp-route-idhdct="@item.Idhoadonct" asp-route-idspct="@item.Idsanphamct" asp-route-size="@item.Size" class="btn btn-sm btn-primary"> + </a>
+                    @Html.DisplayFor(modelItem => item.SoLuong)
+                    <a asp-action="GiamSL" asp-route-idhdct="@item.Idhoadonct" class="btn btn-sm btn-success"> - </a>
+
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.GiaBan)
+                </td>
+                <td>
+                    @Html.ActionLink("Delete", "DeleteSP", new { Id = item.Idhoadonct.ToString() },
+                new { onclick = "return confirm('Bạn có muốn xóa không?');",@class="btn btn-danger" }),
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4" style="text-align:center">
+        @Html.ActionLink("Xác Nhận", "Confirm", new { Id = Model.Idhd.ToString(), },
+        new { onclick = "return confirm('Bạn có muốn xác nhận đơn hàng này không?');", @class="btn btn-primary" })
+        @Html.ActionLink("Delete", "Delete", new { Id = Model.Idhd.ToString() },
+        new { onclick = "return confirm('Bạn có muốn xóa không?');",@class="btn btn-danger" }),
+    </div>
+    <div class="col-md-4"></div>
+</div>

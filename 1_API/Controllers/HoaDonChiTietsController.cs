@@ -44,6 +44,7 @@ namespace _1_API.Controllers
                 Id = Guid.NewGuid(),
                 IdSPChitiet = cnv.IdSPChitiet,
                 IdHoaDon = cnv.IdHoaDon,
+                IdKichCo = cnv.IdKichCo,
                 SoLuong = cnv.SoLuong,
                 GiaBan = cnv.GiaBan,
             };
@@ -60,8 +61,8 @@ namespace _1_API.Controllers
         }
 
         [HttpPost]
-        [Route("Update/id")]
-        public async Task<IActionResult> UpdateHoaDonChiTiet(Guid id, [FromForm] UpdateHoaDonChiTiet unv)
+        [Route("Update/{id}")]
+        public async Task<IActionResult> UpdateHoaDonChiTiet(Guid id, UpdateHoaDonChiTiet unv)
         {
             var result = await _repo.GetByIdAsync(id);
             if (result == null)
@@ -71,6 +72,7 @@ namespace _1_API.Controllers
             else
             {
                 result.IdHoaDon = unv.IdHoaDon;
+                result.IdKichCo = unv.IdKichCo;
                 result.IdSPChitiet = unv.IdSPChitiet;
                 result.SoLuong = unv.SoLuong;
                 result.GiaBan = unv.GiaBan;
