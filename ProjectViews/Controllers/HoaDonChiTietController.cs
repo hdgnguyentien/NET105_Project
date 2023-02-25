@@ -21,6 +21,8 @@ namespace ProjectViews.Controllers
         {
             var hoadon = await _services.GetById<HoaDon>("https://localhost:7203/api/HoaDons/GetById/", Guid.Parse(id));
             var lsthoadonct = await _services.GetAll<HoadonChitiet>("https://localhost:7203/api/HoaDonChiTiets/Get-All");
+            var lsthoadon = await _services.GetAll<HoaDon>("https://localhost:7203/api/HoaDons/Get-All");
+            var lstmagiamgia = await _services.GetAll<MaGiamGia>("https://localhost:7203/api/MaGiamGias/Get-All");
             var lstsanphamct = await _services.GetAll<SanphamChitiet>("https://localhost:7203/api/SanphamChitiets/Get-All");
             var lstsanpham = await _services.GetAll<SanPham>("https://localhost:7203/api/SanPhams/Get-All");
             var lsthang = await _services.GetAll<Hang>("https://localhost:7203/api/Hangs/Get-All");
@@ -35,7 +37,7 @@ namespace ProjectViews.Controllers
             var hoadonct = lsthoadonct.ToList().Where(p => p.IdHoaDon == Guid.Parse(id));
             var kh = lstkhachhang.ToList().FirstOrDefault(p => p.Id == hoadon.IdKH);
 
-            foreach (var item in lsthoadonct)
+            foreach (var item in hoadonct)
             {
                 tongtienhoadon += (item.SoLuong * item.GiaBan);
             }
@@ -49,7 +51,8 @@ namespace ProjectViews.Controllers
                        where a.IdKichCo == f.Id
                        select new ViewHoaDonChiTiet()
                        {
-                           Id = a.Id,
+                           Idhoadonct = a.Id,
+                           Idsanphamct = b.Id,
                            TenSP = "[" + d.TenHang + "]" + " " + c.Ten + " " + b.TenSPChiTiet,
                            TenMauSac = g.TenMau,
                            Size = f.Size.ToString(),
@@ -62,14 +65,25 @@ namespace ProjectViews.Controllers
             {
                 lstob.Add(item);
             }
+
+            var listmagiamgia = from a in lsthoadon
+                            join b in lstmagiamgia on a.IdMaGiamGia equals b.Id
+                            select (a, b);
+            var magiamgia = listmagiamgia.ToList().FirstOrDefault(p => p.b.Id == hoadon.IdMaGiamGia);
+            if(hoadon.IdMaGiamGia != null)
+            {
+                tongtienhoadon = tongtienhoadon - ((tongtienhoadon * magiamgia.b.PhanTramGiam) / 100);
+            }
             HoaDonChiTietView viewhdct = new HoaDonChiTietView()
             {
                 Idhd = Guid.Parse(id),
                 TenKhachHang = kh.Ten,
                 SDT = kh.Sdt,
                 DiaChi = kh.DiaChi,
-                TongTien = hoadon.TongTien,
-                viewHoaDonChiTiets = lstob
+                TongTien = tongtienhoadon,
+                viewHoaDonChiTiets = lstob,
+                MaGiamGia = hoadon.IdMaGiamGia == null ? "Không có" : magiamgia.b.Ma,
+                MaHoaDon = hoadon.MaHD
             };
 
 
@@ -115,6 +129,11 @@ namespace ProjectViews.Controllers
                 tongtien += (item.GiaBan * item.SoLuong);
             }
             var hoadon = await _services.GetById<HoaDon>("https://localhost:7203/api/HoaDons/GetById/", idhoadon);
+            if(hoadon.IdMaGiamGia != null)
+            {
+                var magiamgia = await _services.GetById<MaGiamGia>("https://localhost:7203/api/MaGiamGias/GetById/", hoadon.IdMaGiamGia);
+                tongtien = tongtien - ((tongtien * magiamgia.PhanTramGiam) / 100);
+            }
             UpdateHoaDon updatehd = new UpdateHoaDon()
             {
                 IdMaGiamGia = hoadon.IdMaGiamGia,
@@ -127,6 +146,46 @@ namespace ProjectViews.Controllers
             };
             await _services.Update<UpdateHoaDon>("https://localhost:7203/api/HoaDons/Update/", updatehd, hoadon.Id);
             return RedirectToAction("Index", "HoaDonChiTiet", new { id = hd.Result.IdHoaDon.ToString() });
+        }
+
+        public async Task<IActionResult> TangSL(string idhdct,string idspct,string size)
+        {
+            var lstsize = await _services.GetAll<KichCo>("https://localhost:7203/api/KichCos/Get-All");
+            var sizesp = lstsize.FirstOrDefault(p => p.Size == float.Parse(size));
+            var hoadonct = await _services.GetById<HoadonChitiet>("https://localhost:7203/api/HoaDonChiTiets/GetById/", Guid.Parse(idhdct));
+            var lstsizesp = await _services.GetAll<SizeSanPham>("https://localhost:7203/api/SizeSanPhams/Get-All");
+            var slsizesp = lstsizesp.ToList().FirstOrDefault(p => p.IdSanPhamChiTiet == Guid.Parse(idspct) && p.IdSize == sizesp.Id);
+            if(hoadonct.SoLuong < slsizesp.SoLuong)
+            {
+                UpdateHoaDonChiTiet update = new UpdateHoaDonChiTiet()
+                {
+                    SoLuong = hoadonct.SoLuong + 1,
+                    IdHoaDon = hoadonct.IdHoaDon,
+                    GiaBan = hoadonct.GiaBan,
+                    IdKichCo = hoadonct.IdKichCo,
+                    IdSPChitiet = hoadonct.IdSPChitiet,
+                };
+                await _services.Update<UpdateHoaDonChiTiet>("https://localhost:7203/api/HoaDonChiTiets/Update/", update, hoadonct.Id);
+            }
+            return RedirectToAction("Index", "HoaDonChiTiet", new { id = hoadonct.IdHoaDon.ToString() });
+        }
+        public async Task<IActionResult> GiamSL(string idhdct)
+        {
+            var hoadonct = await _services.GetById<HoadonChitiet>("https://localhost:7203/api/HoaDonChiTiets/GetById/", Guid.Parse(idhdct));
+
+            if (hoadonct.SoLuong > 1)
+            {
+                UpdateHoaDonChiTiet update = new UpdateHoaDonChiTiet()
+                {
+                    SoLuong = hoadonct.SoLuong - 1,
+                    IdHoaDon = hoadonct.IdHoaDon,
+                    GiaBan = hoadonct.GiaBan,
+                    IdKichCo = hoadonct.IdKichCo,
+                    IdSPChitiet = hoadonct.IdSPChitiet,
+                };
+                await _services.Update<UpdateHoaDonChiTiet>("https://localhost:7203/api/HoaDonChiTiets/Update/", update, hoadonct.Id);
+            }
+            return RedirectToAction("Index", "HoaDonChiTiet", new { id = hoadonct.IdHoaDon.ToString() });
         }
 
     }

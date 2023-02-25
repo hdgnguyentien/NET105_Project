@@ -210,7 +210,9 @@ namespace CustomerViews.Controllers
                 DiaChi = kh.DiaChi,
                 GioiTinh = kh.GioiTinh,
                 Sdt = kh.Sdt,
-                NgaySinh = kh.NgaySinh
+                NgaySinh = kh.NgaySinh,
+                Email = kh.Email,
+                MatKhau = kh.MatKhau
             };
             return View(view);
         }
@@ -223,11 +225,13 @@ namespace CustomerViews.Controllers
             {
                 Id = kh.Id,
                 Ten = kh.Ten,
-                    DiaChi = kh.DiaChi,
-                    Sdt = kh.Sdt,
-                    NgaySinh = kh.NgaySinh,
-                    GioiTinh = kh.GioiTinh,
-                };
+                DiaChi = kh.DiaChi,
+                Sdt = kh.Sdt,
+                Email = kh.Email,
+                MatKhau = kh.MatKhau,
+                NgaySinh = kh.NgaySinh,
+                GioiTinh = kh.GioiTinh,
+            };
             var khachhang = await _services.Update<UpdateKhachHang>("https://localhost:7203/api/KhachHangs/Update/", up, guidID);
             var viewkh = new ViewKhachHang
             {
