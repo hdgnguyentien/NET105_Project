@@ -2,13 +2,18 @@
 
 @{
     ViewData["Title"] = "DoiMK";
+    var check = ViewData["check"] as string;
+    var loidmk = ViewData["loidmk"] as string;
+    var thanhcong = ViewData["thanhcong"] as string;
 }
 
-<h1>DoiMK</h1>
+<div style="text-align:center"><h1>Đổi mật khẩu</h1></div>
 
-<h4>ThayDoiMKRequest</h4>
+
+
 <hr />
-<div class="row">
+<div class="row" style="text-align:center">
+    <div class="col-md-4"></div>
     <div class="col-md-4">
         <form asp-action="ThayDoiMK">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -37,6 +42,14 @@
                 <input asp-for="NhapLaiMkm" class="form-control" />
                 <span asp-validation-for="NhapLaiMkm" class="text-danger"></span>
             </div>
+            @if (check != null)
+            {
+                <div style="text-align: center; color:red">@check</div>
+            }
+            @if (loidmk != null)
+            {
+                <div style="text-align: center; color:red">@loidmk</div>
+            }
             <div class="form-group">
                 <input type="submit" value="Thay đổi mật khẩu" class="btn btn-dark" />
             </div>
@@ -44,9 +57,7 @@
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
