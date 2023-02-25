@@ -7,6 +7,7 @@
     var loginfalse = ViewData["loginfalse"] as string;
     var lstSP = ViewData["lstSP"] as List<SanPham>;
     var lstTL = ViewData["lstTL"] as List<TheLoai>;
+    var idTL = ViewData["idTL"] as string;
     string tensp = "";
 }
 <!DOCTYPE html>
@@ -27,7 +28,7 @@
         <div class="title">
             <h2>TẤT CẢ SẢN PHẨM</h2>
         </div>
-        <form class="row g-3 float-end" method="get" asp-controller="Home" asp-action="SearchSanPham">
+        <form class="row g-3 float-end" method="get" asp-controller="SanPham" asp-action="SearchSanPham">
             <div class="col-auto">
                 <input class="form-control" name="ten" type="text" placeholder="Nhập tên sản phẩm" />
             </div>

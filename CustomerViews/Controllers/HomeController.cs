@@ -92,14 +92,39 @@ namespace CustomerViews.Controllers
         public async Task<IActionResult> SearchSanPham(string ten,Guid idTheLoai)
         {
             var lstSPCT = await _services.GetAll<SanphamChitiet>(Connection.api + "SanphamChitiets/Get-All");
+            var lstTLSP = await _services.GetAll<TheLoaiSanPham>(Connection.api + "TheLoaiSanPhams/Get-All");
+            var lstTL = await _services.GetAll<TheLoai>(Connection.api + "TheLoais/Get-All");
             if (!string.IsNullOrEmpty(ten))
                 lstSPCT = lstSPCT.Where(x => x.TenSPChiTiet.ToLower().Contains(ten.ToLower())).ToList();
             if (idTheLoai != Guid.Empty)
             {
-                var lstTL = await _services.GetAll<TheLoaiSanPham>(Connection.api + "TheLoaiSanPhams/Get-All");
-                var lstSPCT_id = lstTL.Where(x => x.IdTheLoai == idTheLoai).Select(x => x.IdChiTietSP);
+                var lstSPCT_id = lstTLSP.Where(x => x.IdTheLoai == idTheLoai).Select(x => x.IdChiTietSP);
                 lstSPCT = lstSPCT.Where(x => lstSPCT_id.Contains(x.Id)).ToList();
             }
+            var lstNgayT = (from a in lstSPCT.ToList()
+                            orderby a.NgayTao descending
+                            select new SanphamChitiet()
+                            {
+                                Id = a.Id,
+                                NgayTao = a.NgayTao,
+                                GiaBan = a.GiaBan,
+                                MaSPChiTiet = a.MaSPChiTiet,
+                                TenSPChiTiet = a.TenSPChiTiet,
+                                AnhDaiDien = a.AnhDaiDien
+                            }).Take(4);
+            var lstNoiBat = (from a in lstSPCT.ToList()
+                             select new SanphamChitiet()
+                             {
+                                 Id = a.Id,
+                                 NgayTao = a.NgayTao,
+                                 GiaBan = a.GiaBan,
+                                 MaSPChiTiet = a.MaSPChiTiet,
+                                 TenSPChiTiet = a.TenSPChiTiet,
+                                 AnhDaiDien = a.AnhDaiDien
+                             }).Take(8);
+            ViewData["lstNgayT"] = lstNgayT.ToList();
+            ViewData["lstNoiBat"] = lstNoiBat.ToList();
+            ViewData["lstTL"] = lstTL.ToList();
             return View("Index", lstSPCT);
         }
 		public IActionResult Privacy()

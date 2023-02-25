@@ -80,16 +80,31 @@ namespace CustomerViews.Controllers
         }
         public async Task<IActionResult> CheckDangKy(CreateKhachHang khachHang)
         {
-            var success = await _services.Add<CreateKhachHang>(Connection.api + "KhachHangs/", khachHang);
-            if (success != null)
+            if (ModelState.IsValid)
             {
-                ViewData["dangkythanhcong"] = "Đăng ký thành công!!!";
-                return View("DangNhap");
+                var lstKH = await _services.GetAll<KhachHang>(Connection.api + "KhachHangs/Get-All");
+                if (lstKH.FirstOrDefault(x=>x.Email == khachHang.Email)!=null)
+                {
+                    ViewData["thongbao"] = "Email đã tồn tại";
+                    return View("DangKy");
+                }
+                if (lstKH.FirstOrDefault(x => x.Sdt == khachHang.Sdt) != null)
+                {
+                    ViewData["thongbao"] = "Số điện thoại đã tồn tại";
+                    return View("DangKy");
+                }
+                var success = await _services.Add<CreateKhachHang>(Connection.api + "KhachHangs/", khachHang);
+                if (success != null)
+                {
+                    ViewData["dangkythanhcong"] = "Đăng ký thành công!!!";
+                    return View("DangNhap");
+                }
+                else
+                {
+                    return View("DangKy");
+                }
             }
-            else
-            {
-                return View("DangKy");
-            }
+            return View("DangKy");
         }
         public IActionResult QuenMK()
         {
@@ -145,38 +160,46 @@ namespace CustomerViews.Controllers
 
         public async Task<IActionResult> ThayDoiMK(ThayDoiMKRequest request)
         {
-            if (string.IsNullOrEmpty(request.Email) || string.IsNullOrEmpty(request.Sdt) || string.IsNullOrEmpty(request.MatKhau))
+            if (ModelState.IsValid)
             {
-                ViewData["check"] = "Email hoặc số điện thoại không được để trống";
-                return View("DoiMK");
-            }
-
-            var lstKH = await _services.GetAll<KhachHang>(Connection.api + "KhachHangs/Get-All");
-            var tk = lstKH.FirstOrDefault(p => p.Email == request.Email && p.Sdt == request.Sdt && p.MatKhau == request.MatKhau);
-            if (request.MatKhauMoi == request.NhapLaiMkm)
-            {
-                if (tk != null)
+                if (string.IsNullOrEmpty(request.Email) || string.IsNullOrEmpty(request.Sdt) || string.IsNullOrEmpty(request.MatKhau))
                 {
-                    tk.MatKhau = request.MatKhauMoi;
+                    ViewData["check"] = "Email hoặc số điện thoại không được để trống";
+                    return View("DoiMK");
+                }
+           
+                var lstKH = await _services.GetAll<KhachHang>(Connection.api + "KhachHangs/Get-All");
+                var tk = lstKH.FirstOrDefault(p => p.Email == request.Email && p.Sdt == request.Sdt && p.MatKhau == request.MatKhau);
+                if (request.MatKhauMoi == request.NhapLaiMkm)
+                {
+                    if (tk != null)
+                    {
+                        tk.MatKhau = request.MatKhauMoi;
 
-                    await _services.Update<KhachHang>(Connection.api + "KhachHangs/Update/", tk, tk.Id);
-                    HttpContext.Session.Remove("idkh");
-                    HttpContext.Session.Remove("ten");
-                    HttpContext.Session.Remove("idgh");
-                    ViewData["thanhcong"] = "Thay đổi mật khẩu thành công";
-                    return View("DangNhap");
+                        await _services.Update<KhachHang>(Connection.api + "KhachHangs/Update/", tk, tk.Id);
+                        HttpContext.Session.Remove("idkh");
+                        HttpContext.Session.Remove("ten");
+                        HttpContext.Session.Remove("idgh");
+                        ViewData["thanhcong"] = "Thay đổi mật khẩu thành công";
+                        return View("DangNhap");
+                    }
+                    else
+                    {
+                        ViewData["loidmk"] = "Thông tin tài khoản không chính xác";
+                        return View("DoiMK"); ;
+                    }
                 }
                 else
                 {
-                    ViewData["loidmk"] = "Thông tin tài khoản không chính xác";
-                    return View("DoiMK"); ;
+                    ViewData["loidmk"] = "Mật khẩu mới không trùng khớp, hãy nhập lại";
+                    return View("DoiMK");
                 }
             }
             else
             {
-                ViewData["loidmk"] = "Mật khẩu mới không trùng khớp, hãy nhập lại";
                 return View("DoiMK");
             }
+            
 
 
         }
@@ -243,12 +266,12 @@ namespace CustomerViews.Controllers
                 Sdt = khachhang.Sdt,
                 NgaySinh = khachhang.NgaySinh
             };
-                return View("ThongTinKhachHang", viewkh);
-            
-            
+            return View("ThongTinKhachHang", viewkh);
+
+
 
         }
 
-        
+
     }
 }
