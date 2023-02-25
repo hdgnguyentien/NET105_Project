@@ -91,7 +91,6 @@ namespace CustomerViews.Controllers
         public async Task<IActionResult> Add(Guid ma, string idSize, string soluong)
         {
             string idkh = HttpContext.Session.GetString("idkh");
-            //HttpContext.Session.SetString("idSize", idSize);
             if (idkh == null)
             {
                 return RedirectToAction("DangNhap", "Login");
@@ -100,7 +99,7 @@ namespace CustomerViews.Controllers
             {
                 if (idSize == null)
                 {
-                    return View("Vui lòng chọn size");
+                    return Ok("Vui lòng chọn size");
                 }
                 else if (int.Parse(soluong) <= 0)
                 {
