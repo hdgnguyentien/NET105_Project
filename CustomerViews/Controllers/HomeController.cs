@@ -92,14 +92,15 @@ namespace CustomerViews.Controllers
         public async Task<IActionResult> SearchSanPham(string ten,Guid idTheLoai)
         {
             var lstSPCT = await _services.GetAll<SanphamChitiet>(Connection.api + "SanphamChitiets/Get-All");
+            var lstTL = await _services.GetAll<TheLoaiSanPham>(Connection.api + "TheLoaiSanPhams/Get-All");
             if (!string.IsNullOrEmpty(ten))
                 lstSPCT = lstSPCT.Where(x => x.TenSPChiTiet.ToLower().Contains(ten.ToLower())).ToList();
             if (idTheLoai != Guid.Empty)
             {
-                var lstTL = await _services.GetAll<TheLoaiSanPham>(Connection.api + "TheLoaiSanPhams/Get-All");
                 var lstSPCT_id = lstTL.Where(x => x.IdTheLoai == idTheLoai).Select(x => x.IdChiTietSP);
                 lstSPCT = lstSPCT.Where(x => lstSPCT_id.Contains(x.Id)).ToList();
             }
+            ViewData["lstTL"] = lstTL.ToList();
             return View("Index", lstSPCT);
         }
 		public IActionResult Privacy()
