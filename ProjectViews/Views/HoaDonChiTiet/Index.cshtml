@@ -6,9 +6,11 @@
 
 <h1>Danh sách sản phẩm</h1>
 
+<p>Mã hóa đơn: @Html.DisplayFor(model => model.MaHoaDon)</p>
 <p>Tên khách hàng: @Html.DisplayFor(model => model.TenKhachHang)</p>
 <p>SDT:            @Html.DisplayFor(model => model.SDT)</p>
 <p>Địa chỉ:        @Html.DisplayFor(model => model.DiaChi)</p>
+<p>Mã giảm giá:        @Html.DisplayFor(model => model.MaGiamGia)</p>
 <p>Tổng tiền:        @Html.DisplayFor(model => model.TongTien)</p>
 
 <table class="table">
@@ -48,17 +50,22 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.TenMauSac)
                 </td>
+
                 <td>
                     @Html.DisplayFor(modelItem => item.Size)
                 </td>
                 <td>
+                    <a asp-action="TangSL" asp-route-idhdct="@item.Idhoadonct" asp-route-idspct="@item.Idsanphamct" asp-route-size="@item.Size" class="btn btn-sm btn-primary"> + </a>
                     @Html.DisplayFor(modelItem => item.SoLuong)
+                    <a asp-action="GiamSL" asp-route-idhdct="@item.Idhoadonct" class="btn btn-sm btn-success"> - </a>
+
                 </td>
+
                 <td>
                     @Html.DisplayFor(modelItem => item.GiaBan)
                 </td>
                 <td>
-                    @Html.ActionLink("Delete", "DeleteSP", new { Id = item.Id.ToString() },
+                    @Html.ActionLink("Delete", "DeleteSP", new { Id = item.Idhoadonct.ToString() },
                 new { onclick = "return confirm('Bạn có muốn xóa không?');",@class="btn btn-danger" }),
                 </td>
             </tr>
