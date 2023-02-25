@@ -18,6 +18,7 @@ namespace CustomerViews.Helpers
         public async Task<IViewComponentResult> InvokeAsync()
         {
             var lstGHCT = await  _services.GetAll<GiohangChitiet>(Connection.api + "GioHangChiTiets/Get-All");
+            string idgh = HttpContext.Session.GetString("idgh");
             BagCartViewModel bagCartView;
             if (lstGHCT==null||lstGHCT.Count==0)
             {                
@@ -28,7 +29,7 @@ namespace CustomerViews.Helpers
             {
                 bagCartView = new BagCartViewModel()
                 {
-                    numberOfItems = lstGHCT.Sum(x => x.SoLuong)
+                    numberOfItems = lstGHCT.Where(x=>x.IdGioHang.ToString() == idgh).Sum(x => x.SoLuong)
                 };
                 return View(bagCartView);
             }

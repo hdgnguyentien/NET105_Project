@@ -33,7 +33,7 @@ namespace Data.Extensions
                 {
                     Id = new Guid("51A13AFD-08D1-4A20-A0E0-FB4447BD215D"),
                     IdSP = new Guid("9A1B3786-D0D0-402A-BFD8-10DB04F8E6ED"),
-                    IdMauSac = new Guid("9A1B3786-D0D0-402A-BFD8-10DB04F8E6ED"),
+                    IdMauSac = new Guid("5E5F7D51-044F-4928-9AAC-4A496C629231"),
                     TenSPChiTiet = "V2",
                     MaSPChiTiet = "SP2",
                     GiaBan = 200000,
@@ -49,7 +49,7 @@ namespace Data.Extensions
                 {
                     Id = new Guid("EC94662B-535D-4599-B462-9951C727BE51"),
                     IdSP = new Guid("01BF8A6C-D89A-4DB2-9068-AF277BE488AE"),
-                    IdMauSac = new Guid("CFA013B0-34DC-44D5-A471-7C49A9AC167D"),
+                    IdMauSac = new Guid("8D364A55-877F-45A5-9408-66AFB8AB873F"),
                     TenSPChiTiet = "V1",
                     MaSPChiTiet = "SP1",
                     GiaBan = 100000,
@@ -65,7 +65,7 @@ namespace Data.Extensions
                 {
                     Id = new Guid("BCB53BDB-2F7E-4026-A5A3-09FF834562AD"),
                     IdSP = new Guid("9A1B3786-D0D0-402A-BFD8-10DB04F8E6ED"),
-                    IdMauSac = new Guid("8D364A55-877F-45A5-9408-66AFB8AB873F"),
+                    IdMauSac = new Guid("CFA013B0-34DC-44D5-A471-7C49A9AC167D"),
                     TenSPChiTiet = "V2",
                     MaSPChiTiet = "SP2",
                     GiaBan = 200000,
@@ -405,7 +405,7 @@ namespace Data.Extensions
                 },
                 new MauSac()
                 {
-                    Id = new Guid("9A1B3786-D0D0-402A-BFD8-10DB04F8E6ED"),
+                    Id = new Guid("5E5F7D51-044F-4928-9AAC-4A496C629231"),
                     TenMau = "Đỏ"
                 },
                 new MauSac()
